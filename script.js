@@ -2332,8 +2332,8 @@ function exportPDF(){
 
 generateLaporan(); // refresh data terbaru
 
-const container = document.getElementById("laporanPDF");
-const hasilPDF = document.getElementById("hasilPDF");
+const container = document.getElementById("pdfArea");
+const hasilPDF = document.getElementById("pdfContent");
 
 if(!container || !hasilPDF){
   console.error("Element laporanPDF / hasilPDF tidak ditemukan");
@@ -2344,7 +2344,7 @@ if(!container || !hasilPDF){
 hasilPDF.innerHTML = "";
 
 // tanggal
-const elTanggal = document.getElementById("tanggalLaporan");
+const elTanggal = document.getElementById("pdfTanggal");
 if(elTanggal){
   elTanggal.innerText = getTanggalLengkap();
 }
