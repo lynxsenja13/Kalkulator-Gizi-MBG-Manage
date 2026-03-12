@@ -1051,53 +1051,6 @@ function formatTanggalIndonesia() {
   return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
 }
 
-function exportPDF(){
-
-  const laporan = document.getElementById("laporanPDF");
-
-  // 🔥 isi konten PDF dulu
-  document.getElementById("hasilPDF").innerHTML =
-    document.getElementById("hasil").innerHTML;
-
-  document.getElementById("printNote").innerText =
-    document.getElementById("note").value;
-
-  document.getElementById("tanggalLaporan").innerText =
-    formatTanggalIndonesia();
-
-  document.getElementById("jenisMenuLaporan").innerText =
-    "Menu " + modeMenu;
-
-  laporan.style.display = "block";
-
-  setTimeout(()=>{
-
-    const opt = {
-      margin:10,
-      filename:"laporan_gizi.pdf",
-      html2canvas:{
-        scale:2,
-        useCORS:true
-      },
-      jsPDF:{
-        unit:"mm",
-        format:"a4",
-        orientation:"portrait"
-      }
-    };
-
-    html2pdf()
-      .set(opt)
-      .from(laporan)
-      .save()
-      .then(()=>{
-        laporan.style.display="none";
-      });
-
-  },300);
-
-}
-
 function getTanggalLengkap() {
   const now = new Date();
 
