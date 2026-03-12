@@ -1052,33 +1052,8 @@ function formatTanggalIndonesia() {
 }
 
 function exportPDF(){
-  generateLaporan();
 
   const laporan = document.getElementById("laporanPDF");
-  const hasil = document.getElementById("hasil");
-  const hasilPDF = document.getElementById("hasilPDF");
-
-  // pindahkan isi hasil ke PDF
-  hasilPDF.innerHTML = hasil.innerHTML;
-
-  // catatan
-  const note = document.getElementById("note").value;
-  document.getElementById("printNote").innerText = note || "-";
-
-  // tanggal
-  document.getElementById("tanggalLaporan").innerText =
-    new Date().toLocaleDateString("id-ID", {
-      day:"2-digit",
-      month:"long",
-      year:"numeric"
-    });
-
-  // jenis menu
-  document.getElementById("jenisMenuLaporan").innerText =
-    modeMenu === "OMPRENGAN" ? "Menu Omprengan" : "Menu Snack";
-
-  // tampilkan container
-  laporan.style.display = "block";
 
   const opt = {
     margin:10,
@@ -1094,17 +1069,10 @@ function exportPDF(){
     }
   };
 
-  setTimeout(() => {
-
-    html2pdf()
-      .set(opt)
-      .from(laporan)
-      .save()
-      .then(()=>{
-        laporan.style.display = "none";
-      });
-
-  },300);
+  html2pdf()
+    .set(opt)
+    .from(laporan)
+    .save();
 
 }
 
