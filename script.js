@@ -2456,8 +2456,8 @@ const opt = {
     orientation:"portrait"
   },
   pagebreak:{
-    mode:["avoid-all","css","legacy"]
-  }
+mode:["css","legacy"]
+}
 };
 document.getElementById("pdfArea").style.display="block";
 
