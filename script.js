@@ -2328,78 +2328,108 @@ return satuan;
 
 }
 
-function exportPDF(){
+function exportPDF() {
 
-  const pdfArea = document.getElementById("pdfArea");
-  const pdfContent = document.getElementById("pdfContent");
+generateLaporan(); // pastikan data terbaru
 
-  pdfContent.innerHTML = "";
+const container = document.getElementById("laporanPDF");
+const hasilPDF = document.getElementById("hasilPDF");
 
-  // ambil semua tabel kategori
-  const semuaTabel = document.querySelectorAll("#hasil table");
+hasilPDF.innerHTML = "";
 
-  semuaTabel.forEach(table => {
+// tanggal
+document.getElementById("tanggalLaporan").innerText = getTanggalLengkap();
 
-    const rows = table.querySelectorAll("tbody tr");
+// ambil semua kategori
+const semuaMenu = ["OMPRENGAN","SNACK"];
 
-    // jika tidak ada data, jangan dimasukkan
-    if(rows.length === 0) return;
+semuaMenu.forEach(menu=>{
 
-    const section = document.createElement("div");
-    section.style.marginBottom = "20px";
+const kategoriList = menu === "OMPRENGAN"
+? kategoriOmprengan
+: kategoriSnack;
 
-    // ambil judul kategori (h3 sebelum tabel biasanya)
-    const judul = table.previousElementSibling;
+kategoriList.forEach(kat=>{
 
-    if(judul){
-      const cloneTitle = judul.cloneNode(true);
-      section.appendChild(cloneTitle);
-    }
+const dataKategori = kategoriData[menu][kat] || [];
 
-    const cloneTable = table.cloneNode(true);
-    section.appendChild(cloneTable);
+if(dataKategori.length === 0) return; // 🔥 skip kategori kosong
 
-    pdfContent.appendChild(section);
+const dataAktif = dataKategori.filter(item =>
+bahanMaster[menu].some(b => b.nama === item.nama)
+);
 
-  });
+if(dataAktif.length === 0) return; // 🔥 skip jika tidak ada bahan aktif
 
-  // jika tidak ada data sama sekali
-  if(pdfContent.innerHTML === ""){
-    alert("Tidak ada data untuk diexport");
-    return;
-  }
+const standar = AKG[kat] || {};
 
-  // isi tanggal
-  const now = new Date();
-  document.getElementById("pdfTanggal").innerText =
-    now.toLocaleDateString("id-ID", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    });
+const detailBahan = dataAktif.map(item => {
 
-  // jenis menu
-  document.getElementById("pdfJenisMenu").innerText =
-    "Jenis Menu : " + modeMenu;
+const db = database.find(d =>
+getNamaBahan(d) === item.nama.toLowerCase().trim()
+);
 
-  // catatan
-  document.getElementById("pdfNote").innerText =
-    document.getElementById("note").value;
+let faktor = item.satuan === "GRAM" ? item.berat/100 : item.berat;
 
-  pdfArea.style.display = "block";
+return {
+nama:item.nama,
+berat:item.berat,
+energi:db ? faktor*(db["ENERGI"]||0):0,
+protein:db ? faktor*(db["PROTEIN"]||0):0,
+lemak:db ? faktor*(db["LEMAK"]||0):0,
+karbo:db ? faktor*(db["KARBOHIDRAT"]||0):0,
+kalsium:db ? faktor*(db["KALSIUM"]||0):0,
+serat:db ? faktor*(db["SERAT"]||0):0
+};
 
-  html2pdf()
-    .set({
-      margin:10,
-      filename:"laporan_gizi.pdf",
-      html2canvas:{scale:2},
-      jsPDF:{unit:"mm",format:"a4"}
-    })
-    .from(pdfArea)
-    .save()
-    .then(()=>{
-      pdfArea.style.display = "none";
-    });
+});
+
+hasilPDF.innerHTML += `
+<div class="pdf-kategori">
+
+<h3 class="judul-kategori">
+${menu} - ${kat}
+</h3>
+
+${renderTabelKategori(menu,kat,detailBahan,{
+energi:standar.Energi||0,
+protein:standar.Protein||0,
+lemak:standar.Lemak||0,
+karbo:standar.Karbohidrat||0,
+kalsium:standar.Kalsium||0,
+serat:standar.Serat||0
+})}
+
+</div>
+`;
+
+});
+
+});
+
+// tampilkan sementara
+container.style.display = "block";
+
+const opt = {
+margin:10,
+filename:`laporan_gizi_${formatTanggalFile()}.pdf`,
+html2canvas:{
+scale:0.7,
+useCORS:true
+},
+jsPDF:{
+unit:"mm",
+format:"a4",
+orientation:"portrait"
+}
+};
+
+html2pdf()
+.set(opt)
+.from(container)
+.save()
+.then(()=>{
+container.style.display = "none";
+});
 
 }
