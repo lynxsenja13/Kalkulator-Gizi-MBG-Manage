@@ -2051,3 +2051,20 @@ page-break-before:always;
 .pdf-note{
   margin-top:20px;
 }
+
+#pdfContent table{
+  width:100%;
+  border-collapse:collapse;
+  margin-bottom:15px;
+}
+
+#pdfContent th,
+#pdfContent td{
+  border:1px solid #000;
+  padding:6px;
+  text-align:center;
+}
+
+#pdfContent h3{
+  margin-top:15px;
+}
