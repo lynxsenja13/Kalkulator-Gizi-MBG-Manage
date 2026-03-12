@@ -2222,3 +2222,21 @@ th,td{
 border:1px solid #ccc;
 padding:4px;
 }
+
+#pdfArea table{
+width:100%;
+border-collapse:collapse;
+font-size:11px;
+}
+
+#pdfArea th,
+#pdfArea td{
+border:1px solid #ccc;
+padding:4px;
+text-align:center;
+}
+
+.pdf-kategori{
+page-break-inside:avoid;
+margin-bottom:15px;
+}
