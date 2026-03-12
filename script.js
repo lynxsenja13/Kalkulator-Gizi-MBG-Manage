@@ -2343,12 +2343,14 @@ return;
 pdfContent.innerHTML = "";
 
 // tanggal
-document.getElementById("pdfTanggal").innerText = getTanggalLengkap();
-document.getElementById("pdfJenisMenu").innerText = "Menu Omprengan & Snack";
+const elTanggal = document.getElementById("pdfTanggal");
+const elJenis = document.getElementById("pdfJenisMenu");
+const elNote = document.getElementById("pdfNote");
 
-// isi catatan
-document.getElementById("pdfNote").innerText =
-document.getElementById("note").value || "-";
+if(elTanggal) elTanggal.innerText = getTanggalLengkap();
+if(elJenis) elJenis.innerText = "Menu Omprengan & Snack";
+if(elNote) elNote.innerText =
+document.getElementById("note")?.value || "-";
 
 // semua menu
 const semuaMenu = ["OMPRENGAN","SNACK"];
