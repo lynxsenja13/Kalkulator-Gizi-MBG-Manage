@@ -296,20 +296,31 @@ font-weight:600;
 Generating PDF...
 </div>
 
-<div id="pdfArea" style="display:none">
-  
-  <div style="text-align:center;margin-bottom:20px">
-    <h2>SPPG CICADAS 01</h2>
-    <p>Program Makan Bergizi Gratis</p>
+<div id="pdfArea" class="pdf-area">
+
+  <div class="pdf-header">
+    <img src="logo.png" class="pdf-logo">
+
+    <div class="pdf-header-text">
+      <h1>SPPG CICADAS 01</h1>
+      <h2>Program Makan Bergizi Gratis</h2>
+      <p>Jl. Brigjen Katamso, Kota Bandung</p>
+    </div>
   </div>
 
-  <h3 id="pdfJudul"></h3>
+  <hr>
+
+  <h2 class="pdf-title">LAPORAN HASIL PERHITUNGAN GIZI</h2>
+
   <p id="pdfTanggal"></p>
+  <p id="pdfJenisMenu"></p>
 
-  <div id="pdfHasil"></div>
+  <div id="pdfContent"></div>
 
-  <h4>Catatan</h4>
-  <p id="pdfNote"></p>
+  <div class="pdf-note">
+    <h3>Catatan</h3>
+    <p id="pdfNote"></p>
+  </div>
 
 </div>
   
