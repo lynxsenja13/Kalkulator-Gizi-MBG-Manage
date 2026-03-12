@@ -649,13 +649,6 @@ button {
 }
 
 @media print {
-  body * {
-    visibility: hidden;
-  }
-
-  #laporanPDF, #laporanPDF * {
-    visibility: visible;
-  }
 
   #laporanPDF {
     position: absolute;
@@ -1974,7 +1967,7 @@ tr{
 /* ================= PDF FINAL FIX ================= */
 
 #laporanPDF{
-  visibility:hidden;
+  position:absolute;
   position:absolute;
   left:-9999px;
 
