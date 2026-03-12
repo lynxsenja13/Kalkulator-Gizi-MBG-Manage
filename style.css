@@ -2068,3 +2068,62 @@ page-break-before:always;
 #pdfContent h3{
   margin-top:15px;
 }
+
+.pdf-area{
+width:800px;
+padding:30px;
+font-family:Inter;
+background:white;
+}
+
+.professional-header{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.pdf-logo{
+width:70px;
+}
+
+.pdf-header-text h1{
+margin:0;
+font-size:20px;
+}
+
+.pdf-header-text h2{
+margin:0;
+font-size:14px;
+font-weight:600;
+}
+
+.pdf-header-text p{
+margin:0;
+font-size:12px;
+}
+
+.pdf-title{
+text-align:center;
+margin-top:10px;
+}
+
+#pdfTanggal{
+text-align:center;
+font-size:13px;
+}
+
+.pdf-menu{
+text-align:center;
+font-weight:600;
+margin-bottom:20px;
+}
+
+#pdfContent table{
+width:100%;
+font-size:11px;
+}
+
+#pdfContent th,
+#pdfContent td{
+padding:4px;
+}
