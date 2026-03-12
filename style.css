@@ -775,14 +775,6 @@ button {
   margin-top: 20px;
 }
 
-#laporanPDF{
-  position:absolute;
-  left:-9999px;
-  top:0;
-  width:800px;
-  background:white;
-}
-
 /* BACKDROP */
 #modalGizi {
   position: fixed;
@@ -1920,14 +1912,6 @@ tr{
 
 /* ================= PDF FIX ================= */
 
-#laporanPDF{
-  position:absolute;
-  left:-9999px;
-  top:0;
-  width:800px;
-  background:white;
-}
-
 /* kop surat */
 #laporanPDF .kop{
   display:flex;
@@ -1965,15 +1949,17 @@ tr{
 }
 
 /* ================= PDF FINAL FIX ================= */
-
 #laporanPDF{
   position:absolute;
-  position:absolute;
   left:-9999px;
+  top:0;
 
   width:180mm;
   padding:10mm;
+
   background:white;
+  color:black;
+  font-family:'Times New Roman', serif;
 }
 
 /* kop surat */
