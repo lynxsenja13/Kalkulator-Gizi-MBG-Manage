@@ -1091,7 +1091,7 @@ function exportPDF(){
   });
 
   const hasilPDF = document.getElementById("hasilPDF");
-  hasilPDF.innerHTML = clone.innerHTML;
+  hasilPDF.innerHTML = hasilAsli.innerHTML;
 
   const note = document.getElementById("note");
   const printNote = document.getElementById("printNote");
