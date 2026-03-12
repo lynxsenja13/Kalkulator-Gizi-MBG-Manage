@@ -2200,3 +2200,25 @@ tr{
 page-break-inside:avoid;
 page-break-after:auto;
 }
+
+#pdfArea{
+background:white;
+padding:25px;
+font-family:Arial;
+font-size:12px;
+}
+
+.pdf-kategori{
+margin-top:15px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:11px;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:4px;
+}
