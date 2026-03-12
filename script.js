@@ -2343,6 +2343,19 @@ if(!container || !hasilPDF){
 
 hasilPDF.innerHTML = "";
 
+const jenisMenu = [];
+
+if(bahanMaster.OMPRENGAN.length > 0){
+  jenisMenu.push("Menu Omprengan");
+}
+
+if(bahanMaster.SNACK.length > 0){
+  jenisMenu.push("Menu Snack");
+}
+
+document.getElementById("pdfJenisMenu").innerText =
+jenisMenu.join(" & ");
+
 // tanggal
 const elTanggal = document.getElementById("pdfTanggal");
 if(elTanggal){
