@@ -2348,7 +2348,7 @@ hasilPDF.innerHTML = "";
 
 const hasilWeb = document.getElementById("hasil");
 
-const kategoriList = hasilWeb.querySelectorAll(".kategori-blok");
+const kategoriList = hasilWeb.querySelectorAll(".kategori-card");
 
 kategoriList.forEach(kat => {
 
