@@ -2240,3 +2240,13 @@ text-align:center;
 page-break-inside:avoid;
 margin-bottom:15px;
 }
+
+#pdfContent .kategori-card{
+  page-break-inside: avoid;
+  margin-bottom:20px;
+}
+
+#pdfContent table{
+  width:100%;
+  border-collapse: collapse;
+}
