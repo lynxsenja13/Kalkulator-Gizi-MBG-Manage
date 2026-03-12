@@ -2336,12 +2336,35 @@ const container = document.getElementById("pdfArea");
 const hasilPDF = document.getElementById("pdfContent");
 
 if(!container || !hasilPDF){
-  console.error("Element laporanPDF / hasilPDF tidak ditemukan");
-  alert("Template PDF belum ada di HTML");
+  console.error("Element pdfArea / pdfContent tidak ditemukan");
   return;
 }
 
 hasilPDF.innerHTML = "";
+
+// =======================
+// Ambil tabel dari web
+// =======================
+
+const hasilWeb = document.getElementById("hasil");
+
+const kategoriList = hasilWeb.querySelectorAll(".kategori-blok");
+
+kategoriList.forEach(kat => {
+
+  const tabel = kat.querySelector("table");
+
+  if(!tabel) return;
+
+  const clone = kat.cloneNode(true);
+
+  hasilPDF.appendChild(clone);
+
+});
+
+// =======================
+// Jenis Menu
+// =======================
 
 const jenisMenu = [];
 
@@ -2356,87 +2379,21 @@ if(bahanMaster.SNACK.length > 0){
 document.getElementById("pdfJenisMenu").innerText =
 jenisMenu.join(" & ");
 
-// tanggal
+// =======================
+// Tanggal
+// =======================
+
 const elTanggal = document.getElementById("pdfTanggal");
+
 if(elTanggal){
   elTanggal.innerText = getTanggalLengkap();
 }
 
-// semua menu
-const semuaMenu = ["OMPRENGAN","SNACK"];
+// =======================
+// Export PDF
+// =======================
 
-semuaMenu.forEach(menu=>{
-
-  const kategoriList =
-    menu === "OMPRENGAN"
-    ? kategoriOmprengan
-    : kategoriSnack;
-
-  kategoriList.forEach(kat=>{
-
-    const dataKategori = kategoriData[menu][kat] || [];
-
-    if(dataKategori.length === 0) return;
-
-    const dataAktif = dataKategori.filter(item =>
-      bahanMaster[menu].some(b => b.nama === item.nama)
-    );
-
-    if(dataAktif.length === 0) return;
-
-    const standar = AKG[kat] || {};
-
-    const detailBahan = dataAktif.map(item => {
-
-      const db = database.find(d =>
-        getNamaBahan(d) === item.nama.toLowerCase().trim()
-      );
-
-      let faktor =
-        item.satuan === "GRAM"
-        ? item.berat / 100
-        : item.berat;
-
-      return {
-        nama:item.nama,
-        berat:item.berat,
-        energi:db ? faktor*(db["ENERGI"]||0):0,
-        protein:db ? faktor*(db["PROTEIN"]||0):0,
-        lemak:db ? faktor*(db["LEMAK"]||0):0,
-        karbo:db ? faktor*(db["KARBOHIDRAT"]||0):0,
-        kalsium:db ? faktor*(db["KALSIUM"]||0):0,
-        serat:db ? faktor*(db["SERAT"]||0):0
-      };
-
-    });
-
-    hasilPDF.innerHTML += `
-      <div class="pdf-kategori">
-
-        <h3 style="margin-top:20px">
-          ${menu} - ${kat}
-        </h3>
-
-        ${renderTabelKategori(menu,kat,detailBahan,{
-          energi:standar.Energi||0,
-          protein:standar.Protein||0,
-          lemak:standar.Lemak||0,
-          karbo:standar.Karbohidrat||0,
-          kalsium:standar.Kalsium||0,
-          serat:standar.Serat||0
-        })}
-
-      </div>
-    `;
-
-  });
-
-});
-
-// tampilkan container
 container.style.display="block";
-
-setTimeout(()=>{
 
 const opt = {
   margin:10,
@@ -2456,16 +2413,11 @@ const opt = {
     orientation:"portrait"
   },
   pagebreak:{
-mode:["css","legacy"]
-}
+    mode:["css","legacy"]
+  }
 };
-document.getElementById("pdfArea").style.display="block";
 
 setTimeout(()=>{
-html2pdf().set(opt).from(pdfArea).save().then(()=>{
-pdfArea.style.display="none";
-});
-},200);
 
 html2pdf()
 .set(opt)
