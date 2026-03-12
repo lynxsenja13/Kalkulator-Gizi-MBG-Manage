@@ -2446,6 +2446,13 @@ const opt = {
     mode:["avoid-all","css","legacy"]
   }
 };
+document.getElementById("pdfArea").style.display="block";
+
+setTimeout(()=>{
+html2pdf().set(opt).from(pdfArea).save().then(()=>{
+pdfArea.style.display="none";
+});
+},200);
 
 html2pdf()
 .set(opt)
