@@ -2389,6 +2389,11 @@ if(elTanggal){
   elTanggal.innerText = getTanggalLengkap();
 }
 
+const note = document.getElementById("note").value;
+
+document.getElementById("pdfNote").innerText =
+note ? note : "-";
+
 // =======================
 // Export PDF
 // =======================
