@@ -1928,10 +1928,11 @@ tr{
 /* ================= PDF FIX ================= */
 
 #laporanPDF{
-  width: 190mm;
-  margin: 0 auto;
-  padding: 10mm;
-  background: white;
+  position:absolute;
+  left:-9999px;
+  top:0;
+  width:800px;
+  background:white;
 }
 
 /* kop surat */
