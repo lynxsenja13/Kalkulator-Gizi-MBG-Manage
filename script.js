@@ -1053,66 +1053,43 @@ function formatTanggalIndonesia() {
 
 function exportPDF(){
 
-  generateLaporan(); // 🔥 penting
-
   const laporan = document.getElementById("laporanPDF");
-
-  if(!laporan){
-    alert("Container laporanPDF tidak ditemukan");
-    return;
-  }
-
-  const tanggal = document.getElementById("tanggalLaporan");
-  if(tanggal){
-    tanggal.innerText = formatTanggalIndonesia();
-  }
-
-  const mode = modeMenu === "OMPRENGAN"
-    ? "Menu Omprengan"
-    : "Menu Snack";
-
-  const jenisMenu = document.getElementById("jenisMenuLaporan");
-  if(jenisMenu){
-    jenisMenu.innerText = mode;
-  }
-
-  const hasilAsli = document.getElementById("hasil");
-  if(!hasilAsli){
-    alert("Elemen #hasil tidak ditemukan");
-    return;
-  }
-
-  const clone = hasilAsli.cloneNode(true);
-
-  clone.querySelectorAll(
-    "input,button,.libur-ios-wrapper,.btn-hapus,.editable-list"
-  ).forEach(el=>{
-    el.remove();
-  });
-
+  const hasil = document.getElementById("hasil");
   const hasilPDF = document.getElementById("hasilPDF");
-  hasilPDF.innerHTML = hasilAsli.innerHTML;
 
-  const note = document.getElementById("note");
-  const printNote = document.getElementById("printNote");
+  // pindahkan isi hasil ke PDF
+  hasilPDF.innerHTML = hasil.innerHTML;
 
-  if(printNote){
-    printNote.innerText = note?.value || "-";
-  }
+  // catatan
+  const note = document.getElementById("note").value;
+  document.getElementById("printNote").innerText = note || "-";
 
+  // tanggal
+  document.getElementById("tanggalLaporan").innerText =
+    new Date().toLocaleDateString("id-ID", {
+      day:"2-digit",
+      month:"long",
+      year:"numeric"
+    });
+
+  // jenis menu
+  document.getElementById("jenisMenuLaporan").innerText =
+    modeMenu === "OMPRENGAN" ? "Menu Omprengan" : "Menu Snack";
+
+  // tampilkan container
   laporan.style.display = "block";
 
   const opt = {
-    margin: 10,
-    filename: `Laporan Gizi ${formatTanggalFile()}.pdf`,
-    html2canvas: {
-      scale: 2,
-      useCORS: true
+    margin:10,
+    filename:"laporan_gizi.pdf",
+    html2canvas:{
+      scale:2,
+      useCORS:true
     },
-    jsPDF: {
-      unit: "mm",
-      format: "a4",
-      orientation: "portrait"
+    jsPDF:{
+      unit:"mm",
+      format:"a4",
+      orientation:"portrait"
     }
   };
 
@@ -1126,7 +1103,7 @@ function exportPDF(){
         laporan.style.display = "none";
       });
 
-  }, 300);
+  },300);
 
 }
 
