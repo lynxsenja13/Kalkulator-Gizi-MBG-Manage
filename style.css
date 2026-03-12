@@ -2012,3 +2012,42 @@ page-break-inside:avoid;
 .page-break{
 page-break-before:always;
 }
+
+
+.pdf-area{
+  display:none;
+  width:180mm;
+  padding:15mm;
+  background:white;
+  color:black;
+  font-family:"Times New Roman";
+}
+
+.pdf-header{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.pdf-logo{
+  width:70px;
+}
+
+.pdf-header-text h1{
+  font-size:20px;
+  margin:0;
+}
+
+.pdf-header-text h2{
+  font-size:16px;
+  margin:0;
+}
+
+.pdf-title{
+  text-align:center;
+  margin-top:20px;
+}
+
+.pdf-note{
+  margin-top:20px;
+}
