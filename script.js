@@ -1054,32 +1054,33 @@ function formatTanggalIndonesia() {
 function exportPDF(){
 
   const laporan = document.getElementById("laporanPDF");
-
-  // tampilkan dulu supaya bisa dirender
   laporan.style.display = "block";
 
-  const opt = {
-    margin: 10,
-    filename: "laporan_gizi.pdf",
-    html2canvas: {
-      scale: 2,
-      useCORS: true
-    },
-    jsPDF: {
-      unit: "mm",
-      format: "a4",
-      orientation: "portrait"
-    }
-  };
+  setTimeout(()=>{
 
-  html2pdf()
-    .set(opt)
-    .from(laporan)
-    .save()
-    .then(()=>{
-      // sembunyikan lagi setelah selesai
-      laporan.style.display = "none";
-    });
+    const opt = {
+      margin:10,
+      filename:"laporan_gizi.pdf",
+      html2canvas:{
+        scale:2,
+        useCORS:true
+      },
+      jsPDF:{
+        unit:"mm",
+        format:"a4",
+        orientation:"portrait"
+      }
+    };
+
+    html2pdf()
+      .set(opt)
+      .from(laporan)
+      .save()
+      .then(()=>{
+        laporan.style.display="none";
+      });
+
+  },300);
 
 }
 
