@@ -2327,3 +2327,37 @@ if(satuan === "PCS") return "Pcs";
 return satuan;
 
 }
+
+function exportPDF(){
+
+  const pdfArea = document.getElementById("pdfArea");
+
+  // isi data
+  document.getElementById("pdfHasil").innerHTML =
+    document.getElementById("hasil").innerHTML;
+
+  document.getElementById("pdfNote").innerText =
+    document.getElementById("note").value;
+
+  document.getElementById("pdfTanggal").innerText =
+    new Date().toLocaleDateString("id-ID");
+
+  document.getElementById("pdfJudul").innerText =
+    "Laporan Perhitungan Gizi " + modeMenu;
+
+  pdfArea.style.display="block";
+
+  html2pdf()
+    .from(pdfArea)
+    .set({
+      margin:10,
+      filename:"laporan_gizi.pdf",
+      html2canvas:{scale:2},
+      jsPDF:{unit:"mm",format:"a4"}
+    })
+    .save()
+    .then(()=>{
+      pdfArea.style.display="none";
+    });
+
+}
