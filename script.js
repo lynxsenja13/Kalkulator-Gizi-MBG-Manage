@@ -1054,6 +1054,20 @@ function formatTanggalIndonesia() {
 function exportPDF(){
 
   const laporan = document.getElementById("laporanPDF");
+
+  // 🔥 isi konten PDF dulu
+  document.getElementById("hasilPDF").innerHTML =
+    document.getElementById("hasil").innerHTML;
+
+  document.getElementById("printNote").innerText =
+    document.getElementById("note").value;
+
+  document.getElementById("tanggalLaporan").innerText =
+    formatTanggalIndonesia();
+
+  document.getElementById("jenisMenuLaporan").innerText =
+    "Menu " + modeMenu;
+
   laporan.style.display = "block";
 
   setTimeout(()=>{
