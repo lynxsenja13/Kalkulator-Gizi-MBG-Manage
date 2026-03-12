@@ -1055,32 +1055,58 @@ function exportPDF(){
 
   const laporan = document.getElementById("laporanPDF");
 
-  // ===== tanggal =====
-  document.getElementById("tanggalLaporan").innerText =
-    formatTanggalIndonesia();
+  if(!laporan){
+    alert("Container laporanPDF tidak ditemukan");
+    return;
+  }
+
+  // ===== isi tanggal =====
+  const tanggal = document.getElementById("tanggalLaporan");
+  if(tanggal){
+    tanggal.innerText = formatTanggalIndonesia();
+  }
 
   const mode = modeMenu === "OMPRENGAN"
     ? "Menu Omprengan"
     : "Menu Snack";
 
-  document.getElementById("jenisMenuLaporan").innerText = mode;
+  const jenisMenu = document.getElementById("jenisMenuLaporan");
+  if(jenisMenu){
+    jenisMenu.innerText = mode;
+  }
 
   // ===== clone hasil laporan =====
   const hasilAsli = document.getElementById("hasil");
+
+  if(!hasilAsli){
+    alert("Elemen #hasil tidak ditemukan");
+    return;
+  }
+
   const clone = hasilAsli.cloneNode(true);
 
-  // hapus elemen interaktif
-  clone.querySelectorAll("input,button,.libur-ios-wrapper,.btn-hapus").forEach(el=>{
+  clone.querySelectorAll("input,button,.libur-ios-wrapper,.btn-hapus")
+  .forEach(el=>{
     el.remove();
   });
 
-  document.getElementById("hasilPDF").innerHTML = clone.innerHTML;
+  const hasilPDF = document.getElementById("hasilPDF");
 
-  // ===== catatan =====
-  document.getElementById("printNote").innerText =
-    document.getElementById("note").value || "-";
+  if(!hasilPDF){
+    alert("Elemen #hasilPDF tidak ditemukan");
+    return;
+  }
 
-  // tampilkan container
+  hasilPDF.innerHTML = clone.innerHTML;
+
+  const note = document.getElementById("note");
+
+  const printNote = document.getElementById("printNote");
+  if(printNote){
+    printNote.innerText = note?.value || "-";
+  }
+
+  // tampilkan laporan
   laporan.style.display = "block";
 
   const opt = {
@@ -1094,19 +1120,23 @@ function exportPDF(){
       unit: "mm",
       format: "a4",
       orientation: "portrait"
-    },
-    pagebreak: {
-      mode: ["css", "legacy"]
     }
   };
 
+  // 🔥 tunggu render DOM dulu
   setTimeout(() => {
-    html2pdf().set(opt).from(laporan).save().then(()=>{
-      laporan.style.display = "none";
-    });
-  }, 500);
 
+    html2pdf()
+      .set(opt)
+      .from(laporan)
+      .save()
+      .then(()=>{
+        laporan.style.display = "none";
+      });
+
+  }, 1000); // 🔥 ini penting
 }
+
 function getTanggalLengkap() {
   const now = new Date();
 
