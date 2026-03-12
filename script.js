@@ -1052,6 +1052,7 @@ function formatTanggalIndonesia() {
 }
 
 function exportPDF(){
+  generateLaporan();
 
   const laporan = document.getElementById("laporanPDF");
   const hasil = document.getElementById("hasil");
