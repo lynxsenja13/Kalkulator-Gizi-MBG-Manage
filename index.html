@@ -297,24 +297,41 @@ Generating PDF...
 </div>
 
 <!-- AREA PDF -->
-<div id="pdfArea" style="display:none; background:white; padding:30px;">
+<div id="pdfArea" style="display:none;background:white;padding:30px;font-family:Arial;">
 
-  <!-- KOP SURAT -->
-  <div style="text-align:center; margin-bottom:20px;">
-    <h2 style="margin:0;">LAPORAN ANALISIS GIZI MENU</h2>
-    <h3 style="margin:0;">SPPG CICADAS 01</h3>
-    <p id="pdfTanggal" style="margin-top:8px;"></p>
+  <div class="pdf-header">
+
+    <img src="logo.png" class="pdf-logo">
+
+    <div class="pdf-header-text">
+      <h2>SPPG CICADAS 01</h2>
+      <p class="program">Program Makan Bergizi Gratis</p>
+      <p class="alamat">
+      Jl. Brigjen Katamso, Cihaur Geulis,  
+      Kec. Cibeunying Kidul, Kota Bandung
+      </p>
+    </div>
+
   </div>
 
-  <div style="margin-bottom:10px;">
-    <b>Jenis Menu :</b> <span id="pdfJenisMenu"></span>
-  </div>
+  <hr>
 
-  <div style="margin-bottom:20px;">
-    <b>Catatan :</b> <span id="pdfNote"></span>
-  </div>
+  <h3 class="pdf-title">
+  LAPORAN ANALISIS GIZI MENU
+  </h3>
 
-  <!-- ISI TABEL -->
+  <p id="pdfTanggal" class="pdf-tanggal"></p>
+
+  <p>
+  <b>Jenis Menu :</b>
+  <span id="pdfJenisMenu"></span>
+  </p>
+
+  <p>
+  <b>Catatan :</b>
+  <span id="pdfNote"></span>
+  </p>
+
   <div id="pdfContent"></div>
 
 </div>
