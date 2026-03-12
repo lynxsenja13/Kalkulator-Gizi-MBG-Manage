@@ -2331,33 +2331,75 @@ return satuan;
 function exportPDF(){
 
   const pdfArea = document.getElementById("pdfArea");
+  const pdfContent = document.getElementById("pdfContent");
 
-  // isi data
-  document.getElementById("pdfHasil").innerHTML =
-    document.getElementById("hasil").innerHTML;
+  pdfContent.innerHTML = "";
 
+  // ambil semua tabel kategori
+  const semuaTabel = document.querySelectorAll("#hasil table");
+
+  semuaTabel.forEach(table => {
+
+    const rows = table.querySelectorAll("tbody tr");
+
+    // jika tidak ada data, jangan dimasukkan
+    if(rows.length === 0) return;
+
+    const section = document.createElement("div");
+    section.style.marginBottom = "20px";
+
+    // ambil judul kategori (h3 sebelum tabel biasanya)
+    const judul = table.previousElementSibling;
+
+    if(judul){
+      const cloneTitle = judul.cloneNode(true);
+      section.appendChild(cloneTitle);
+    }
+
+    const cloneTable = table.cloneNode(true);
+    section.appendChild(cloneTable);
+
+    pdfContent.appendChild(section);
+
+  });
+
+  // jika tidak ada data sama sekali
+  if(pdfContent.innerHTML === ""){
+    alert("Tidak ada data untuk diexport");
+    return;
+  }
+
+  // isi tanggal
+  const now = new Date();
+  document.getElementById("pdfTanggal").innerText =
+    now.toLocaleDateString("id-ID", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+
+  // jenis menu
+  document.getElementById("pdfJenisMenu").innerText =
+    "Jenis Menu : " + modeMenu;
+
+  // catatan
   document.getElementById("pdfNote").innerText =
     document.getElementById("note").value;
 
-  document.getElementById("pdfTanggal").innerText =
-    new Date().toLocaleDateString("id-ID");
-
-  document.getElementById("pdfJudul").innerText =
-    "Laporan Perhitungan Gizi " + modeMenu;
-
-  pdfArea.style.display="block";
+  pdfArea.style.display = "block";
 
   html2pdf()
-    .from(pdfArea)
     .set({
       margin:10,
       filename:"laporan_gizi.pdf",
       html2canvas:{scale:2},
       jsPDF:{unit:"mm",format:"a4"}
     })
+    .from(pdfArea)
     .save()
     .then(()=>{
-      pdfArea.style.display="none";
+      pdfArea.style.display = "none";
     });
 
 }
