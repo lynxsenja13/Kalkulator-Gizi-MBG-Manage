@@ -1053,6 +1053,8 @@ function formatTanggalIndonesia() {
 
 function exportPDF(){
 
+  generateLaporan(); // 🔥 penting
+
   const laporan = document.getElementById("laporanPDF");
 
   if(!laporan){
@@ -1060,7 +1062,6 @@ function exportPDF(){
     return;
   }
 
-  // ===== isi tanggal =====
   const tanggal = document.getElementById("tanggalLaporan");
   if(tanggal){
     tanggal.innerText = formatTanggalIndonesia();
@@ -1075,9 +1076,7 @@ function exportPDF(){
     jenisMenu.innerText = mode;
   }
 
-  // ===== clone hasil laporan =====
   const hasilAsli = document.getElementById("hasil");
-
   if(!hasilAsli){
     alert("Elemen #hasil tidak ditemukan");
     return;
@@ -1085,28 +1084,22 @@ function exportPDF(){
 
   const clone = hasilAsli.cloneNode(true);
 
-  clone.querySelectorAll("input,button,.libur-ios-wrapper,.btn-hapus")
-  .forEach(el=>{
+  clone.querySelectorAll(
+    "input,button,.libur-ios-wrapper,.btn-hapus,.editable-list"
+  ).forEach(el=>{
     el.remove();
   });
 
   const hasilPDF = document.getElementById("hasilPDF");
-
-  if(!hasilPDF){
-    alert("Elemen #hasilPDF tidak ditemukan");
-    return;
-  }
-
   hasilPDF.innerHTML = clone.innerHTML;
 
   const note = document.getElementById("note");
-
   const printNote = document.getElementById("printNote");
+
   if(printNote){
     printNote.innerText = note?.value || "-";
   }
 
-  // tampilkan laporan
   laporan.style.display = "block";
 
   const opt = {
@@ -1123,7 +1116,6 @@ function exportPDF(){
     }
   };
 
-  // 🔥 tunggu render DOM dulu
   setTimeout(() => {
 
     html2pdf()
@@ -1134,7 +1126,8 @@ function exportPDF(){
         laporan.style.display = "none";
       });
 
-  }, 1000); // 🔥 ini penting
+  }, 300);
+
 }
 
 function getTanggalLengkap() {
