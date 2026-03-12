@@ -2356,6 +2356,11 @@ kategoriList.forEach(kat => {
 
   if(!tabel) return;
 
+  const rows = tabel.querySelectorAll("tbody tr");
+
+  // jika hanya TOTAL atau kosong → skip
+  if(rows.length <= 1) return;
+
   const clone = kat.cloneNode(true);
 
   hasilPDF.appendChild(clone);
