@@ -2330,133 +2330,131 @@ return satuan;
 
 function exportPDF(){
 
-generateLaporan();
+generateLaporan(); // refresh data terbaru
 
-const pdfArea = document.getElementById("pdfArea");
-const pdfContent = document.getElementById("pdfContent");
+const container = document.getElementById("laporanPDF");
+const hasilPDF = document.getElementById("hasilPDF");
 
-if(!pdfArea || !pdfContent){
-alert("PDF container tidak ditemukan di HTML");
-return;
+if(!container || !hasilPDF){
+  console.error("Element laporanPDF / hasilPDF tidak ditemukan");
+  alert("Template PDF belum ada di HTML");
+  return;
 }
 
-pdfContent.innerHTML = "";
+hasilPDF.innerHTML = "";
 
 // tanggal
-const elTanggal = document.getElementById("pdfTanggal");
-const elJenis = document.getElementById("pdfJenisMenu");
-const elNote = document.getElementById("pdfNote");
-
-if(elTanggal) elTanggal.innerText = getTanggalLengkap();
-if(elJenis) elJenis.innerText = "Menu Omprengan & Snack";
-if(elNote) elNote.innerText =
-document.getElementById("note")?.value || "-";
+const elTanggal = document.getElementById("tanggalLaporan");
+if(elTanggal){
+  elTanggal.innerText = getTanggalLengkap();
+}
 
 // semua menu
 const semuaMenu = ["OMPRENGAN","SNACK"];
 
 semuaMenu.forEach(menu=>{
 
-const kategoriList = menu === "OMPRENGAN"
-? kategoriOmprengan
-: kategoriSnack;
+  const kategoriList =
+    menu === "OMPRENGAN"
+    ? kategoriOmprengan
+    : kategoriSnack;
 
-kategoriList.forEach(kat=>{
+  kategoriList.forEach(kat=>{
 
-const dataKategori = kategoriData?.[menu]?.[kat] || [];
+    const dataKategori = kategoriData[menu][kat] || [];
 
-// skip jika tidak ada bahan
-if(dataKategori.length === 0) return;
+    if(dataKategori.length === 0) return;
 
-const dataAktif = dataKategori.filter(item =>
-bahanMaster[menu]?.some(b => b.nama === item.nama)
-);
+    const dataAktif = dataKategori.filter(item =>
+      bahanMaster[menu].some(b => b.nama === item.nama)
+    );
 
-if(dataAktif.length === 0) return;
+    if(dataAktif.length === 0) return;
 
-const standar = AKG[kat] || {};
+    const standar = AKG[kat] || {};
 
-const detailBahan = dataAktif.map(item=>{
+    const detailBahan = dataAktif.map(item => {
 
-const db = database.find(d =>
-getNamaBahan(d) === item.nama.toLowerCase().trim()
-);
+      const db = database.find(d =>
+        getNamaBahan(d) === item.nama.toLowerCase().trim()
+      );
 
-let faktor = item.satuan === "GRAM"
-? item.berat/100
-: item.berat;
+      let faktor =
+        item.satuan === "GRAM"
+        ? item.berat / 100
+        : item.berat;
 
-return{
-nama:item.nama,
-berat:item.berat,
-energi:db ? faktor*(db["ENERGI"]||0):0,
-protein:db ? faktor*(db["PROTEIN"]||0):0,
-lemak:db ? faktor*(db["LEMAK"]||0):0,
-karbo:db ? faktor*(db["KARBOHIDRAT"]||0):0,
-kalsium:db ? faktor*(db["KALSIUM"]||0):0,
-serat:db ? faktor*(db["SERAT"]||0):0
+      return {
+        nama:item.nama,
+        berat:item.berat,
+        energi:db ? faktor*(db["ENERGI"]||0):0,
+        protein:db ? faktor*(db["PROTEIN"]||0):0,
+        lemak:db ? faktor*(db["LEMAK"]||0):0,
+        karbo:db ? faktor*(db["KARBOHIDRAT"]||0):0,
+        kalsium:db ? faktor*(db["KALSIUM"]||0):0,
+        serat:db ? faktor*(db["SERAT"]||0):0
+      };
+
+    });
+
+    hasilPDF.innerHTML += `
+      <div class="pdf-kategori">
+
+        <h3 style="margin-top:20px">
+          ${menu} - ${kat}
+        </h3>
+
+        ${renderTabelKategori(menu,kat,detailBahan,{
+          energi:standar.Energi||0,
+          protein:standar.Protein||0,
+          lemak:standar.Lemak||0,
+          karbo:standar.Karbohidrat||0,
+          kalsium:standar.Kalsium||0,
+          serat:standar.Serat||0
+        })}
+
+      </div>
+    `;
+
+  });
+
+});
+
+// tampilkan container
+container.style.display="block";
+
+setTimeout(()=>{
+
+const opt = {
+  margin:10,
+  filename:`laporan_gizi_${formatTanggalFile()}.pdf`,
+  image:{
+    type:'jpeg',
+    quality:1
+  },
+  html2canvas:{
+    scale:3,
+    useCORS:true,
+    letterRendering:true
+  },
+  jsPDF:{
+    unit:"mm",
+    format:"a4",
+    orientation:"portrait"
+  },
+  pagebreak:{
+    mode:["avoid-all","css","legacy"]
+  }
 };
 
-});
-
-if(detailBahan.length === 0) return;
-
-// render tabel
-const tabelHTML = renderTabelKategori(
-menu,
-kat,
-detailBahan,
-{
-energi:standar.Energi||0,
-protein:standar.Protein||0,
-lemak:standar.Lemak||0,
-karbo:standar.Karbohidrat||0,
-kalsium:standar.Kalsium||0,
-serat:standar.Serat||0
-}
-);
-
-pdfContent.innerHTML += `
-<div class="pdf-kategori">
-<h3>${menu} - ${kat}</h3>
-${tabelHTML}
-</div>
-`;
-
-});
-
-});
-
-// tampilkan
-pdfArea.style.display = "block";
-
-const loading = document.getElementById("loadingPDF");
-if(loading) loading.style.display = "flex";
-
-// export
 html2pdf()
-.set({
-margin:10,
-filename:`laporan_gizi_${formatTanggalFile()}.pdf`,
-html2canvas:{
-scale:0.6,
-useCORS:true
-},
-jsPDF:{
-unit:"mm",
-format:"a4",
-orientation:"portrait"
-},
-pagebreak:{mode:["avoid-all","css","legacy"]}
-})
-.from(pdfArea)
+.set(opt)
+.from(container)
 .save()
 .then(()=>{
-
-pdfArea.style.display="none";
-
-if(loading) loading.style.display="none";
-
+container.style.display="none";
 });
+
+},200);
 
 }
