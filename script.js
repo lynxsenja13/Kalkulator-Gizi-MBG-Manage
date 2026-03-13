@@ -1133,7 +1133,26 @@ const totalD =
 const totalSemua = Object.values(data).reduce((a,b)=>a+b,0);
   const tanggal = formatTanggalIndonesia();
 
-let menuList = ambilMenuUntukLaporan().join("\n");
+function ambilMenuUntukLaporan() {
+
+  let daftar = [];
+
+  if (modeMenuLaporan === "semua") {
+
+    daftar = menuSemua.filter(m => m.trim() !== "");
+
+  } else {
+
+    const balita = menuBalita.filter(m => m.trim() !== "");
+    const sekolah = menuSekolah.filter(m => m.trim() !== "");
+
+    daftar = [...balita, ...sekolah];
+  }
+
+  // 🔥 TAMBAHKAN NOMOR
+  return daftar.map((m, i) => `${i + 1}. ${m}`);
+
+}
   
   const caption = `
 Yth. Dandim 0618/Kota Bandung
