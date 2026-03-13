@@ -1625,16 +1625,8 @@ const tanggal = now.toLocaleDateString("id-ID", {
   year: "numeric"
 });
 
-const menuInputs = document.querySelectorAll("#menuContainer .input-menu");
-
 let menuText = ambilMenuUntukLaporan().join("\n");
-
-menuInputs.forEach((inp,i)=>{
-if(inp.value.trim()){
-menuText += `${i+1}. ${inp.value.trim()}\n`;
-}
-});
-
+  
 caption += `Assalamualaikum wr.wb, Selamat Pagi.
 Izin menginformasikan, untuk menu hari ini.
 Tanggal : ${hari}, ${tanggal}
@@ -1725,14 +1717,7 @@ generateLaporan(); // 🔥 refresh gizi dulu
   });
 
   // menu
-  const menuInputs = document.querySelectorAll("#menuContainer .input-menu");
   let menuText = ambilMenuUntukLaporan().join("\n");
-
-  menuInputs.forEach((inp) => {
-    if (inp.value.trim()) {
-      menuText += ` • ${inp.value.trim()}\n`;
-    }
-  });
 
   // libur dari sistemmu
   const kategoriLibur = window.kategoriLibur || {};
