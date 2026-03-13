@@ -1119,28 +1119,6 @@ function hitungPenerimaFinal() {
 
   return { data, total };
 }
-function generateCaptionHarian() {
-  let caption = "";
-
-  // ambil menu + nomor
-  let menuList = ambilMenuUntukLaporan().join("\n");
-
-  caption += "MENU HARI INI\n\n";
-  caption += menuList;
-
-  document.getElementById("captionHarian").value = caption;
-  const { data } = hitungPenerimaFinal();
-
-// 🔥 TOTAL KHUSUS POIN D (HANYA D3–D6)
-const totalD =
-  (data["SD YAS"] || 0) +
-  (data["SMP YAS"] || 0) +
-  (data["SMA YAS"] || 0) +
-  (data["SD Awi Gombong"] || 0);
-
-// 🔥 TOTAL MAKAN (SEMUA)
-const totalSemua = Object.values(data).reduce((a,b)=>a+b,0);
-  const tanggal = formatTanggalIndonesia();
 
 function ambilMenuUntukLaporan() {
 
@@ -1162,6 +1140,23 @@ function ambilMenuUntukLaporan() {
   return daftar.map((m, i) => `${i + 1}. ${m}`);
 
 }
+
+function generateCaptionHarian() {
+
+  let menuList = ambilMenuUntukLaporan().join("\n");
+
+  const { data } = hitungPenerimaFinal();
+
+// 🔥 TOTAL KHUSUS POIN D (HANYA D3–D6)
+const totalD =
+  (data["SD YAS"] || 0) +
+  (data["SMP YAS"] || 0) +
+  (data["SMA YAS"] || 0) +
+  (data["SD Awi Gombong"] || 0);
+
+// 🔥 TOTAL MAKAN (SEMUA)
+const totalSemua = Object.values(data).reduce((a,b)=>a+b,0);
+  const tanggal = formatTanggalIndonesia();
   
   const caption = `
 Yth. Dandim 0618/Kota Bandung
