@@ -1122,28 +1122,28 @@ function hitungPenerimaFinal() {
 
 function ambilMenuUntukLaporan() {
 
-  let daftar = [];
+    let daftar = [];
 
   if (modeMenuLaporan === "semua") {
-
-    daftar = menuSemua.filter(m => m.trim() !== "");
-
+    daftar = menuSemua;
   } else {
-
-    const balita = menuBalita.filter(m => m.trim() !== "");
-    const sekolah = menuSekolah.filter(m => m.trim() !== "");
-
-    daftar = [...balita, ...sekolah];
+    daftar = [...menuBalita, ...menuSekolah];
   }
 
-  // 🔥 TAMBAHKAN NOMOR
-  return daftar.map((m, i) => `${i + 1}. ${m}`);
+  daftar = daftar.filter(m => m && m.trim() !== "");
 
+  let hasil = "";
+
+  daftar.forEach((menu, i) => {
+    hasil += `${i + 1}. ${menu}\n`;
+  });
+
+  return hasil.trim();
 }
 
 function generateCaptionHarian() {
 
-  let menuList = ambilMenuUntukLaporan().join("\n");
+  let menuList = ambilMenuUntukLaporan();
   const { data } = hitungPenerimaFinal();
 
 // 🔥 TOTAL KHUSUS POIN D (HANYA D3–D6)
@@ -1625,7 +1625,7 @@ const tanggal = now.toLocaleDateString("id-ID", {
   year: "numeric"
 });
 
-let menuText = ambilMenuUntukLaporan().join("\n");
+let menuText = ambilMenuUntukLaporan();
   
 caption += `Assalamualaikum wr.wb, Selamat Pagi.
 Izin menginformasikan, untuk menu hari ini.
@@ -1717,7 +1717,7 @@ generateLaporan(); // 🔥 refresh gizi dulu
   });
 
   // menu
-  let menuText = ambilMenuUntukLaporan().join("\n");
+  let menuText = ambilMenuUntukLaporan();
 
   // libur dari sistemmu
   const kategoriLibur = window.kategoriLibur || {};
