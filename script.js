@@ -1120,6 +1120,15 @@ function hitungPenerimaFinal() {
   return { data, total };
 }
 function generateCaptionHarian() {
+  let caption = "";
+
+  // ambil menu + nomor
+  let menuList = ambilMenuUntukLaporan().join("\n");
+
+  caption += "MENU HARI INI\n\n";
+  caption += menuList;
+
+  document.getElementById("captionHarian").value = caption;
   const { data } = hitungPenerimaFinal();
 
 // 🔥 TOTAL KHUSUS POIN D (HANYA D3–D6)
