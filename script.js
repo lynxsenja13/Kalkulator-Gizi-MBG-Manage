@@ -1144,7 +1144,6 @@ function ambilMenuUntukLaporan() {
 function generateCaptionHarian() {
 
   let menuList = ambilMenuUntukLaporan().join("\n");
-
   const { data } = hitungPenerimaFinal();
 
 // 🔥 TOTAL KHUSUS POIN D (HANYA D3–D6)
