@@ -2558,30 +2558,39 @@ function showSection(menu){
 
 function showSection(id){
 
-  const sections = [
-    "dashboard",
-    "input",
-    "hasilSection",
-    "laporan"
-  ];
+const dashboard = document.getElementById("dashboard");
+const input = document.getElementById("input");
+const hasil = document.getElementById("hasilSection");
+const laporan = document.getElementById("laporan");
 
-  sections.forEach(sec=>{
-    const el = document.getElementById(sec);
-    if(el){
-      el.style.display = "none";
-    }
-  });
+if(id === "dashboard"){
 
-  if(id === "hasil"){
-    document.getElementById("hasilSection").style.display = "block";
-  }else{
-    const target = document.getElementById(id);
-    if(target) target.style.display = "block";
-  }
+  dashboard.style.display = "block";
+  input.style.display = "block";
+  hasil.style.display = "block";
+  laporan.style.display = "block";
 
-  // auto hide sidebar setelah klik
-  const sidebar = document.querySelector(".sidebar");
-  if(sidebar && window.innerWidth < 900){
-    sidebar.classList.remove("open");
-  }
+}else if(id === "input"){
+
+  dashboard.style.display = "none";
+  input.style.display = "block";
+  hasil.style.display = "none";
+  laporan.style.display = "none";
+
+}else if(id === "hasil"){
+
+  dashboard.style.display = "none";
+  input.style.display = "none";
+  hasil.style.display = "block";
+  laporan.style.display = "none";
+
+}else if(id === "laporan"){
+
+  dashboard.style.display = "none";
+  input.style.display = "none";
+  hasil.style.display = "none";
+  laporan.style.display = "block";
+
+}
+
 }
