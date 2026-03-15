@@ -2465,3 +2465,11 @@ container.style.display="none";
 },200);
 
 }
+
+function toggleSidebar(){
+
+const sidebar = document.querySelector(".sidebar");
+
+sidebar.classList.toggle("hidden");
+
+}
