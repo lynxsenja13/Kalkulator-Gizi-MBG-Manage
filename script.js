@@ -21,7 +21,6 @@ window.hasilGizi = {
 };
 
 const STATE = {
-  modeMenu:"OMPRENGAN",
   modeKategori:"SEMUA",
   mainTab:"laporan",
   subTab:"harian",
@@ -284,46 +283,6 @@ function getKategoriAktif() {
   return modeMenu === "OMPRENGAN"
     ? kategoriOmprengan
     : kategoriSnack;
-}
-
-function renderKategori(){
-
-const container = document.getElementById("kategoriCheckbox");
-if(!container) return;
-
-let kategori =
-modeMenu === "SNACK"
-? kategoriSnack
-: kategoriOmprengan;
-
-let html = "";
-
-/* tombol semua */
-
-html += `
-<label class="kategori-chip semua">
-<input type="checkbox" id="kategoriSemua" checked>
-<span>Semua</span>
-</label>
-`;
-
-/* kategori lain */
-
-kategori.forEach(k=>{
-
-html += `
-<label class="kategori-chip">
-<input type="checkbox" class="kategori-check" value="${k}">
-<span>${k}</span>
-</label>
-`;
-
-});
-
-container.innerHTML = html;
-
-initKategoriLogic();
-
 }
 
 function initKategoriLogic(){
@@ -2219,6 +2178,8 @@ html += `
 
 container.innerHTML = html;
 
+initKategoriLogic();
+
 }
 
 function ambilKategoriDipilih(){
@@ -2446,59 +2407,8 @@ container.style.display="none";
 
 }
 
-function toggleSidebar(){
-
-const sidebar = document.querySelector(".sidebar");
-
-sidebar.classList.toggle("hidden");
-
-}
-
-function showSection(section){
-
-// sembunyikan semua
-document.querySelectorAll(".section")
-.forEach(el=>el.style.display="none");
-
-// tampilkan section dipilih
-document.getElementById(section).style.display="block";
-
-// auto close sidebar
-document.querySelector(".sidebar").classList.add("hidden");
-
-}
-
-function showSection(menu){
-
-document.getElementById("input").style.display="none";
-document.getElementById("hasil-wrapper").style.display="none";
-document.getElementById("create").style.display="none";
-document.getElementById("caption").style.display="none";
-
-if(menu==="dashboard"){
-document.getElementById("input").style.display="block";
-document.getElementById("hasil-wrapper").style.display="block";
-document.getElementById("create").style.display="block";
-document.getElementById("caption").style.display="block";
-}
-
-if(menu==="input"){
-document.getElementById("input").style.display="block";
-}
-
-if(menu==="hasil"){
-document.getElementById("hasil-wrapper").style.display="block";
-}
-
-if(menu==="laporan"){
-document.getElementById("create").style.display="block";
-document.getElementById("caption").style.display="block";
-}
-
-}
-
 /* ===============================
-SIDEBAR NAVIGATION
+SIDEBAR NAVIGATION FINAL
 ================================= */
 
 function toggleSidebar(){
@@ -2509,7 +2419,10 @@ function toggleSidebar(){
   if(!sidebar) return;
 
   sidebar.classList.toggle("hide");
-  content.classList.toggle("full");
+
+  if(content){
+    content.classList.toggle("full");
+  }
 
 }
 
@@ -2522,7 +2435,7 @@ function showSection(menu){
 
   if(!input || !hasil || !create || !caption) return;
 
-  // reset
+  // sembunyikan semua
   input.style.display="none";
   hasil.style.display="none";
   create.style.display="none";
