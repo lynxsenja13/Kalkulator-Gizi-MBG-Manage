@@ -1121,27 +1121,6 @@ function hitungPenerimaFinal() {
   return { data, total };
 }
 
-function ambilMenuUntukLaporan() {
-
-    let daftar = [];
-
-  if (modeMenuLaporan === "semua") {
-    daftar = menuSemua;
-  } else {
-    daftar = [...menuBalita, ...menuSekolah];
-  }
-
-  daftar = daftar.filter(m => m && m.trim() !== "");
-
-  let hasil = "";
-
-  daftar.forEach((menu, i) => {
-    hasil += `${i + 1}. ${menu}\n`;
-  });
-
-  return hasil.trim();
-}
-
 function generateCaptionHarian() {
 
   let menuList = ambilMenuUntukLaporan();
@@ -1882,7 +1861,7 @@ function kirimKeSpreadsheet() {
   modeMenu = modeBackup;
 
   const formData = new FormData();
-  formData.append("data", JSON.stringify(data));
+  formData.append("data", JSON.stringify(window.dataSpreadsheet));
 
   fetch(API_URL2, {
     method: "POST",
