@@ -2351,7 +2351,7 @@ width:240px;
 background:#0f172a;
 color:white;
 padding:20px;
-transition:0.3s;
+transition:all .3s ease;
 }
 
 .sidebar.hidden{
@@ -2360,12 +2360,33 @@ padding:0;
 overflow:hidden;
 }
 
+.sidebar.hide{
+margin-left:-240px;
+}
+
 .content{
 flex:1;
 padding:30px;
-transition:0.3s;
+transition:all .3s ease;
+}
+
+.content.full{
+margin-left:0;
 }
 
 .section{
 margin-bottom:40px;
+}
+
+.btn-toggle{
+position:fixed;
+top:15px;
+left:15px;
+z-index:999;
+background:#0f172a;
+color:white;
+border:none;
+padding:8px 12px;
+border-radius:6px;
+cursor:pointer;
 }
