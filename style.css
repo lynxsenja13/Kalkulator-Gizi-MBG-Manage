@@ -2410,3 +2410,13 @@ display:block;
 #laporan{
 display:block;
 }
+
+#caption{
+position:relative;
+z-index:1;
+}
+
+.card.dark{
+position:relative;
+z-index:2;
+}
