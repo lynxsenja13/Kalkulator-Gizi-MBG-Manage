@@ -2473,3 +2473,17 @@ const sidebar = document.querySelector(".sidebar");
 sidebar.classList.toggle("hidden");
 
 }
+
+function showSection(section){
+
+// sembunyikan semua
+document.querySelectorAll(".section")
+.forEach(el=>el.style.display="none");
+
+// tampilkan section dipilih
+document.getElementById(section).style.display="block";
+
+// auto close sidebar
+document.querySelector(".sidebar").classList.add("hidden");
+
+}
