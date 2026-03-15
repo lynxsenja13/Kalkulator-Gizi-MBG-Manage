@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="style.css" />
 
 <title>Kalkulator Gizi</title>
 
@@ -13,18 +12,17 @@
 <link rel="stylesheet" href="style.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-<body>
 
 <body>
 
 <div class="app">
-
+<button class="btn-toggle" onclick="toggleSidebar()">☰</button>
 <aside class="sidebar">
   <h2>Menu Gizi</h2>
 
   <nav>
 
-    <a href="#" onclick="showSection('dashboard')">🥗 Dashboard</a>
+    <a href="#" onclick="showSection('dashboard')">🏠 Dashboard</a>
 
     <a href="#" onclick="showSection('input')">📥Input Menu</a>
 
@@ -38,41 +36,8 @@
 
 <main class="content">
 
-<div class="section" id="dashboard">
-
-INPUT MENU
-
-HASIL
-
-CREATE LAPORAN
-
-CAPTION
-
-</div>
-
-<div class="section" id="input">
-
-card input bahan
-
-</div>
-
-<div class="section" id="hasil">
-
-hasil-wrapper
-
-</div>
-
-<div class="section" id="laporan">
-
-card create laporan
-
-card caption
-
-</div>
-
   <!-- HEADER -->
-  <div class="header">
-    <button id="toggleSidebar" class="btn-toggle" onclick="toggleSidebar()">☰</button>
+  <div class="header" id="header">
     <img src="logo.png" class="logo" alt="Logo SPPG Cicadas 01" />
     <h1>SPPG Cicadas 01</h1>
     <p class="ahli-gizi">Ahli Gizi : Aliyah Khairunnisa Syafitri</p>
@@ -153,12 +118,10 @@ card caption
 </div>
 
   <!-- NOTE -->
-  <div class="card dark">
+  <div class="card dark" id="noteCard">
     <h2>Catatan Hari Ini</h2>
     <textarea id="note" placeholder="Tulis catatan hari ini..."></textarea>
   </div>
-
-</div>
 
 </div>
   <div id="modalGizi" class="modal">
