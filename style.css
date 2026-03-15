@@ -2390,3 +2390,11 @@ padding:8px 12px;
 border-radius:6px;
 cursor:pointer;
 }
+
+section{
+display:none;
+}
+
+#dashboard{
+display:block;
+}
