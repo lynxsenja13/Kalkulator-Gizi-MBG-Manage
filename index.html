@@ -16,118 +16,216 @@
 <body>
 
 <div class="app">
+
 <button class="btn-toggle" onclick="toggleSidebar()">☰</button>
+
 <aside class="sidebar">
-  <h2>Menu Gizi</h2>
+<h2>Menu Gizi</h2>
 
-  <nav>
-
-    <a href="#" onclick="showSection('dashboard')">🏠 Dashboard</a>
-
-    <a href="#" onclick="showSection('input')">📥Input Menu</a>
-
-    <a href="#" onclick="showSection('hasil')">📊 Hitung Gizi</a>
-
-    <a href="#" onclick="showSection('laporan')">📊 Create Laporan</a>
-
-  </nav>
+<nav>
+<a href="#" onclick="showSection('dashboard')">🏠 Dashboard</a>
+<a href="#" onclick="showSection('input')">📥 Input Menu</a>
+<a href="#" onclick="showSection('hasil')">📊 Hitung Gizi</a>
+<a href="#" onclick="showSection('laporan')">📊 Create Laporan</a>
+</nav>
 
 </aside>
 
 <main class="content">
 
-  <!-- HEADER -->
-  <section id="dashboard">
-  <div class="header" id="header">
-    <img src="logo.png" class="logo" alt="Logo SPPG Cicadas 01" />
-    <h1>SPPG Cicadas 01</h1>
-    <p class="ahli-gizi">Ahli Gizi : Aliyah Khairunnisa Syafitri</p>
-    <p class="credit">Created by Fikri Purwana Senja</p>
-  </div>
+<!-- DASHBOARD -->
+<section id="dashboard">
 
-  <!-- INPUT CARD -->
-  <section id="input">
-  <div class="card dark">
-
-    <h2>Input Bahan</h2>
-
-  <div class="menu-row">
-  <button id="btnOmprengan"
-          onclick="setModeMenu('OMPRENGAN')"
-          class="btn-secondary active-omprengan">
-    Menu Omprengan
-  </button>
-
-  <button id="btnSnack"
-          onclick="setModeMenu('SNACK')"
-          class="btn-secondary">
-    Menu Snack
-  </button>
+<div class="header" id="header">
+<img src="logo.png" class="logo">
+<h1>SPPG Cicadas 01</h1>
+<p class="ahli-gizi">Ahli Gizi : Aliyah Khairunnisa Syafitri</p>
+<p class="credit">Created by Fikri Purwana Senja</p>
 </div>
 
-<!-- 🔽 TAMBAHKAN INI -->
+<div class="card dark" id="noteCard">
+<h2>Catatan Hari Ini</h2>
+<textarea id="note" placeholder="Tulis catatan hari ini..."></textarea>
+</div>
+
+</section>
+
+
+<!-- INPUT MENU -->
+<section id="input">
+
+<div class="card dark">
+
+<h2>Input Bahan</h2>
+
+<div class="menu-row">
+<button id="btnOmprengan"
+onclick="setModeMenu('OMPRENGAN')"
+class="btn-secondary active-omprengan">
+Menu Omprengan
+</button>
+
+<button id="btnSnack"
+onclick="setModeMenu('SNACK')"
+class="btn-secondary">
+Menu Snack
+</button>
+</div>
+
 <div id="kategoriCheckbox" class="kategori-scroll"></div>
 
 <div class="input-row input-row-flex">
 
 <div class="autocomplete-wrapper">
-  <input type="text" id="namaBahan" autocomplete="off" placeholder="Nama bahan">
-  <div id="autocomplete-list" class="autocomplete-items"></div>
+<input type="text" id="namaBahan" autocomplete="off" placeholder="Nama bahan">
+<div id="autocomplete-list" class="autocomplete-items"></div>
 </div>
 
-  <input id="beratBahan" type="number" placeholder="Jumlah" class="input-jumlah">
+<input id="beratBahan" type="number" placeholder="Jumlah" class="input-jumlah">
 
 <select id="satuanBahan" class="input-satuan">
-  <option value="Gram">Gram</option>
-  <option value="Pcs">Pcs</option>
+<option value="Gram">Gram</option>
+<option value="Pcs">Pcs</option>
 </select>
 
-  <button type="button" class="btn-primary" onclick="tambahBahan()">
-    Tambah
-  </button>
-
-</div>
-
-    <ul id="listBahan"></ul>
-
-   <div class="action-row">
-
-  <button type="button"
-          class="btn-success"
-          onclick="generateLaporan()">
-    Generate Laporan
-  </button>
-
-  <button type="button"
-        class="btn-secondary"
-        onclick="generateLaporan(); exportPDF();">
-  Export PDF
+<button type="button" class="btn-primary" onclick="tambahBahan()">
+Tambah
 </button>
 
-  <button class="btn-kirim" onclick="kirimLaporanKeSpreadsheet()">
-    Kirim Spreadsheet
-  </button>
+</div>
+
+<ul id="listBahan"></ul>
+
+<div class="action-row">
+
+<button type="button"
+class="btn-success"
+onclick="generateLaporan()">
+Generate Laporan
+</button>
+
+<button type="button"
+class="btn-secondary"
+onclick="generateLaporan(); exportPDF();">
+Export PDF
+</button>
+
+<button class="btn-kirim" onclick="kirimLaporanKeSpreadsheet()">
+Kirim Spreadsheet
+</button>
 
 </div>
 
-  </div>
-</section>
-  <h2 id="printTitle" class="print-title"></h2>
-
-  <!-- HASIL -->
-  <section id="hasilSection">
-  <div id="hasil-wrapper" class="table-container">
-  <div id="hasil" class="hasil-grid"></div>
 </div>
+
 </section>
-    
-  <!-- NOTE -->
-  <div class="card dark" id="noteCard">
-    <h2>Catatan Hari Ini</h2>
-    <textarea id="note" placeholder="Tulis catatan hari ini..."></textarea>
-  </div>
-  </section>
-    
+
+
+<!-- HASIL PERHITUNGAN -->
+<section id="hasilSection">
+
+<h2 id="printTitle" class="print-title"></h2>
+
+<div id="hasil-wrapper" class="table-container">
+<div id="hasil" class="hasil-grid"></div>
+</div>
+
+</section>
+
+
+<!-- LAPORAN -->
+<section id="laporan">
+
+<div class="card dark">
+
+<h2>📊 Create Laporan</h2>
+
+<div class="tab-row">
+<button id="tabLaporan"
+class="btn-secondary active-tab"
+onclick="setMainTab('laporan')">
+📊 Laporan
+</button>
+
+<button id="tabCaption"
+class="btn-secondary"
+onclick="setMainTab('caption')">
+📝 Caption
+</button>
+</div>
+
+<div id="subTabLaporan" class="tab-row">
+
+<button id="btnLapHarian"
+class="btn-primary active-subtab"
+onclick="setSubTab('harian')">
+Laporan Harian
+</button>
+
+<button id="btnLapGizi"
+class="btn-primary"
+onclick="setSubTab('gizi')">
+Laporan Gizi
+</button>
+
+</div>
+
+<div id="subTabCaption" class="tab-row" style="display:none;">
+
+<button id="btnCapOmprengan"
+class="btn-primary active-subtab-caption"
+onclick="setSubTabCaption('omprengan')">
+Caption Omprengan
+</button>
+
+<button id="btnCapSnack"
+class="btn-primary"
+onclick="setSubTabCaption('snack')">
+Caption Snack
+</button>
+
+</div>
+
+<div id="menuContainer">
+
+<input type="text"
+class="input-menu"
+placeholder="Nama menu"
+oninput="updateMenuAwal(this.value)">
+
+<button class="btn-secondary"
+onclick="tambahMenuBaris()">
++ Tambah Menu
+</button>
+
+</div>
+
+<button class="btn-success"
+onclick="bukaModalLibur()">
+🚀 Generate
+</button>
+
+</div>
+
+
+<div class="card-hasil" id="caption">
+
+<div class="card-hasil-header">
+<h3>Hasil Laporan</h3>
+</div>
+
+<textarea id="captionOutput"></textarea>
+
+<button class="btn-copy" onclick="copyCaptionWA()">
+📋 Copy WA
+</button>
+
+</div>
+
+</section>
+
+</main>
+
 </div>
   <div id="modalGizi" class="modal">
   <div class="modal-content">
