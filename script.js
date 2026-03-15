@@ -2563,33 +2563,39 @@ const input = document.getElementById("input");
 const hasil = document.getElementById("hasilSection");
 const laporan = document.getElementById("laporan");
 
-if(id === "dashboard"){
+if(id==="dashboard"){
 
-  dashboard.style.display = "block";
-  input.style.display = "block";
-  hasil.style.display = "block";
-  laporan.style.display = "block";
+dashboard.style.display="block";
+input.style.display="block";
+hasil.style.display="block";
+laporan.style.display="block";
 
-}else if(id === "input"){
+}
 
-  dashboard.style.display = "none";
-  input.style.display = "block";
-  hasil.style.display = "none";
-  laporan.style.display = "none";
+if(id==="input"){
 
-}else if(id === "hasil"){
+dashboard.style.display="none";
+input.style.display="block";
+hasil.style.display="none";
+laporan.style.display="none";
 
-  dashboard.style.display = "none";
-  input.style.display = "none";
-  hasil.style.display = "block";
-  laporan.style.display = "none";
+}
 
-}else if(id === "laporan"){
+if(id==="hasil"){
 
-  dashboard.style.display = "none";
-  input.style.display = "none";
-  hasil.style.display = "none";
-  laporan.style.display = "block";
+dashboard.style.display="none";
+input.style.display="none";
+hasil.style.display="block";
+laporan.style.display="none";
+
+}
+
+if(id==="laporan"){
+
+dashboard.style.display="none";
+input.style.display="none";
+hasil.style.display="none";
+laporan.style.display="block";
 
 }
 
