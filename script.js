@@ -2576,3 +2576,26 @@ function showSection(menu){
   }
 
 }
+
+function showSection(id){
+
+  const sections = [
+    "dashboard",
+    "input",
+    "hasilSection",
+    "laporan"
+  ];
+
+  sections.forEach(sec=>{
+    const el = document.getElementById(sec);
+    if(el) el.style.display = "none";
+  });
+
+  if(id === "hasil"){
+    document.getElementById("hasilSection").style.display = "block";
+  }
+  else{
+    document.getElementById(id).style.display = "block";
+  }
+
+}
