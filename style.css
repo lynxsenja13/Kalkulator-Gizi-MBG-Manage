@@ -2335,3 +2335,8 @@ input:focus, textarea:focus{
   background:#3b82f6;
   color:white;
 }
+
+.content{
+flex:1;
+padding:30px;
+}
