@@ -2567,14 +2567,21 @@ function showSection(id){
 
   sections.forEach(sec=>{
     const el = document.getElementById(sec);
-    if(el) el.style.display = "none";
+    if(el){
+      el.style.display = "none";
+    }
   });
 
   if(id === "hasil"){
     document.getElementById("hasilSection").style.display = "block";
-  }
-  else{
-    document.getElementById(id).style.display = "block";
+  }else{
+    const target = document.getElementById(id);
+    if(target) target.style.display = "block";
   }
 
+  // auto hide sidebar setelah klik
+  const sidebar = document.querySelector(".sidebar");
+  if(sidebar && window.innerWidth < 900){
+    sidebar.classList.remove("open");
+  }
 }
