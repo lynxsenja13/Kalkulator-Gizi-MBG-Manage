@@ -2163,28 +2163,46 @@ function ubahKategoriMenu(value){
 
 function ambilMenuUntukLaporan(){
 
+  let hasil = "";
+
+  // ================= UNIVERSAL =================
   if(modeMenuLaporan === "semua"){
-    return menuSemua.filter(m => m.trim());
+
+    const menu = menuSemua.filter(m => m && m.trim() !== "");
+
+    menu.forEach((m,i)=>{
+      hasil += `${i+1}. ${m}\n`;
+    });
+
+    return hasil.trim();
   }
 
-  let hasil = [];
-
+  // ================= TERPISAH =================
   if(menuBalita.length){
-    hasil.push("Menu Balita, Bumil & Busui :");
-    menuBalita.filter(m=>m.trim()).forEach((m,i)=>{
-      hasil.push((i+1)+". "+m);
-    });
+
+    hasil += "Menu Balita, Bumil & Busui :\n";
+
+    menuBalita
+      .filter(m=>m.trim())
+      .forEach((m,i)=>{
+        hasil += `${i+1}. ${m}\n`;
+      });
+
+    hasil += "\n";
   }
 
   if(menuSekolah.length){
-    hasil.push("");
-    hasil.push("Menu Sekolah :");
-    menuSekolah.filter(m=>m.trim()).forEach((m,i)=>{
-      hasil.push((i+1)+". "+m);
-    });
+
+    hasil += "Menu Sekolah :\n";
+
+    menuSekolah
+      .filter(m=>m.trim())
+      .forEach((m,i)=>{
+        hasil += `${i+1}. ${m}\n`;
+      });
   }
 
-  return hasil;
+  return hasil.trim();
 }
 
 function renderKategori(){
