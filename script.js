@@ -1081,7 +1081,8 @@ window.onload = function () {
 
   // selalu sync database terbaru
   loadDatabase();
-
+  showSection("dashboard");
+  
 };
 
 function sdSemuaLibur() {
@@ -2517,4 +2518,61 @@ document.getElementById("caption").style.display="block";
 
 }
 
-showSection("dashboard");
+/* ===============================
+SIDEBAR NAVIGATION
+================================= */
+
+function toggleSidebar(){
+
+  const sidebar = document.querySelector(".sidebar");
+  const content = document.querySelector(".content");
+
+  if(!sidebar) return;
+
+  sidebar.classList.toggle("hide");
+  content.classList.toggle("full");
+
+}
+
+function showSection(menu){
+
+  const input = document.getElementById("input");
+  const hasil = document.getElementById("hasil-wrapper");
+  const create = document.getElementById("create");
+  const caption = document.getElementById("caption");
+
+  if(!input || !hasil || !create || !caption) return;
+
+  // reset
+  input.style.display="none";
+  hasil.style.display="none";
+  create.style.display="none";
+  caption.style.display="none";
+
+  if(menu==="dashboard"){
+    input.style.display="block";
+    hasil.style.display="block";
+    create.style.display="block";
+    caption.style.display="block";
+  }
+
+  if(menu==="input"){
+    input.style.display="block";
+  }
+
+  if(menu==="hasil"){
+    hasil.style.display="block";
+  }
+
+  if(menu==="laporan"){
+    create.style.display="block";
+    caption.style.display="block";
+  }
+
+  // auto hide sidebar
+  const sidebar = document.querySelector(".sidebar");
+  if(sidebar){
+    sidebar.classList.add("hide");
+  }
+
+}
