@@ -2286,3 +2286,47 @@ input:focus, textarea:focus{
   border-color:#3b82f6;
   box-shadow:0 0 0 2px rgba(59,130,246,.2);
 }
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:220px;
+  background:#0f172a;
+  color:white;
+  padding:24px;
+}
+
+.sidebar h2{
+  margin-bottom:30px;
+  font-size:20px;
+}
+
+.sidebar nav{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.sidebar a{
+  text-decoration:none;
+  color:#cbd5f5;
+  padding:10px 12px;
+  border-radius:8px;
+}
+
+.sidebar a:hover{
+  background:#1e293b;
+  color:white;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+.header{
+  margin-bottom:20px;
+}
