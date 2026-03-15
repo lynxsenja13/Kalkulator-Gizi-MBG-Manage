@@ -2487,3 +2487,34 @@ document.getElementById(section).style.display="block";
 document.querySelector(".sidebar").classList.add("hidden");
 
 }
+
+function showSection(menu){
+
+document.getElementById("input").style.display="none";
+document.getElementById("hasil-wrapper").style.display="none";
+document.getElementById("create").style.display="none";
+document.getElementById("caption").style.display="none";
+
+if(menu==="dashboard"){
+document.getElementById("input").style.display="block";
+document.getElementById("hasil-wrapper").style.display="block";
+document.getElementById("create").style.display="block";
+document.getElementById("caption").style.display="block";
+}
+
+if(menu==="input"){
+document.getElementById("input").style.display="block";
+}
+
+if(menu==="hasil"){
+document.getElementById("hasil-wrapper").style.display="block";
+}
+
+if(menu==="laporan"){
+document.getElementById("create").style.display="block";
+document.getElementById("caption").style.display="block";
+}
+
+}
+
+showSection("dashboard");
