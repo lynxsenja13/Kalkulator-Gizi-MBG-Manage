@@ -2525,3 +2525,14 @@ function klikGenerate(mode){
   console.log("Mode dipilih:", mode);
 
 }
+
+function generateDenganLibur(){
+
+  if(!modeGenerate){
+    alert("Pilih jenis laporan terlebih dahulu");
+    return;
+  }
+
+  bukaModalLibur();
+
+}
