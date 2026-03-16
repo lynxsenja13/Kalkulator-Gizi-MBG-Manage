@@ -1478,17 +1478,13 @@ function tambahMenuInput() {
 
 // ================= MODAL LIBUR =================
 function bukaModalLibur() {
+
   const modal = document.getElementById("modalLibur");
   if (!modal) return;
 
   modal.style.display = "flex";
 
-  document.getElementById("libur_balita").checked = kategoriLibur["Balita"] || false;
-  document.getElementById("libur_bumil").checked = kategoriLibur["Bumil & Busui"] || false;
-  document.getElementById("libur_awig").checked = kategoriLibur["SD Awi Gombong"] || false;
-  document.getElementById("libur_sdyas").checked = kategoriLibur["SD YAS"] || false;
-  document.getElementById("libur_smpyas").checked = kategoriLibur["SMP YAS"] || false;
-  document.getElementById("libur_smayas").checked = kategoriLibur["SMA YAS"] || false;
+  syncLiburModal(); // 🔥 ini penting
 
 }
 
@@ -1716,10 +1712,8 @@ function generateCaptionSnack() {
 
   generateLaporan(); // 🔥 refresh gizi dulu
 
+  const kategoriLibur = window.kategoriLibur || {};
   const gizi = window.hasilGizi.SNACK || {};
-
-  const kecil = gizi.kecil || {};
-  const besar = gizi.besar || {};
 
   let caption = `
 🍪 Snack Bergizi Gratis
@@ -1727,7 +1721,7 @@ function generateCaptionSnack() {
 ⚖️ Kandungan Gizi (per porsi):
 `;
 
-   if (!kategoriLibur["Balita"] && gizi.balita) {
+  if (!kategoriLibur["Balita"] && gizi.balita) {
     caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
   }
 
@@ -1736,13 +1730,13 @@ function generateCaptionSnack() {
   }
 
   if (!kategoriLibur["Keringan Porsi Kecil"] && gizi.kecil) {
-    caption += blokGizi("Analisis Nilai Gizi Snack Porsi Kecil", kecil);
+    caption += blokGizi("Analisis Nilai Gizi Keringan Porsi Kecil", gizi.kecil);
   }
 
   if (!kategoriLibur["Keringan Porsi Besar"] && gizi.besar) {
-    caption += blokGizi("Analisis Nilai Gizi Snack Porsi Besar", besar);
+    caption += blokGizi("Analisis Nilai Gizi Keringan Porsi Besar", gizi.besar);
   }
-
+  
   caption += `
 🌿 “Makan bergizi, tubuh berenergi!”
 
@@ -2531,6 +2525,29 @@ function generateDenganLibur(){
   }
 
   bukaModalLibur();
+
+}
+
+function syncLiburModal() {
+
+  const map = {
+    "libur_balita": "Balita",
+    "libur_bumil": "Bumil & Busui",
+    "libur_awig": "SD Awi Gombong",
+    "libur_sdyas": "SD YAS",
+    "libur_smpyas": "SMP YAS",
+    "libur_smayas": "SMA YAS"
+  };
+
+  Object.keys(map).forEach(id => {
+
+    const el = document.getElementById(id);
+
+    if (el) {
+      el.checked = kategoriLibur[map[id]] || false;
+    }
+
+  });
 
 }
 
