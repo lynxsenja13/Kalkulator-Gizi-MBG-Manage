@@ -1609,21 +1609,28 @@ kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
 
   tutupModalLibur();
 
-  generateLaporan();
-  if (mainTabAktif === "caption") {
-    if (subTabCaptionAktif === "omprengan") {
-      generateCaptionOmprengan();
-    } else {
-      generateCaptionSnack();
-    }
-    return;
+  const mode = window.modeGenerate;
+
+  if (mode === "harian") {
+    setSubTab("harian");
+    generateCaptionHarian();
   }
 
-  // laporan biasa
-  if (subTabAktif === "gizi") {
+  if (mode === "gizi") {
+    setSubTab("gizi");
     generateLaporanGizi();
-  } else {
-    generateCaptionHarian();
+  }
+
+  if (mode === "caption_omprengan") {
+    setMainTab("caption");
+    setSubTabCaption("omprengan");
+    generateCaptionOmprengan();
+  }
+
+  if (mode === "caption_snack") {
+    setMainTab("caption");
+    setSubTabCaption("snack");
+    generateCaptionSnack();
   }
 }
 
