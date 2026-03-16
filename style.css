@@ -2473,3 +2473,21 @@ background:#34c759;
 input:checked + .slider:before{
 transform:translateX(22px);
 }
+
+.card-hasil{
+width:100%;
+max-width:850px;
+margin:30px auto;
+}
+
+.card{
+max-width: 900px;
+margin: 0 auto;
+}
+
+.btn-mode-active{
+background:#22c55e !important;
+color:white;
+font-weight:600;
+box-shadow:0 0 0 2px #16a34a inset;
+}
