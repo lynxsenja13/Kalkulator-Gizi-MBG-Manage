@@ -1632,13 +1632,13 @@ function prosesGenerateLaporan(){
     "SD YAS": document.getElementById("libur_sdyas").checked,
     "SMP YAS": document.getElementById("libur_smpyas").checked,
     "SMA YAS": document.getElementById("libur_smayas").checked
-  };
+    };
 
-  Object.keys(popupData).forEach(k=>{
-    toggleLibur(k, popupData[k]);
-  });
-
+  // tutup popup
   tutupModalLibur();
+
+  // jalankan generate
+  generateLaporan();
 }
 
 function setSubTabCaption(mode) {
