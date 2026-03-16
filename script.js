@@ -58,13 +58,13 @@ let subTabAktif = "harian"; // default
 let mainTabAktif = "laporan";
 let subTabCaptionAktif = "omprengan";
 
-const mapLibur = {
-  "Balita": "libur_balita",
-  "Bumil & Busui": "libur_bumil",
-  "SD Awi Gombong": "libur_awig",
-  "SD YAS": "libur_sdyas",
-  "SMP YAS": "libur_smpyas",
-  "SMA YAS": "libur_smayas"
+const MAP_POPUP_TO_GIZI = {
+  "Balita": ["Balita"],
+  "Bumil & Busui": ["Bumil & Busui"],
+  "SD Awi Gombong": ["SD 1-3","SD 4-6"],
+  "SD YAS": ["SD 1-3","SD 4-6"],
+  "SMP YAS": ["SMP"],
+  "SMA YAS": ["SMA"]
 };
 
 // ================= DATA PENERIMA =================
@@ -247,13 +247,21 @@ initAutocomplete();
 }
 function toggleLibur(kat, checked){
 
+  // update kategori utama
   kategoriLibur[kat] = checked;
 
-  // sync checkbox modal
+  // kalau dari card gizi → sync popup
   const id = mapLibur[kat];
   if(id){
     const el = document.getElementById(id);
     if(el) el.checked = checked;
+  }
+
+  // kalau dari popup → update kategori gizi
+  if(MAP_POPUP_TO_GIZI[kat]){
+    MAP_POPUP_TO_GIZI[kat].forEach(k=>{
+      kategoriLibur[k] = checked;
+    });
   }
 
   generateLaporan();
@@ -1628,35 +1636,20 @@ if (outputBox) outputBox.value = caption.trim();
 
 function prosesGenerateLaporan(){
 
-  try{
+  const popupData = {
+    "Balita": document.getElementById("libur_balita").checked,
+    "Bumil & Busui": document.getElementById("libur_bumil").checked,
+    "SD Awi Gombong": document.getElementById("libur_awig").checked,
+    "SD YAS": document.getElementById("libur_sdyas").checked,
+    "SMP YAS": document.getElementById("libur_smpyas").checked,
+    "SMA YAS": document.getElementById("libur_smayas").checked
+  };
 
-    // simpan status libur
-    kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
-    kategoriLibur["Bumil & Busui"] = document.getElementById("libur_bumil").checked;
-    kategoriLibur["SD Awi Gombong"] = document.getElementById("libur_awig").checked;
-    kategoriLibur["SD YAS"] = document.getElementById("libur_sdyas").checked;
-    kategoriLibur["SMP YAS"] = document.getElementById("libur_smpyas").checked;
-    kategoriLibur["SMA YAS"] = document.getElementById("libur_smayas").checked;
+  Object.keys(popupData).forEach(k=>{
+    toggleLibur(k, popupData[k]);
+  });
 
-    // tutup modal dulu supaya tidak stuck
-    const modal = document.getElementById("modalLibur");
-    if(modal) modal.style.display = "none";
-
-    // jalankan generate
-    if(typeof generateDenganLibur === "function"){
-      generateDenganLibur();
-    }
-
-  }catch(err){
-
-    console.error("ERROR GENERATE:", err);
-
-    // tetap tutup modal jika error
-    const modal = document.getElementById("modalLibur");
-    if(modal) modal.style.display = "none";
-
-  }
-
+  tutupModalLibur();
 }
 
 function setSubTabCaption(mode) {
