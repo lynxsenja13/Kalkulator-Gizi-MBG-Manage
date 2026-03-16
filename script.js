@@ -1071,7 +1071,7 @@ window.onload = function () {
   // selalu sync database terbaru
   loadDatabase();
   showSection("dashboard");
-  
+  generateLaporan(); // 🔥 tambahkan ini
 };
 
 function sdSemuaLibur() {
