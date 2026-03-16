@@ -2533,3 +2533,16 @@ function generateDenganLibur(){
   bukaModalLibur();
 
 }
+
+function bukaModalLibur(){
+
+  document.getElementById("modalLibur").style.display = "flex";
+
+  document.getElementById("libur_balita").checked = false;
+  document.getElementById("libur_bumil").checked = false;
+  document.getElementById("libur_awig").checked = false;
+  document.getElementById("libur_sdyas").checked = false;
+  document.getElementById("libur_smpyas").checked = false;
+  document.getElementById("libur_smayas").checked = false;
+
+}
