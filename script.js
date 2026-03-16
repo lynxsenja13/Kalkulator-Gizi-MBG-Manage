@@ -58,6 +58,15 @@ let subTabAktif = "harian"; // default
 let mainTabAktif = "laporan";
 let subTabCaptionAktif = "omprengan";
 
+const mapLibur = {
+  "Balita": "libur_balita",
+  "Bumil & Busui": "libur_bumil",
+  "SD Awi Gombong": "libur_awig",
+  "SD YAS": "libur_sdyas",
+  "SMP YAS": "libur_smpyas",
+  "SMA YAS": "libur_smayas"
+};
+
 // ================= DATA PENERIMA =================
 const PENERIMA_DEFAULT = {
   "BALITA": 211,
@@ -240,12 +249,14 @@ function toggleLibur(kat, checked){
 
   kategoriLibur[kat] = checked;
 
-  // sync modal popup
-  syncLiburModal();
+  // sync checkbox modal
+  const id = mapLibur[kat];
+  if(id){
+    const el = document.getElementById(id);
+    if(el) el.checked = checked;
+  }
 
-  // refresh card gizi
   generateLaporan();
-
 }
 
 function syncLiburModal(){
@@ -1616,37 +1627,17 @@ const outputBox = document.getElementById("captionOutput");
 if (outputBox) outputBox.value = caption.trim();
 }
 
-function prosesGenerateLaporan() {
+function prosesGenerateLaporan(){
 
-  toggleLibur("Balita", document.getElementById("libur_balita").checked);
-  toggleLibur("Bumil & Busui", document.getElementById("libur_bumil").checked);
-  toggleLibur("SD Awi Gombong", document.getElementById("libur_awig").checked);
-  toggleLibur("SD YAS", document.getElementById("libur_sdyas").checked);
-  toggleLibur("SMP YAS", document.getElementById("libur_smpyas").checked);
-  toggleLibur("SMA YAS", document.getElementById("libur_smayas").checked);
+  for(const kat in mapLibur){
+    const el = document.getElementById(mapLibur[kat]);
+    if(el){
+      kategoriLibur[kat] = el.checked;
+    }
+  }
 
   tutupModalLibur();
-
-  const mode = window.modeGenerate;
-
-  console.log("Generate mode:", modeGenerate);
-
-  if(modeGenerate === "harian"){
-    generateCaptionHarian();
-  }
-
-  else if(modeGenerate === "gizi"){
-    generateLaporanGizi();
-  }
-
-  else if(modeGenerate === "caption_omprengan"){
-    generateCaptionOmprengan();
-  }
-
-  else if(modeGenerate === "caption_snack"){
-    generateCaptionSnack();
-  }
-
+  generateDenganLibur();
 }
 
 function setSubTabCaption(mode) {
@@ -2540,26 +2531,14 @@ function generateDenganLibur(){
 
 }
 
-function syncLiburModal() {
+function syncLiburModal(){
 
-  const map = {
-    "libur_balita": "Balita",
-    "libur_bumil": "Bumil & Busui",
-    "libur_awig": "SD Awi Gombong",
-    "libur_sdyas": "SD YAS",
-    "libur_smpyas": "SMP YAS",
-    "libur_smayas": "SMA YAS"
-  };
-
-  Object.keys(map).forEach(id => {
-
-    const el = document.getElementById(id);
-
-    if (el) {
-      el.checked = kategoriLibur[map[id]] || false;
+  for(const kat in mapLibur){
+    const el = document.getElementById(mapLibur[kat]);
+    if(el){
+      el.checked = kategoriLibur[kat] || false;
     }
-
-  });
+  }
 
 }
 
