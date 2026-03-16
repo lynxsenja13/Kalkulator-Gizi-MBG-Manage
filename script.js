@@ -240,11 +240,32 @@ function toggleLibur(kat, checked){
 
   kategoriLibur[kat] = checked;
 
-  // update tampilan card
-  updateCardLibur();
-
-  // 🔥 TAMBAHKAN INI
   syncLiburModal();
+
+  generateLaporan(); // 🔥 refresh tampilan
+
+}
+
+function syncLiburModal(){
+
+const map = {
+  "libur_balita":"Balita",
+  "libur_bumil":"Bumil & Busui",
+  "libur_awig":"SD Awi Gombong",
+  "libur_sdyas":"SD YAS",
+  "libur_smpyas":"SMP YAS",
+  "libur_smayas":"SMA YAS"
+};
+
+Object.keys(map).forEach(id=>{
+
+  const el = document.getElementById(id);
+
+  if(el){
+    el.checked = kategoriLibur[map[id]] || false;
+  }
+
+});
 
 }
 
@@ -713,21 +734,31 @@ syncLiburModal();
       const isLibur = kategoriLibur[kat] || false;
 
       if (isLibur) {
-        hasilDiv.innerHTML += `
-          <div class="kategori-card kategori-libur">
-            <h3>${kat} Libur</h3>
-            <div class="libur-toggle">
-              <label>
-                <input type="checkbox"
-                  checked
-                  onchange="toggleLibur('${kat}', this.checked)">
-                Libur
-              </label>
-            </div>
-          </div>
-        `;
-        return;
-      }
+
+  hasilDiv.innerHTML += `
+  <div class="kategori-card kategori-libur">
+    <div class="kategori-header">
+      <h3>${kat}</h3>
+      <div class="libur-ios-wrapper">
+        <span class="label-libur">Libur</span>
+        <label class="switch-ios">
+          <input type="checkbox"
+            checked
+            onchange="toggleLibur('${kat}', this.checked)">
+          <span class="slider-ios"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="libur-text">
+      Kategori sedang libur
+    </div>
+
+  </div>
+  `;
+
+  return; // 🔥 PENTING supaya tabel tidak dirender
+}
 
       const dataKategori = kategoriData[menu][kat] || [];
       const dataAktif = dataKategori.filter(item =>
@@ -2057,29 +2088,6 @@ function kirimLaporanKeSpreadsheet() {
     clearTimeout(t);
     t = setTimeout(() => fn(...args), delay);
   };
-}
-
-function syncLiburModal() {
-
-  const map = {
-    "Balita": "liburBalita",
-    "Bumil & Busui": "liburBumil",
-    "SD 1-3": "liburSD",
-    "SD 4-6": "liburSD",
-    "SMP": "liburSMP",
-    "SMA": "liburSMA"
-  };
-
-  Object.keys(map).forEach(kat => {
-
-    const el = document.getElementById(map[kat]);
-
-    if (el) {
-      el.checked = kategoriLibur[kat] || false;
-    }
-
-  });
-
 }
 
 function ubahKategoriMenu(value){
