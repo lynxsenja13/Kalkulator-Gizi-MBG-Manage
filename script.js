@@ -2513,3 +2513,12 @@ laporan.style.display="block";
 }
 
 }
+
+function klikGenerate(mode) {
+
+  // simpan mode yang dipilih
+  window.modeGenerate = mode;
+
+  // buka popup libur
+  bukaModalLibur();
+}
