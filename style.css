@@ -1242,44 +1242,51 @@ button {
 }
 
 /* header */
-.card-hasil-header {
-  background: linear-gradient(145deg,#0f172a,#1e293b);
-  border:1px solid rgba(255,255,255,0.05);
-  backdrop-filter: blur(6px);
-  color: white;
-  padding:26px;
-  border-radius: 18px;
-  margin-bottom: 22px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+.card-hasil-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding-bottom:12px;
+  margin-bottom:14px;
+
+  border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
-.card-hasil-header h3 {
-  color: #e5e7eb;
-  font-size: 18px;
-  font-weight: 600;
+.card-hasil-header h3{
+  margin:0;
+  font-size:18px;
+  font-weight:600;
+  color:#e5e7eb;
 }
 
 /* textarea */
-#captionOutput {
-  width: 100%;
-  min-height: 320px; /* 🔥 tidak kepotong */
-  resize: vertical;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: #020617;
-  color: #e5e7eb;
-  padding: 14px;
-  font-size: 13.5px;
-  line-height: 1.55;
-  font-family: ui-monospace, SFMono-Regular, monospace;
-  box-sizing: border-box;
+#captionOutput{
+
+  width:100%;
+  min-height:320px;
+
+  padding:16px;
+
+  border-radius:14px;
+
+  background:#020617;
+  color:#e5e7eb;
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  font-family:ui-monospace,SFMono-Regular,monospace;
+  font-size:13.5px;
+
+  line-height:1.6;
+
+  resize:vertical;
 }
 
-/* focus effect */
-#captionOutput:focus {
-  outline: none;
-  border-color: #22c55e;
-  box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
+#captionOutput:focus{
+  outline:none;
+  border-color:#22c55e;
+  box-shadow:0 0 0 2px rgba(34,197,94,0.25);
 }
 
 /* ================= WRAPPER MENU ================= */
@@ -2479,9 +2486,26 @@ transform:translateX(22px);
 }
 
 .card-hasil{
-width:100%;
-max-width:850px;
-margin:30px auto;
+  width:100%;
+  max-width:900px; /* samakan dengan card atas */
+  margin:22px auto;
+  padding:24px;
+
+  border-radius:20px;
+
+  background:linear-gradient(145deg,#0f172a,#1e293b);
+  border:1px solid rgba(255,255,255,0.05);
+
+  box-shadow:0 12px 35px rgba(0,0,0,0.25);
+
+  backdrop-filter:blur(6px);
+
+  transition:.25s;
+}
+
+.card-hasil:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 45px rgba(0,0,0,0.35);
 }
 
 .card{
