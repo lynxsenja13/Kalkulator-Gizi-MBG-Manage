@@ -29,13 +29,15 @@ const STATE = {
 let modeGenerate = "";
 let autocompleteInitialized = false;
 let modeMenu = "OMPRENGAN";
-let kategoriLibur = {
-  "Balita": false,
-  "Bumil & Busui": false,
-  "SD Awi Gombong": false,
-  "SD YAS": false,
-  "SMP YAS": false,
-  "SMA YAS": false
+let kategoriLibur = {};
+
+const mapLibur = {
+  "Balita": "libur_balita",
+  "Bumil & Busui": "libur_bumil",
+  "SD Awi Gombong": "libur_awig",
+  "SD YAS": "libur_sdyas",
+  "SMP YAS": "libur_smpyas",
+  "SMA YAS": "libur_smayas"
 };
 let kategoriData = {
   OMPRENGAN: {},
@@ -269,23 +271,10 @@ function toggleLibur(kat, checked){
 
 function syncLiburModal(){
 
-const map = {
-  "libur_balita":"Balita",
-  "libur_bumil":"Bumil & Busui",
-  "libur_awig":"SD Awi Gombong",
-  "libur_sdyas":"SD YAS",
-  "libur_smpyas":"SMP YAS",
-  "libur_smayas":"SMA YAS"
-};
-
-Object.keys(map).forEach(id=>{
-
+Object.keys(mapLibur).forEach(kat=>{
+  const id = mapLibur[kat];
   const el = document.getElementById(id);
-
-  if(el){
-    el.checked = kategoriLibur[map[id]] || false;
-  }
-
+  if(el) el.checked = !!kategoriLibur[kat];
 });
 
 }
