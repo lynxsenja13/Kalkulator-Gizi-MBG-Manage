@@ -240,9 +240,11 @@ function toggleLibur(kat, checked){
 
   kategoriLibur[kat] = checked;
 
+  // sync modal popup
   syncLiburModal();
 
-  generateLaporan(); // 🔥 refresh tampilan
+  // refresh card gizi
+  generateLaporan();
 
 }
 
@@ -1616,12 +1618,12 @@ if (outputBox) outputBox.value = caption.trim();
 
 function prosesGenerateLaporan() {
 
-  kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
-  kategoriLibur["Bumil & Busui"] = document.getElementById("libur_bumil").checked;
-  kategoriLibur["SD Awi Gombong"] = document.getElementById("libur_awig").checked;
-  kategoriLibur["SD YAS"] = document.getElementById("libur_sdyas").checked;
-  kategoriLibur["SMP YAS"] = document.getElementById("libur_smpyas").checked;
-  kategoriLibur["SMA YAS"] = document.getElementById("libur_smayas").checked;
+  toggleLibur("Balita", document.getElementById("libur_balita").checked);
+  toggleLibur("Bumil & Busui", document.getElementById("libur_bumil").checked);
+  toggleLibur("SD Awi Gombong", document.getElementById("libur_awig").checked);
+  toggleLibur("SD YAS", document.getElementById("libur_sdyas").checked);
+  toggleLibur("SMP YAS", document.getElementById("libur_smpyas").checked);
+  toggleLibur("SMA YAS", document.getElementById("libur_smayas").checked);
 
   tutupModalLibur();
 
