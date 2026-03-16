@@ -284,6 +284,43 @@ Generating PDF...
   <div id="pdfContent"></div>
 
 </div>
+<!-- MODAL LIBUR -->
+<div id="modalLibur" class="modal">
+
+  <div class="modal-content">
+
+    <h3>Siapa yang Libur Hari Ini?</h3>
+
+    <div class="modal-grid">
+
+      <label><input type="checkbox" value="PAUD"> PAUD</label>
+      <label><input type="checkbox" value="TK"> TK</label>
+      <label><input type="checkbox" value="SD"> SD</label>
+      <label><input type="checkbox" value="SMP"> SMP</label>
+      <label><input type="checkbox" value="SMA"> SMA</label>
+
+      <label><input type="checkbox" value="BALITA"> BALITA</label>
+      <label><input type="checkbox" value="BUMIL"> BUMIL</label>
+      <label><input type="checkbox" value="BUSUI"> BUSUI</label>
+
+    </div>
+
+    <div class="modal-action">
+
+      <button class="btn-cancel" onclick="tutupModalLibur()">
+        Batal
+      </button>
+
+      <!-- INI YANG MENJALANKAN LAPORAN -->
+      <button class="btn-save" onclick="prosesGenerateLaporan()">
+        Generate
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
   
 <script src="config.js"></script>
 <script src="script.js"></script>
