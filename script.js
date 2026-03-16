@@ -263,21 +263,22 @@ function toggleLibur(kat, checked) {
   generateLaporan();
 }
 
-const kategoriOmprengan = [
-  "Balita",
-  "Bumil & Busui",
-  "SD 1-3",
-  "SD 4-6",
-  "SMP",
-  "SMA"
-];
-
-const kategoriSnack = [
-  "Balita",
-  "Bumil & Busui",
-  "Keringan Porsi Kecil",
-  "Keringan Porsi Besar"
-];
+const KATEGORI = {
+OMPRENGAN: [
+"Balita",
+"Bumil & Busui",
+"SD 1-3",
+"SD 4-6",
+"SMP",
+"SMA"
+],
+SNACK: [
+"Balita",
+"Bumil & Busui",
+"Keringan Porsi Kecil",
+"Keringan Porsi Besar"
+]
+};
 
 function getKategoriAktif() {
   return modeMenu === "OMPRENGAN"
