@@ -1664,14 +1664,15 @@ generateLaporan(); // 🔥 refresh gizi dulu
 
   // libur dari sistemmu
   const kategoriLibur = window.kategoriLibur || {};
-  
-  const libur = {
+
+const sdLibur = kategoriLibur["SD Awi Gombong"] && kategoriLibur["SD YAS"];
+
+const libur = {
   balita: kategoriLibur["Balita"] || false,
   bumil: kategoriLibur["Bumil & Busui"] || false,
-  sd13: kategoriLibur["SD 1-3"] || false,
-  sd46: kategoriLibur["SD 4-6"] || false,
-  smp: kategoriLibur["SMP"] || false,
-  sma: kategoriLibur["SMA"] || false
+  sd: sdLibur,
+  smp: kategoriLibur["SMP YAS"] || false,
+  sma: kategoriLibur["SMA YAS"] || false
 };
   
   const gizi = window.hasilGizi.OMPRENGAN || {};
@@ -1691,11 +1692,10 @@ ${menuText}
 if (!libur.bumil)
   caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
 
-if (!libur.sd13)
-  caption += blokGizi("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
-
-if (!libur.sd46)
-  caption += blokGizi("Analisis Nilai Gizi SD 4-6", gizi.sd4_6);
+if (!libur.sd) {
+caption += blokGizi("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
+caption += blokGizi("Analisis Nilai Gizi SD 4-6", gizi.sd4_6);
+}
 
 if (!libur.smp)
   caption += blokGizi("Analisis Nilai Gizi SMP", gizi.smp);
@@ -1727,20 +1727,20 @@ function generateCaptionSnack() {
 ⚖️ Kandungan Gizi (per porsi):
 `;
 
-  if (!kategoriLibur["Balita"]) {
+   if (!kategoriLibur["Balita"] && gizi.balita) {
     caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
   }
 
-  if (!kategoriLibur["Bumil & Busui"]) {
+  if (!kategoriLibur["Bumil & Busui"] && gizi.bumil) {
     caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
   }
 
   if (!kategoriLibur["Keringan Porsi Kecil"] && gizi.kecil) {
-    caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", kecil);
+    caption += blokGizi("Analisis Nilai Gizi Snack Porsi Kecil", kecil);
   }
 
   if (!kategoriLibur["Keringan Porsi Besar"] && gizi.besar) {
-    caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", besar);
+    caption += blokGizi("Analisis Nilai Gizi Snack Porsi Besar", besar);
   }
 
   caption += `
