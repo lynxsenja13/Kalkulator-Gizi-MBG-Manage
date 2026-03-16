@@ -1521,9 +1521,8 @@ function bukaModalLibur() {
 
 }
 
-function tutupModalLibur() {
+function tutupModalLibur(){
   const modal = document.getElementById("modalLibur");
-  if (!modal) return;
   modal.style.display = "none";
 }
 
@@ -1629,17 +1628,21 @@ if (outputBox) outputBox.value = caption.trim();
 
 function prosesGenerateLaporan(){
 
-  for(const kat in mapLibur){
-    const el = document.getElementById(mapLibur[kat]);
-    if(el){
-      kategoriLibur[kat] = el.checked;
-    }
-  }
+  // simpan status toggle
+  kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
+  kategoriLibur["Bumil & Busui"] = document.getElementById("libur_bumil").checked;
+  kategoriLibur["SD Awi Gombong"] = document.getElementById("libur_awig").checked;
+  kategoriLibur["SD YAS"] = document.getElementById("libur_sdyas").checked;
+  kategoriLibur["SMP YAS"] = document.getElementById("libur_smpyas").checked;
+  kategoriLibur["SMA YAS"] = document.getElementById("libur_smayas").checked;
 
-  tutupModalLibur();
+  // tutup popup
+  const modal = document.getElementById("modalLibur");
+  modal.style.display = "none";
+
+  // jalankan generate
   generateDenganLibur();
 }
-
 function setSubTabCaption(mode) {
   subTabCaptionAktif = mode;
 
