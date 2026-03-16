@@ -1628,21 +1628,37 @@ if (outputBox) outputBox.value = caption.trim();
 
 function prosesGenerateLaporan(){
 
-  // simpan status toggle
-  kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
-  kategoriLibur["Bumil & Busui"] = document.getElementById("libur_bumil").checked;
-  kategoriLibur["SD Awi Gombong"] = document.getElementById("libur_awig").checked;
-  kategoriLibur["SD YAS"] = document.getElementById("libur_sdyas").checked;
-  kategoriLibur["SMP YAS"] = document.getElementById("libur_smpyas").checked;
-  kategoriLibur["SMA YAS"] = document.getElementById("libur_smayas").checked;
+  try{
 
-  // tutup popup
-  const modal = document.getElementById("modalLibur");
-  modal.style.display = "none";
+    // simpan status libur
+    kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
+    kategoriLibur["Bumil & Busui"] = document.getElementById("libur_bumil").checked;
+    kategoriLibur["SD Awi Gombong"] = document.getElementById("libur_awig").checked;
+    kategoriLibur["SD YAS"] = document.getElementById("libur_sdyas").checked;
+    kategoriLibur["SMP YAS"] = document.getElementById("libur_smpyas").checked;
+    kategoriLibur["SMA YAS"] = document.getElementById("libur_smayas").checked;
 
-  // jalankan generate
-  generateDenganLibur();
+    // tutup modal dulu supaya tidak stuck
+    const modal = document.getElementById("modalLibur");
+    if(modal) modal.style.display = "none";
+
+    // jalankan generate
+    if(typeof generateDenganLibur === "function"){
+      generateDenganLibur();
+    }
+
+  }catch(err){
+
+    console.error("ERROR GENERATE:", err);
+
+    // tetap tutup modal jika error
+    const modal = document.getElementById("modalLibur");
+    if(modal) modal.style.display = "none";
+
+  }
+
 }
+
 function setSubTabCaption(mode) {
   subTabCaptionAktif = mode;
 
@@ -2546,14 +2562,6 @@ function syncLiburModal(){
 }
 
 function bukaModalLibur(){
-
-  document.getElementById("modalLibur").style.display = "flex";
-
-  document.getElementById("libur_balita").checked = false;
-  document.getElementById("libur_bumil").checked = false;
-  document.getElementById("libur_awig").checked = false;
-  document.getElementById("libur_sdyas").checked = false;
-  document.getElementById("libur_smpyas").checked = false;
-  document.getElementById("libur_smayas").checked = false;
-
+  const modal = document.getElementById("modalLibur");
+  modal.style.display = "flex";
 }
