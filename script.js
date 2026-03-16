@@ -2501,9 +2501,22 @@ laporan.style.display="block";
 
 }
 
-function klikGenerate(mode) {
-  modeGenerate = mode;
-  console.log("Mode generate:", modeGenerate);
+function klikGenerate(mode){
+
+modeGenerate = mode;
+
+// reset semua tombol
+document.querySelectorAll("#subTabLaporan button").forEach(b=>{
+b.classList.remove("btn-mode-active");
+});
+
+document.querySelectorAll("#subTabCaption button").forEach(b=>{
+b.classList.remove("btn-mode-active");
+});
+
+// aktifkan tombol yg diklik
+event.target.classList.add("btn-mode-active");
+
 }
 
 function generateDenganLibur(){
