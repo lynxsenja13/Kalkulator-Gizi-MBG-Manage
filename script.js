@@ -2518,18 +2518,15 @@ laporan.style.display="block";
 
 }
 
-function klikGenerate(mode){
-
+function klikGenerate(mode) {
   modeGenerate = mode;
-
-  console.log("Mode dipilih:", mode);
-
+  console.log("Mode generate:", modeGenerate);
 }
 
 function generateDenganLibur(){
 
   if(!modeGenerate){
-    alert("Pilih jenis laporan terlebih dahulu");
+    alert("Pilih jenis laporan dulu");
     return;
   }
 
