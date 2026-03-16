@@ -236,31 +236,16 @@ initAutocomplete();
 
 // ❌ HAPUS loadDatabase()
 }
-function toggleLibur(kat, checked) {
+function toggleLibur(kat, checked){
 
   kategoriLibur[kat] = checked;
-  window.kategoriLibur = kategoriLibur;
 
-  if (kat === "SD Awi Gombong") {
-    kategoriLibur["SD Awi Gombong"] = checked;
-  }
+  // update tampilan card
+  updateCardLibur();
 
-  if (kat === "SD YAS") {
-    kategoriLibur["SD YAS"] = checked;
-  }
-
-  if (kat === "SMP") {
-    kategoriLibur["SMP"] = checked;
-  }
-
-  if (kat === "SMA") {
-    kategoriLibur["SMA"] = checked;
-  }
-
-  /* TAMBAHKAN INI */
+  // 🔥 TAMBAHKAN INI
   syncLiburModal();
 
-  generateLaporan();
 }
 
 const KATEGORI = {
