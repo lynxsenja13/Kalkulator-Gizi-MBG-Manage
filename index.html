@@ -154,33 +154,15 @@ onclick="setMainTab('caption')">
 
 <div id="subTabLaporan" class="tab-row">
 
-<button id="btnLapHarian"
-class="btn-primary active-subtab"
-onclick="setSubTab('harian')">
-Laporan Harian
-</button>
-
-<button id="btnLapGizi"
-class="btn-primary"
-onclick="setSubTab('gizi')">
-Laporan Gizi
-</button>
+<button onclick="klikGenerate('harian')">Laporan Harian</button>
+<button onclick="klikGenerate('gizi')">Laporan Gizi</button>
 
 </div>
 
 <div id="subTabCaption" class="tab-row" style="display:none;">
 
-<button id="btnCapOmprengan"
-class="btn-primary active-subtab-caption"
-onclick="setSubTabCaption('omprengan')">
-Caption Omprengan
-</button>
-
-<button id="btnCapSnack"
-class="btn-primary"
-onclick="setSubTabCaption('snack')">
-Caption Snack
-</button>
+<button onclick="klikGenerate('caption_omprengan')">Caption Omprengan</button>
+<button onclick="klikGenerate('caption_snack')">Caption Snack</button>
 
 </div>
 
