@@ -1625,20 +1625,29 @@ if (outputBox) outputBox.value = caption.trim();
 
 function prosesGenerateLaporan(){
 
-  const popupData = {
-    "Balita": document.getElementById("libur_balita").checked,
-    "Bumil & Busui": document.getElementById("libur_bumil").checked,
-    "SD Awi Gombong": document.getElementById("libur_awig").checked,
-    "SD YAS": document.getElementById("libur_sdyas").checked,
-    "SMP YAS": document.getElementById("libur_smpyas").checked,
-    "SMA YAS": document.getElementById("libur_smayas").checked
-    };
+  // ambil status checkbox popup
+  kategoriLibur["Balita"] = document.getElementById("libur_balita")?.checked || false;
+  kategoriLibur["Bumil & Busui"] = document.getElementById("libur_bumil")?.checked || false;
+  kategoriLibur["SD Awi Gombong"] = document.getElementById("libur_awig")?.checked || false;
+  kategoriLibur["SD YAS"] = document.getElementById("libur_sdyas")?.checked || false;
+  kategoriLibur["SMP YAS"] = document.getElementById("libur_smpyas")?.checked || false;
+  kategoriLibur["SMA YAS"] = document.getElementById("libur_smayas")?.checked || false;
 
   // tutup popup
   tutupModalLibur();
 
-  // jalankan generate
+  // generate ulang laporan
   generateLaporan();
+
+  // jika sedang di tab caption → generate caption juga
+  if(mainTabAktif === "caption"){
+    if(subTabCaptionAktif === "omprengan"){
+      generateCaptionOmprengan();
+    }else{
+      generateCaptionSnack();
+    }
+  }
+
 }
 
 function setSubTabCaption(mode) {
