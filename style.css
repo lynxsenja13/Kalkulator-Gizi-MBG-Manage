@@ -1179,7 +1179,6 @@ button {
 /* ===== CARD HASIL LAPORAN ===== */
 .card-hasil-laporan {
   width:100%;
-  max-width:900px; /* samakan dengan .card */
   margin:22px auto;
   box-sizing:border-box;
 }
