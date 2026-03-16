@@ -26,7 +26,7 @@ const STATE = {
   subTab:"harian",
   subTabCaption:"omprengan"
 }
-
+let modeGenerate = "";
 let autocompleteInitialized = false;
 let modeMenu = "OMPRENGAN";
 let kategoriLibur = {
@@ -1600,7 +1600,7 @@ if (outputBox) outputBox.value = caption.trim();
 
 function prosesGenerateLaporan() {
 
-kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
+  kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
   kategoriLibur["Bumil & Busui"] = document.getElementById("libur_bumil").checked;
   kategoriLibur["SD Awi Gombong"] = document.getElementById("libur_awig").checked;
   kategoriLibur["SD YAS"] = document.getElementById("libur_sdyas").checked;
@@ -1611,27 +1611,24 @@ kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
 
   const mode = window.modeGenerate;
 
-  if (mode === "harian") {
-    setSubTab("harian");
+  console.log("Generate mode:", modeGenerate);
+
+  if(modeGenerate === "harian"){
     generateCaptionHarian();
   }
 
-  if (mode === "gizi") {
-    setSubTab("gizi");
+  else if(modeGenerate === "gizi"){
     generateLaporanGizi();
   }
 
-  if (mode === "caption_omprengan") {
-    setMainTab("caption");
-    setSubTabCaption("omprengan");
+  else if(modeGenerate === "caption_omprengan"){
     generateCaptionOmprengan();
   }
 
-  if (mode === "caption_snack") {
-    setMainTab("caption");
-    setSubTabCaption("snack");
+  else if(modeGenerate === "caption_snack"){
     generateCaptionSnack();
   }
+
 }
 
 function setSubTabCaption(mode) {
@@ -2521,12 +2518,10 @@ laporan.style.display="block";
 
 }
 
-let modeGenerate = "";
-
 function klikGenerate(mode){
+
   modeGenerate = mode;
+
   console.log("Mode dipilih:", mode);
 
-  // buka popup libur
-  bukaModalLibur();
 }
