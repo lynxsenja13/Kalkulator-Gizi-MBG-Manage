@@ -2521,10 +2521,11 @@ laporan.style.display="block";
 
 }
 
-function klikGenerate(mode) {
+let modeGenerate = "";
 
-  // simpan mode yang dipilih
-  window.modeGenerate = mode;
+function klikGenerate(mode){
+  modeGenerate = mode;
+  console.log("Mode dipilih:", mode);
 
   // buka popup libur
   bukaModalLibur();
