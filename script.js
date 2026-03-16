@@ -280,6 +280,9 @@ SNACK: [
 ]
 };
 
+const kategoriOmprengan = KATEGORI.OMPRENGAN;
+const kategoriSnack = KATEGORI.SNACK;
+
 function getKategoriAktif() {
   return modeMenu === "OMPRENGAN"
     ? kategoriOmprengan
