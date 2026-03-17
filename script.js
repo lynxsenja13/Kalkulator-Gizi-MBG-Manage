@@ -1278,30 +1278,16 @@ function generateReport(jenis, kategori) {
   document.getElementById("modalLibur").style.display = "flex";
 }
 
-function prosesGenerate() {
-  const dataLibur = {
-    balita: document.getElementById("liburBalita").checked,
-    bumil: document.getElementById("liburBumil").checked,
-    sd: document.getElementById("liburSD").checked,
-    smp: document.getElementById("liburSMP").checked,
-    sma: document.getElementById("liburSMA").checked,
-  };
+function prosesGenerate(){
 
-  // 🔥 generate ulang laporan
-  generateLaporan();
+  toggleLibur("Balita", document.getElementById("liburBalita")?.checked);
+  toggleLibur("Bumil & Busui", document.getElementById("liburBumil")?.checked);
+  toggleLibur("SD Awi Gombong", document.getElementById("liburSD")?.checked);
+  toggleLibur("SD YAS", document.getElementById("liburSD")?.checked);
+  toggleLibur("SMP YAS", document.getElementById("liburSMP")?.checked);
+  toggleLibur("SMA YAS", document.getElementById("liburSMA")?.checked);
 
-  // jika tab caption aktif → regenerate caption
-  if(mainTabAktif === "caption"){
-
-    if(subTabCaptionAktif === "omprengan"){
-      generateCaptionOmprengan();
-    }
-
-    if(subTabCaptionAktif === "snack"){
-      generateCaptionSnack();
-    }
-
-  }
+  tutupModalLibur();
 
 }
 
