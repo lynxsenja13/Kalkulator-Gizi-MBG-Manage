@@ -1648,8 +1648,12 @@ function prosesGenerateLaporan(){
 
   generateLaporan();
 
-  generateCaptionOmprengan();
-  generateCaptionSnack();
+  // 🔥 pilih caption sesuai tab
+  if(subTabCaptionAktif === "snack"){
+    generateCaptionSnack();
+  } else {
+    generateCaptionOmprengan();
+  }
 }
 
 function setSubTabCaption(mode) {
