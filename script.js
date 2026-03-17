@@ -1280,15 +1280,20 @@ function generateReport(jenis, kategori) {
 
 function prosesGenerate(){
 
-  toggleLibur("Balita", document.getElementById("liburBalita")?.checked);
-  toggleLibur("Bumil & Busui", document.getElementById("liburBumil")?.checked);
-  toggleLibur("SD Awi Gombong", document.getElementById("liburSD")?.checked);
-  toggleLibur("SD YAS", document.getElementById("liburSD")?.checked);
-  toggleLibur("SMP YAS", document.getElementById("liburSMP")?.checked);
-  toggleLibur("SMA YAS", document.getElementById("liburSMA")?.checked);
+  const balita = document.getElementById("liburBalita")?.checked;
+  const bumil = document.getElementById("liburBumil")?.checked;
+  const sd = document.getElementById("liburSD")?.checked;
+  const smp = document.getElementById("liburSMP")?.checked;
+  const sma = document.getElementById("liburSMA")?.checked;
+
+  toggleLibur("Balita", balita);
+  toggleLibur("Bumil & Busui", bumil);
+  toggleLibur("SD Awi Gombong", sd);
+  toggleLibur("SD YAS", sd);
+  toggleLibur("SMP YAS", smp);
+  toggleLibur("SMA YAS", sma);
 
   tutupModalLibur();
-
 }
 
 /* ===============================
