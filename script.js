@@ -1648,8 +1648,8 @@ function prosesGenerateLaporan(){
 
   generateLaporan();
 
-  // 🔥 pilih caption sesuai tab
-  if(subTabCaptionAktif === "snack"){
+  // 🔥 gunakan tab yang aktif
+  if (subTabCaptionAktif === "snack") {
     generateCaptionSnack();
   } else {
     generateCaptionOmprengan();
@@ -1662,15 +1662,15 @@ function setSubTabCaption(mode) {
   const btnOm = document.getElementById("btnCapOmprengan");
   const btnSn = document.getElementById("btnCapSnack");
 
-  // reset semua
   btnOm?.classList.remove("active-subtab");
   btnSn?.classList.remove("active-subtab");
 
-  // aktifkan yang dipilih
   if (mode === "omprengan") {
     btnOm?.classList.add("active-subtab");
+    generateCaptionOmprengan();   // 🔥 tambah ini
   } else {
     btnSn?.classList.add("active-subtab");
+    generateCaptionSnack();       // 🔥 tambah ini
   }
 }
 
