@@ -743,7 +743,7 @@ syncLiburModal();
 
   semuaMenu.forEach(menu => {
 
-    const listAktif = bahanMaster[menu] || [];
+    const listAktif = (bahanMaster[menu] && bahanMaster[menu].detail) || [];
     const kategoriList = menu === "OMPRENGAN" ? kategoriOmprengan : kategoriSnack;
 
     kategoriList.forEach(kat => {
