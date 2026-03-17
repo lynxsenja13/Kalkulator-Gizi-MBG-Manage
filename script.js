@@ -1,9 +1,15 @@
 let bahanMaster = {
-  OMPRENGAN: [],
-  SNACK: []
+  OMPRENGAN: {
+    gizi: {},
+    detail: []
+  },
+  SNACK: {
+    gizi: {},
+    detail: []
+  }
 };
 
-// ✅ TAMBAHKAN INIfunction prosesGenerateLaporan(){
+window.dataSpreadsheet = {
   OMPRENGAN: {
     gizi: {},
     detail: []
@@ -48,7 +54,6 @@ let database = [];
 let databaseLoaded = false;
 let pendingNama = null;
 let pendingBerat = null;
-let modeKategori = "SEMUA";
 let menuHarian = [""];
 let menuKategori = "semua";
 let modeMenuLaporan = "semua"; 
@@ -203,8 +208,8 @@ if (btn) {
 .catch(err => console.error("Sync gagal:", err));
 
 // ✅ lanjut logic biasa
-bahanMaster[modeMenu].push({ 
-  nama: namaBaru, 
+bahanMaster[modeMenu].detail.push({
+  nama: namaBaru,
   berat: beratBaru,
   satuan: document.getElementById("satuanBahan")?.value || "GRAM"
 });
@@ -516,7 +521,7 @@ let db = database.find(d =>
 }
 
   // ✅ MASUKKAN DATA
-  bahanMaster[modeMenu].push({ 
+  bahanMaster[modeMenu].detail.push({ 
   nama: nama.trim().toLowerCase(),
   berat,
   satuan
@@ -560,7 +565,7 @@ function renderList() {
   const ul = document.getElementById("listBahan");
   ul.innerHTML = "";
 
-  bahanMaster[modeMenu].forEach(b => {
+  bahanMaster[modeMenu].detail.forEach(b => {
     ul.innerHTML += `<li>${b.nama} - ${b.berat} ${formatSatuan(b.satuan)}</li>`;
   });
 }
