@@ -1065,13 +1065,12 @@ window.onload = function () {
   initKategori();
   renderKategori();
 
-  // load cache dulu (biar cepat)
   loadCache();
-
-  // selalu sync database terbaru
   loadDatabase();
+
   showSection("dashboard");
-  generateLaporan(); // 🔥 tambahkan ini
+
+  setTimeout(generateLaporan, 500);
 };
 
 function sdSemuaLibur() {
@@ -1294,6 +1293,8 @@ function prosesGenerate(){
   toggleLibur("SMA YAS", sma);
 
   tutupModalLibur();
+
+  generateLaporan(); // 🔥 wajib
 }
 
 /* ===============================
@@ -1625,29 +1626,30 @@ if (outputBox) outputBox.value = caption.trim();
 
 function prosesGenerateLaporan(){
 
-  // ambil status checkbox popup
-  kategoriLibur["Balita"] = document.getElementById("libur_balita")?.checked || false;
-  kategoriLibur["Bumil & Busui"] = document.getElementById("libur_bumil")?.checked || false;
-  kategoriLibur["SD Awi Gombong"] = document.getElementById("libur_awig")?.checked || false;
-  kategoriLibur["SD YAS"] = document.getElementById("libur_sdyas")?.checked || false;
-  kategoriLibur["SMP YAS"] = document.getElementById("libur_smpyas")?.checked || false;
-  kategoriLibur["SMA YAS"] = document.getElementById("libur_smayas")?.checked || false;
+  kategoriLibur["Balita"] =
+  document.getElementById("libur_balita")?.checked || false;
 
-  // tutup popup
+  kategoriLibur["Bumil & Busui"] =
+  document.getElementById("libur_bumil")?.checked || false;
+
+  kategoriLibur["SD Awi Gombong"] =
+  document.getElementById("libur_awig")?.checked || false;
+
+  kategoriLibur["SD YAS"] =
+  document.getElementById("libur_sdyas")?.checked || false;
+
+  kategoriLibur["SMP YAS"] =
+  document.getElementById("libur_smpyas")?.checked || false;
+
+  kategoriLibur["SMA YAS"] =
+  document.getElementById("libur_smayas")?.checked || false;
+
   tutupModalLibur();
 
-  // generate ulang laporan
   generateLaporan();
 
-  // jika sedang di tab caption → generate caption juga
-  if(mainTabAktif === "caption"){
-    if(subTabCaptionAktif === "omprengan"){
-      generateCaptionOmprengan();
-    }else{
-      generateCaptionSnack();
-    }
-  }
-
+  generateCaptionOmprengan();
+  generateCaptionSnack();
 }
 
 function setSubTabCaption(mode) {
