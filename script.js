@@ -3,8 +3,7 @@ let bahanMaster = {
   SNACK: []
 };
 
-// ✅ TAMBAHKAN INI
-window.dataSpreadsheet = {
+// ✅ TAMBAHKAN INIfunction prosesGenerateLaporan(){
   OMPRENGAN: {
     gizi: {},
     detail: []
@@ -1526,14 +1525,17 @@ function tutupModalLibur(){
 
 // ================= PROSES LAPORAN HARIAN =================
 function prosesLaporanHarian() {
+
+  ambilDataLibur();
   tutupModalLibur();
 
-  // ✅ cek subtab aktif
   if (subTabAktif === "gizi") {
     generateLaporanGizi();
   } else {
     generateCaptionHarian();
   }
+
+}
 
   const { data, total } = hitungPenerimaFinal();
 
@@ -1624,7 +1626,7 @@ const outputBox = document.getElementById("captionOutput");
 if (outputBox) outputBox.value = caption.trim();
 }
 
-function prosesGenerateLaporan(){
+function ambilDataLibur(){
 
   kategoriLibur["Balita"] =
   document.getElementById("libur_balita")?.checked || false;
@@ -1644,19 +1646,10 @@ function prosesGenerateLaporan(){
   kategoriLibur["SMA YAS"] =
   document.getElementById("libur_smayas")?.checked || false;
 
-  tutupModalLibur();
-
-  generateLaporan();
-
-  // 🔥 gunakan tab yang aktif
-  if (subTabCaptionAktif === "snack") {
-    generateCaptionSnack();
-  } else {
-    generateCaptionOmprengan();
-  }
 }
 
 function setSubTabCaption(mode) {
+
   subTabCaptionAktif = mode;
 
   const btnOm = document.getElementById("btnCapOmprengan");
@@ -1665,13 +1658,16 @@ function setSubTabCaption(mode) {
   btnOm?.classList.remove("active-subtab");
   btnSn?.classList.remove("active-subtab");
 
+  ambilDataLibur();
+
   if (mode === "omprengan") {
     btnOm?.classList.add("active-subtab");
-    generateCaptionOmprengan();   // 🔥 tambah ini
+    generateCaptionOmprengan();
   } else {
     btnSn?.classList.add("active-subtab");
-    generateCaptionSnack();       // 🔥 tambah ini
+    generateCaptionSnack();
   }
+
 }
 
 function generateCaptionOmprengan() {
