@@ -1540,8 +1540,6 @@ function prosesLaporanHarian() {
     generateCaptionHarian();
   }
 
-}
-
   const { data, total } = hitungPenerimaFinal();
 
     window.totalPenerima = total;
