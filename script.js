@@ -1287,13 +1287,22 @@ function prosesGenerate() {
     sma: document.getElementById("liburSMA").checked,
   };
 
-  document.getElementById("modalLibur").style.display = "none";
+  // 🔥 generate ulang laporan
+  generateLaporan();
 
-  buatLaporan(
-    window.generateJenis,
-    window.generateKategori,
-    dataLibur // 🔥 ikut diganti
-  );
+  // jika tab caption aktif → regenerate caption
+  if(mainTabAktif === "caption"){
+
+    if(subTabCaptionAktif === "omprengan"){
+      generateCaptionOmprengan();
+    }
+
+    if(subTabCaptionAktif === "snack"){
+      generateCaptionSnack();
+    }
+
+  }
+
 }
 
 /* ===============================
