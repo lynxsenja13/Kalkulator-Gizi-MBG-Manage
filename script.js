@@ -29,6 +29,7 @@ let modeGenerate = "";
 let autocompleteInitialized = false;
 let modeMenu = "OMPRENGAN";
 let kategoriLibur = {};
+let jenisGenerate = "";
 
 const mapLibur = {
   "Balita": "libur_balita",
@@ -1519,8 +1520,7 @@ function bukaModalLibur() {
 }
 
 function tutupModalLibur(){
-  const modal = document.getElementById("modalLibur");
-  modal.style.display = "none";
+  document.getElementById("modalLibur").style.display = "none";
 }
 
 // ================= PROSES LAPORAN HARIAN =================
@@ -2555,6 +2555,53 @@ function syncLiburModal(){
 }
 
 function bukaModalLibur(){
-  const modal = document.getElementById("modalLibur");
-  modal.style.display = "flex";
+  document.getElementById("modalLibur").style.display = "flex";
+}
+
+function klikGenerate(jenis){
+
+  jenisGenerate = jenis;
+
+  bukaModalLibur();
+
+}
+
+function lanjutkanGenerate(){
+
+  kategoriLibur["Balita"] =
+  document.getElementById("libur_balita")?.checked || false;
+
+  kategoriLibur["Bumil & Busui"] =
+  document.getElementById("libur_bumil")?.checked || false;
+
+  kategoriLibur["SD Awi Gombong"] =
+  document.getElementById("libur_awig")?.checked || false;
+
+  kategoriLibur["SD YAS"] =
+  document.getElementById("libur_sdyas")?.checked || false;
+
+  kategoriLibur["SMP YAS"] =
+  document.getElementById("libur_smpyas")?.checked || false;
+
+  kategoriLibur["SMA YAS"] =
+  document.getElementById("libur_smayas")?.checked || false;
+
+  tutupModalLibur();
+
+  if(jenisGenerate === "harian"){
+    generateLaporan();
+  }
+
+  else if(jenisGenerate === "gizi"){
+    generateLaporanGizi();
+  }
+
+  else if(jenisGenerate === "caption_omprengan"){
+    generateCaptionOmprengan();
+  }
+
+  else if(jenisGenerate === "caption_snack"){
+    generateCaptionSnack();
+  }
+
 }
