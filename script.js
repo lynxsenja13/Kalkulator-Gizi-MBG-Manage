@@ -1794,10 +1794,6 @@ function tambahMenuBaris() {
   renderMenuHarian();
 }
 
-function editMenuHarian(index, value) {
-  menuHarian[index] = value;
-}
-
 // ❌ HAPUS semua beforeunload lama dulu
 
 let isDataChanged = false;
@@ -2309,7 +2305,7 @@ hasilPDF.innerHTML = "";
 // Ambil tabel dari web
 // =======================
 
-const hasilWeb = document.getElementById("hasil");
+const hasilWeb = document.getElementById("hasilGizi");
 
 const kategoriList = hasilWeb.querySelectorAll(".kategori-card");
 
@@ -2449,7 +2445,7 @@ function showSection(menu){
     input.style.display="block";
   }
 
-  if(menu==="hasil"){
+  if(menu==="hasilGizi"){
     hasil.style.display="block";
   }
 
@@ -2580,7 +2576,7 @@ function generateKandunganGizi(){
   }
 
   // tampilkan halaman hasil
-  showSection("hasil");
+  showSection("hasilGizi");
 
   // hitung gizi
   generateLaporan();
