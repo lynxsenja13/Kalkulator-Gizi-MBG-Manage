@@ -2607,3 +2607,23 @@ function lanjutkanGenerate(){
   }
 
 }
+
+function generateKandunganGizi(){
+
+  if(!databaseLoaded){
+    alert("Database masih loading...");
+    return;
+  }
+
+  if(!bahanMaster.OMPRENGAN.detail.length && !bahanMaster.SNACK.detail.length){
+    alert("Masukkan bahan terlebih dahulu");
+    return;
+  }
+
+  // tampilkan halaman hasil
+  showSection("hasil");
+
+  // hitung gizi
+  generateLaporan();
+
+}
