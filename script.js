@@ -33,7 +33,7 @@ const STATE = {
   subTab:"harian",
   subTabCaption:"omprengan"
 }
-let modeGenerate = "";
+let modeGenerate = null;
 let autocompleteInitialized = false;
 let modeMenu = "OMPRENGAN";
 let kategoriLibur = {};
@@ -2550,8 +2550,6 @@ function handleGenerate(jenis){
   jenisGenerate = jenis;
   bukaModalLibur();
 }
-
-let modeGenerate = null;
 
 function handleGenerate(mode) {
   modeGenerate = mode;
