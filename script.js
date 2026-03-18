@@ -66,7 +66,6 @@ let liburLaporan = {};
 let subTabAktif = "harian"; // default
 let mainTabAktif = "laporan";
 let subTabCaptionAktif = "omprengan";
-initKategori(); // WAJIB
 
 const MAP_POPUP_TO_GIZI = {
   "Balita": ["Balita"],
@@ -710,6 +709,10 @@ function renderTabelKategori(menu, kat, dataBahan, standar) {
 function generateLaporan() {
 
 syncLiburModal();
+
+  if (!kategoriData || Object.keys(kategoriData.OMPRENGAN).length === 0) {
+    initKategori();
+  }
   
   if (!databaseLoaded) {
     alert("Database masih loading...");
