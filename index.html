@@ -95,13 +95,13 @@ Tambah
 
 <button type="button"
 class="btn-success"
-onclick="generateLaporan()">
+onclick="bukaModalLibur('input')">
 Generate Laporan
 </button>
 
 <button type="button"
 class="btn-secondary"
-onclick="generateLaporan(); exportPDF();">
+onclick="bukaModalLibur('pdf')">
 Export PDF
 </button>
 
@@ -154,15 +154,25 @@ onclick="setMainTab('caption')">
 
 <div id="subTabLaporan" class="tab-row">
 
-<button onclick="klikGenerate('harian')">Laporan Harian</button>
-<button onclick="klikGenerate('gizi')">Laporan Gizi</button>
+<button class="btn-primary" onclick="klikGenerate('harian', this)">
+Laporan Harian
+</button>
+
+<button class="btn-primary" onclick="klikGenerate('gizi', this)">
+Laporan Gizi
+</button>
 
 </div>
 
 <div id="subTabCaption" class="tab-row" style="display:none;">
 
-<button onclick="klikGenerate('caption_omprengan')">Caption Omprengan</button>
-<button onclick="klikGenerate('caption_snack')">Caption Snack</button>
+<button class="btn-primary" onclick="klikGenerate('caption_omprengan', this)">
+Caption Omprengan
+</button>
+
+<button class="btn-primary" onclick="klikGenerate('caption_snack', this)">
+Caption Snack
+</button>
 
 </div>
 
@@ -181,7 +191,7 @@ onclick="tambahMenuBaris()">
 </div>
 
 <button class="btn-success"
-onclick="generateDenganLibur()">
+onclick="bukaModalLibur('laporan')">
 🚀 Generate
 </button>
 
