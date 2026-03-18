@@ -2463,30 +2463,17 @@ function showSection(menu){
 }
 
 function showSection(sectionId) {
-  const semua = [
-    "dashboard",
-    "inputSection",
-    "hasilSection",
-    "laporanSection"
-  ];
+  const semua = ["dashboard", "input", "hasilSection", "laporan"];
 
   semua.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = "none";
   });
 
-  // ✅ KHUSUS DASHBOARD → tampilkan semua
-  if (sectionId === "dashboard") {
-    ["inputSection", "hasilSection", "laporanSection"].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.display = "block";
-    });
-    return;
-  }
-
   const aktif = document.getElementById(sectionId);
   if (aktif) aktif.style.display = "block";
 }
+
 function klikGenerate(mode){
 
 modeGenerate = mode;
@@ -2539,30 +2526,6 @@ function klikGenerate(jenis){
 
 }
 
-function lanjutkanGenerate(){
-
-  ambilDataLibur(); // ambil dari checkbox popup
-  tutupModalLibur();
-
-  generateLaporan(); // render utama
-
-  if(jenisGenerate === "harian"){
-    generateCaptionHarian();
-  }
-
-  if(jenisGenerate === "gizi"){
-    generateLaporanGizi();
-  }
-
-  if(jenisGenerate === "caption_omprengan"){
-    generateCaptionOmprengan();
-  }
-
-  if(jenisGenerate === "caption_snack"){
-    generateCaptionSnack();
-  }
-}
-
 function generateKandunganGizi(){
 
   if(!databaseLoaded){
@@ -2586,4 +2549,42 @@ function generateKandunganGizi(){
 function handleGenerate(jenis){
   jenisGenerate = jenis;
   bukaModalLibur();
+}
+
+let modeGenerate = null;
+
+function handleGenerate(mode) {
+  modeGenerate = mode;
+  document.getElementById("modalLibur").style.display = "flex";
+}
+
+function lanjutkanGenerate() {
+  const modal = document.getElementById("modalLibur");
+
+  const dataLibur = {
+    balita: document.getElementById("libur_balita")?.checked,
+    bumil: document.getElementById("libur_bumil")?.checked,
+    awig: document.getElementById("libur_awig")?.checked,
+    sdyas: document.getElementById("libur_sdyas")?.checked,
+    smpyas: document.getElementById("libur_smpyas")?.checked,
+    smayas: document.getElementById("libur_smayas")?.checked
+  };
+
+  console.log("Libur:", dataLibur);
+  console.log("Mode:", modeGenerate);
+
+  modal.style.display = "none";
+
+  // 🔥 PENTING: trigger sesuai mode
+  if (modeGenerate === "harian") {
+    generateLaporanHarian();
+  }
+
+  if (modeGenerate === "gizi") {
+    generateKandunganGizi();
+  }
+
+  if (modeGenerate === "caption_omprengan" || modeGenerate === "caption_snack") {
+    generateCaption();
+  }
 }
