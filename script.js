@@ -66,6 +66,7 @@ let liburLaporan = {};
 let subTabAktif = "harian"; // default
 let mainTabAktif = "laporan";
 let subTabCaptionAktif = "omprengan";
+initKategori(); // WAJIB
 
 const MAP_POPUP_TO_GIZI = {
   "Balita": ["Balita"],
@@ -256,34 +257,25 @@ initAutocomplete();
 }
 function toggleLibur(kat, checked){
 
-  // update kategori utama
   kategoriLibur[kat] = checked;
 
-  // kalau dari card gizi → sync popup
+  // sync ke popup
   const id = mapLibur[kat];
   if(id){
     const el = document.getElementById(id);
     if(el) el.checked = checked;
   }
 
-  // kalau dari popup → update kategori gizi
-  if(MAP_POPUP_TO_GIZI[kat]){
-    MAP_POPUP_TO_GIZI[kat].forEach(k=>{
-      kategoriLibur[k] = checked;
-    });
-  }
-
   generateLaporan();
 }
 
 function syncLiburModal(){
-
-Object.keys(mapLibur).forEach(kat=>{
-  const id = mapLibur[kat];
-  const el = document.getElementById(id);
-  if(el) el.checked = !!kategoriLibur[kat];
-});
-
+  Object.keys(mapLibur).forEach(kat=>{
+    const el = document.getElementById(mapLibur[kat]);
+    if(el){
+      el.checked = kategoriLibur[kat] || false;
+    }
+  });
 }
 
 const KATEGORI = {
