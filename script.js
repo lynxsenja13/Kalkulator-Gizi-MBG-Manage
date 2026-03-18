@@ -719,7 +719,7 @@ syncLiburModal();
     return;
   }
 
-  const hasilDiv = document.getElementById("hasilGizi");
+  const hasilDiv = document.getElementById("hasil");
 
   if (!hasilDiv) {
       console.error("❌ hasilGizi tidak ditemukan di HTML");
