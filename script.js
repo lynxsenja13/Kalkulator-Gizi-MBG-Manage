@@ -1276,12 +1276,11 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function generateReport(jenis, kategori) {
-  // simpan state
   window.generateJenis = jenis;
   window.generateKategori = kategori;
 
-  // buka popup libur dulu
-  document.getElementById("modalLibur").style.display = "flex";
+  // ❌ HAPUS INI
+  // document.getElementById("modalLibur").style.display = "flex";
 }
 
 function prosesGenerate(){
@@ -1662,8 +1661,6 @@ function setSubTabCaption(mode) {
 
   btnOm?.classList.remove("active-subtab");
   btnSn?.classList.remove("active-subtab");
-
-  ambilDataLibur();
 
   if (mode === "omprengan") {
     btnOm?.classList.add("active-subtab");
