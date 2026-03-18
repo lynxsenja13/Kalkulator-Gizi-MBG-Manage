@@ -719,7 +719,7 @@ syncLiburModal();
     return;
   }
 
-  const hasilDiv = document.getElementById("hasil");
+  const hasilDiv = document.getElementById("hasilGizi");
   hasilDiv.innerHTML = "";
 
   // 🔥 RESET DATA SEBELUM HITUNG
@@ -2467,17 +2467,30 @@ function showSection(menu){
 }
 
 function showSection(sectionId) {
-  const sections = ["dashboard", "input", "hasilSection", "laporan"];
+  const semua = [
+    "dashboard",
+    "inputSection",
+    "hasilSection",
+    "laporanSection"
+  ];
 
-  sections.forEach(id => {
+  semua.forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.style.display = "none"; // ✅ aman dari null
+    if (el) el.style.display = "none";
   });
 
-  const active = document.getElementById(sectionId);
-  if (active) active.style.display = "block";
-}
+  // ✅ KHUSUS DASHBOARD → tampilkan semua
+  if (sectionId === "dashboard") {
+    ["inputSection", "hasilSection", "laporanSection"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = "block";
+    });
+    return;
+  }
 
+  const aktif = document.getElementById(sectionId);
+  if (aktif) aktif.style.display = "block";
+}
 function klikGenerate(mode){
 
 modeGenerate = mode;
