@@ -2475,8 +2475,9 @@ function showSection(id) {
     return;
   }
 
-  el.style.display = "block";
-}
+  document.querySelectorAll(".section").forEach(sec => {
+    sec.style.display = "none";
+  });
 
 function klikGenerate(mode){
 
