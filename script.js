@@ -2466,49 +2466,16 @@ function showSection(menu){
 
 }
 
-function showSection(id){
+function showSection(sectionId) {
+  const sections = ["dashboard", "input", "hasilSection", "laporan"];
 
-const dashboard = document.getElementById("dashboard");
-const input = document.getElementById("input");
-const hasil = document.getElementById("hasilSection");
-const laporan = document.getElementById("laporan");
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none"; // ✅ aman dari null
+  });
 
-if(id==="dashboard"){
-
-dashboard.style.display="block";
-input.style.display="block";
-hasil.style.display="block";
-laporan.style.display="block";
-
-}
-
-if(id==="input"){
-
-dashboard.style.display="none";
-input.style.display="block";
-hasil.style.display="none";
-laporan.style.display="none";
-
-}
-
-if(id==="hasil"){
-
-dashboard.style.display="none";
-input.style.display="none";
-hasil.style.display="block";
-laporan.style.display="none";
-
-}
-
-if(id==="laporan"){
-
-dashboard.style.display="none";
-input.style.display="none";
-hasil.style.display="none";
-laporan.style.display="block";
-
-}
-
+  const active = document.getElementById(sectionId);
+  if (active) active.style.display = "block";
 }
 
 function klikGenerate(mode){
