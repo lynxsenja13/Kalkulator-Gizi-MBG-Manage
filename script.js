@@ -720,6 +720,12 @@ syncLiburModal();
   }
 
   const hasilDiv = document.getElementById("hasilGizi");
+
+  if (!hasilDiv) {
+      console.error("❌ hasilGizi tidak ditemukan di HTML");
+      return;
+  }
+
   hasilDiv.innerHTML = "";
 
   // 🔥 RESET DATA SEBELUM HITUNG
@@ -1465,7 +1471,7 @@ Dokumentasi terlampir.
 `.trim();
 
   // tampilkan ke box
-  document.getElementById("hasilLaporan").value = laporanText;
+  document.getElementById("captionOutput").value = laporanText;
 
   // simpan global untuk copy WA
   window.lastLaporanText = laporanText;
@@ -2462,16 +2468,14 @@ function showSection(menu){
 
 }
 
-function showSection(sectionId) {
-  const semua = ["dashboard", "input", "hasilSection", "laporan"];
+function showSection(id) {
+  const el = document.getElementById(id);
+  if (!el) {
+    console.error("Section tidak ditemukan:", id);
+    return;
+  }
 
-  semua.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = "none";
-  });
-
-  const aktif = document.getElementById(sectionId);
-  if (aktif) aktif.style.display = "block";
+  el.style.display = "block";
 }
 
 function klikGenerate(mode){
