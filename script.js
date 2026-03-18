@@ -2551,38 +2551,29 @@ function handleGenerate(jenis){
   bukaModalLibur();
 }
 
-function handleGenerate(mode) {
+function handleGenerate(mode){
   modeGenerate = mode;
-  document.getElementById("modalLibur").style.display = "flex";
+  bukaModalLibur();
 }
 
-function lanjutkanGenerate() {
-  const modal = document.getElementById("modalLibur");
+function lanjutkanGenerate(){
 
-  const dataLibur = {
-    balita: document.getElementById("libur_balita")?.checked,
-    bumil: document.getElementById("libur_bumil")?.checked,
-    awig: document.getElementById("libur_awig")?.checked,
-    sdyas: document.getElementById("libur_sdyas")?.checked,
-    smpyas: document.getElementById("libur_smpyas")?.checked,
-    smayas: document.getElementById("libur_smayas")?.checked
-  };
+  ambilDataLibur(); // 🔥 ambil checkbox popup
+  tutupModalLibur();
 
-  console.log("Libur:", dataLibur);
-  console.log("Mode:", modeGenerate);
-
-  modal.style.display = "none";
-
-  // 🔥 PENTING: trigger sesuai mode
-  if (modeGenerate === "harian") {
-    generateLaporanHarian();
+  if(modeGenerate === "laporan"){
+    prosesLaporan(); // ✅ ini yang generate laporan
   }
 
-  if (modeGenerate === "gizi") {
-    generateKandunganGizi();
+  else if(modeGenerate === "gizi"){
+    generateLaporanGizi();
   }
 
-  if (modeGenerate === "caption_omprengan" || modeGenerate === "caption_snack") {
-    generateCaption();
+  else if(modeGenerate === "caption_omprengan"){
+    generateCaptionOmprengan();
+  }
+
+  else if(modeGenerate === "caption_snack"){
+    generateCaptionSnack();
   }
 }
