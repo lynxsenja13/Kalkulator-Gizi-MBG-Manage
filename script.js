@@ -2562,42 +2562,26 @@ function klikGenerate(jenis){
 
 function lanjutkanGenerate(){
 
-  kategoriLibur["Balita"] =
-  document.getElementById("libur_balita")?.checked || false;
-
-  kategoriLibur["Bumil & Busui"] =
-  document.getElementById("libur_bumil")?.checked || false;
-
-  kategoriLibur["SD Awi Gombong"] =
-  document.getElementById("libur_awig")?.checked || false;
-
-  kategoriLibur["SD YAS"] =
-  document.getElementById("libur_sdyas")?.checked || false;
-
-  kategoriLibur["SMP YAS"] =
-  document.getElementById("libur_smpyas")?.checked || false;
-
-  kategoriLibur["SMA YAS"] =
-  document.getElementById("libur_smayas")?.checked || false;
-
+  ambilDataLibur(); // ambil dari checkbox popup
   tutupModalLibur();
 
+  generateLaporan(); // render utama
+
   if(jenisGenerate === "harian"){
-    generateLaporan();
+    generateCaptionHarian();
   }
 
-  else if(jenisGenerate === "gizi"){
+  if(jenisGenerate === "gizi"){
     generateLaporanGizi();
   }
 
-  else if(jenisGenerate === "caption_omprengan"){
+  if(jenisGenerate === "caption_omprengan"){
     generateCaptionOmprengan();
   }
 
-  else if(jenisGenerate === "caption_snack"){
+  if(jenisGenerate === "caption_snack"){
     generateCaptionSnack();
   }
-
 }
 
 function generateKandunganGizi(){
@@ -2618,4 +2602,9 @@ function generateKandunganGizi(){
   // hitung gizi
   generateLaporan();
 
+}
+
+function handleGenerate(jenis){
+  jenisGenerate = jenis;
+  bukaModalLibur();
 }
