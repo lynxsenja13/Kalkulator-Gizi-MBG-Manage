@@ -152,11 +152,11 @@ onclick="setMainTab('caption')">
 
 <div id="subTabLaporan" class="tab-row">
 
-<button class="btn-primary" onclick="klikGenerate('harian', this)">
+<button class="btn-primary" onclick="handleGenerate('harian')">
 Laporan Harian
 </button>
 
-<button class="btn-primary" onclick="klikGenerate('gizi', this)">
+<button class="btn-primary" onclick="handleGenerate('gizi')">
 Laporan Gizi
 </button>
 
@@ -164,14 +164,14 @@ Laporan Gizi
 
 <div id="subTabCaption" class="tab-row" style="display:none;">
 
-<button class="btn-primary" onclick="klikGenerate('caption_omprengan', this)">
+<button class="btn-primary" onclick="handleGenerate('caption_omprengan')">
 Caption Omprengan
 </button>
 
-<button class="btn-primary" onclick="klikGenerate('caption_snack', this)">
+<button class="btn-primary" onclick="handleGenerate('caption_snack')">
 Caption Snack
 </button>
-
+  
 </div>
 
 <div id="menuContainer">
@@ -189,7 +189,7 @@ onclick="tambahMenuBaris()">
 </div>
 
 <button class="btn-success"
-onclick="bukaModalLibur('laporan')">
+onclick="handleGenerate('harian')">
 🚀 Generate
 </button>
 
