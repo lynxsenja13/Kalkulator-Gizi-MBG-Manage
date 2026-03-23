@@ -1,4 +1,4 @@
-//Berhasil
+//Masih Error
 
 const AppState = {
   mode: "OMPRENGAN",
