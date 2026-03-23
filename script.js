@@ -64,6 +64,15 @@ let modeMenu = "OMPRENGAN";
 let kategoriLibur = {};
 let jenisGenerate = "";
 
+const MAP_KATEGORI = {
+  BALITA: "Balita",
+  BUMIL: "Bumil & Busui",
+  SD1: "SD 1-3",
+  SD2: "SD 4-6",
+  SMP: "SMP",
+  SMA: "SMA"
+};
+
 const mapLibur = {
   "Balita": "libur_balita",
   "Bumil & Busui": "libur_bumil",
@@ -2031,15 +2040,53 @@ function renderHasilGizi(data) {
 
     const g = data[kat];
 
+    const namaAKG = MAP_KATEGORI[kat];
+    const akg = AKG[namaAKG] || {};
+
+    const isLibur = window.statusLibur?.[kat] || false;
+
+    // 🔥 HITUNG PERSENTASE AKG
+    const persenEnergi = g.ENERGI / (akg.Energi || 1);
+    const persenProtein = g.PROTEIN / (akg.Protein || 1);
+
+    const cukup = persenEnergi >= 1 && persenProtein >= 1;
+
+    const statusClass = cukup ? "gizi-ok" : "gizi-kurang";
+
     container.innerHTML += `
-      <div class="card">
-        <h3>${kat}</h3>
-        <p>Energi: ${g.ENERGI} kkal</p>
-        <p>Protein: ${g.PROTEIN} gr</p>
-        <p>Lemak: ${g.LEMAK} gr</p>
-        <p>Karbohidrat: ${g.KARBOHIDRAT} gr</p>
-        <p>Kalsium: ${g.KALSIUM} mg</p>
-        <p>Serat: ${g.SERAT} gr</p>
+      <div class="card gizi-card ${statusClass}">
+        
+        <div class="card-header">
+          <h3>${namaAKG || kat}</h3>
+
+          <label class="switch">
+            <input type="checkbox"
+              ${isLibur ? "checked" : ""}
+              onchange="toggleLibur('${kat}', this.checked)">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        ${
+          isLibur
+          ? `<p class="libur-text">LIBUR</p>`
+          : `
+          <table class="gizi-table">
+            <tr><td>Energi</td><td>${g.ENERGI} / ${akg.Energi || 0}</td></tr>
+            <tr><td>Protein</td><td>${g.PROTEIN} / ${akg.Protein || 0}</td></tr>
+            <tr><td>Lemak</td><td>${g.LEMAK} / ${akg.Lemak || 0}</td></tr>
+            <tr><td>Karbohidrat</td><td>${g.KARBOHIDRAT} / ${akg.Karbohidrat || 0}</td></tr>
+            <tr><td>Kalsium</td><td>${g.KALSIUM} / ${akg.Kalsium || 0}</td></tr>
+            <tr><td>Serat</td><td>${g.SERAT} / ${akg.Serat || 0}</td></tr>
+          </table>
+
+          <p style="margin-top:10px;">
+            Energi: ${(persenEnergi * 100).toFixed(0)}% |
+            Protein: ${(persenProtein * 100).toFixed(0)}%
+          </p>
+          `
+        }
+
       </div>
     `;
 
