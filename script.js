@@ -2027,11 +2027,22 @@ function renderHasilGizi(data) {
   const container = document.getElementById("hasil");
   if (!container) return;
 
-  container.innerHTML = "";
-
   Object.keys(data).forEach(kat => {
 
-    const g = data[kat];
+  const g = data[kat];
+
+  container.innerHTML += `
+    <div class="gizi-card">
+
+      <div class="card-header">
+        <h3>${kat}</h3>
+      </div>
+
+      ${renderTabelBahan(kat)}
+
+    </div>
+  `;
+});
 
     const namaAKG = MAP_KATEGORI[kat];
     const akg = AKG[namaAKG] || {};
