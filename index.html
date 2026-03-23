@@ -144,7 +144,7 @@ body {
           <ul id="listBahan"></ul>
 
           <div class="action-row">
-            <button class="btn-success" onclick="generateLaporan()">Generate Laporan</button>
+            <button class="btn-success" onclick="bukaModalLibur()">Generate Laporan</button>
             <button class="btn-secondary" onclick="exportPDF()">Export PDF</button>
             <button class="btn-kirim" onclick="kirimLaporanKeSpreadsheet()">Kirim Spreadsheet</button>
           </div>
@@ -231,6 +231,41 @@ function showSection(sectionId) {
   document.getElementById(sectionId).classList.add('active');
 }
 </script>
+
+<!-- MODAL LIBUR -->
+<div id="modalLibur" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+z-index:2000;
+">
+
+  <div style="
+  background:white;
+  padding:20px;
+  width:300px;
+  margin:100px auto;
+  border-radius:10px;
+  ">
+
+    <h3>Kategori Libur</h3>
+
+    <label><input type="checkbox" id="libur_balita"> Balita</label><br>
+    <label><input type="checkbox" id="libur_bumil"> Bumil & Busui</label><br>
+    <label><input type="checkbox" id="libur_awig"> SD Awi Gombong</label><br>
+    <label><input type="checkbox" id="libur_sdyas"> SD YAS</label><br>
+    <label><input type="checkbox" id="libur_smpyas"> SMP YAS</label><br>
+    <label><input type="checkbox" id="libur_smayas"> SMA YAS</label><br><br>
+
+    <button onclick="prosesGenerateLaporan()">Generate</button>
+    <button onclick="tutupModalLibur()">Batal</button>
+
+  </div>
+</div>
 
 <script src="config.js"></script>
 <script src="script.js"></script>
