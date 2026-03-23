@@ -1914,10 +1914,10 @@ function generateKandunganGizi(){
   }
 
   // tampilkan halaman hasil
-  showSection("hasilGizi");
+  showSection("hasilSection");
 
   // hitung gizi
-  generateLaporan();
+  generateLaporanGizi();
 
 }
 
