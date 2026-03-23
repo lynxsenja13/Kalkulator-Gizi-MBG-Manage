@@ -1955,9 +1955,45 @@ function generateKandunganGizi() {
 
   const hasil = hitungGizi();
 
-  window.hasilGiziPerKategori = hasil; // 🔥 penting
+  window.hasilGiziPerKategori = hasil;
 
-  setGizi(AppState.mode, hasil);
+  // 🔥 INI YANG PENTING BANGET
+  window.dataBahanPerKategori = {};
+
+  const kategoriList = getKategoriAktif();
+
+  kategoriList.forEach(kat => {
+
+    const list = kategoriData[modeMenu][kat] || [];
+
+    window.dataBahanPerKategori[kat] = list.map(item => {
+
+      const db = database.find(d =>
+        getNamaBahan(d) === item.nama.toLowerCase().trim()
+      );
+
+      if (!db) return null;
+
+      let faktor = item.satuan === "GRAM"
+        ? item.berat / 100
+        : item.berat;
+
+      return {
+        nama: item.nama,
+        berat: item.berat,
+        gizi: {
+          ENERGI: faktor * (db.ENERGI || 0),
+          PROTEIN: faktor * (db.PROTEIN || 0),
+          LEMAK: faktor * (db.LEMAK || 0),
+          KARBOHIDRAT: faktor * (db.KARBOHIDRAT || 0),
+          KALSIUM: faktor * (db.KALSIUM || 0),
+          SERAT: faktor * (db.SERAT || 0)
+        }
+      };
+
+    }).filter(Boolean);
+
+  });
 
   renderHasilGizi(hasil);
 }
@@ -2050,56 +2086,6 @@ function renderHasilGizi(data) {
       </div>
       `;
     });
-
-    const namaAKG = MAP_KATEGORI[kat];
-    const akg = AKG[namaAKG] || {};
-
-    const isLibur = window.statusLibur?.[kat] || false;
-
-    // 🔥 HITUNG PERSENTASE AKG
-    const persenEnergi = g.ENERGI / (akg.Energi || 1);
-    const persenProtein = g.PROTEIN / (akg.Protein || 1);
-
-    const cukup = persenEnergi >= 1 && persenProtein >= 1;
-
-    const statusClass = cukup ? "gizi-ok" : "gizi-kurang";
-
-    container.innerHTML += `
-      <div class="card gizi-card ${statusClass}">
-        
-        <div class="card-header">
-          <h3>${namaAKG || kat}</h3>
-
-          <label class="switch">
-            <input type="checkbox"
-              ${isLibur ? "checked" : ""}
-              onchange="toggleLibur('${kat}', this.checked)">
-            <span class="slider"></span>
-          </label>
-        </div>
-
-        ${
-          isLibur
-          ? `<p class="libur-text">LIBUR</p>`
-          : `
-          <table class="gizi-table">
-            <tr><td>Energi</td><td>${g.ENERGI} / ${akg.Energi || 0}</td></tr>
-            <tr><td>Protein</td><td>${g.PROTEIN} / ${akg.Protein || 0}</td></tr>
-            <tr><td>Lemak</td><td>${g.LEMAK} / ${akg.Lemak || 0}</td></tr>
-            <tr><td>Karbohidrat</td><td>${g.KARBOHIDRAT} / ${akg.Karbohidrat || 0}</td></tr>
-            <tr><td>Kalsium</td><td>${g.KALSIUM} / ${akg.Kalsium || 0}</td></tr>
-            <tr><td>Serat</td><td>${g.SERAT} / ${akg.Serat || 0}</td></tr>
-          </table>
-
-          <p style="margin-top:10px;">
-            Energi: ${(persenEnergi * 100).toFixed(0)}% |
-            Protein: ${(persenProtein * 100).toFixed(0)}%
-          </p>
-          `
-        }
-
-      </div>
-    `;
 }
 
 function renderTabelBahan(kategori) {
