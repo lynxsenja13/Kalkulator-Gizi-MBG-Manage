@@ -1184,9 +1184,6 @@ function updateMenuAwal(value) {
   AppState.menu[0] = value;
 }
 
-  window.menuHarian[0] = value;
-}
-
 function tambahMenuBaris() {
   menuHarian.push("");
   renderMenuHarian();
