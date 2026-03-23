@@ -225,3 +225,7 @@ function blokGizi(nama, g) {
  • Serat: ${g.SERAT} gr
 `;
 }
+
+function isAktif(kategori) {
+  return !(window.liburKategori && window.liburKategori[kategori]);
+}
