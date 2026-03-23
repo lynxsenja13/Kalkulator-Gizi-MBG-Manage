@@ -627,6 +627,32 @@ function hitungTotal(list) {
   return total;
 }
 
+function hitungGizi() {
+
+  const hasil = {};
+
+  const kategoriList = getKategoriAktif();
+
+  kategoriList.forEach(kat => {
+
+    const listBahan = kategoriData[modeMenu][kat] || [];
+
+    const total = hitungTotal(listBahan);
+
+    hasil[kat] = {
+      ENERGI: total.Energi || 0,
+      PROTEIN: total.Protein || 0,
+      LEMAK: total.Lemak || 0,
+      KARBOHIDRAT: total.Karbohidrat || 0,
+      KALSIUM: total.Kalsium || 0,
+      SERAT: total.Serat || 0
+    };
+
+  });
+
+  return hasil;
+}
+
 function renderTabelKategori(menu, kat, dataBahan, standar) {
 
   // 🔧 PERBAIKAN ERROR
@@ -1925,7 +1951,10 @@ function klikGenerate(jenis){
 function generateKandunganGizi() {
   showSection("hasilSection");
 
-  const hasil = hitungGizi(); // function kamu
+  const hasil = hitungGizi();
+
+  window.hasilGiziPerKategori = hasil; // 🔥 penting
+
   setGizi(AppState.mode, hasil);
 
   renderHasilGizi(hasil);
@@ -1989,4 +2018,30 @@ function generateByTab() {
     // default caption omprengan
     handleGenerate("caption_omprengan");
   }
+}
+
+function renderHasilGizi(data) {
+
+  const container = document.getElementById("hasil");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  Object.keys(data).forEach(kat => {
+
+    const g = data[kat];
+
+    container.innerHTML += `
+      <div class="card">
+        <h3>${kat}</h3>
+        <p>Energi: ${g.ENERGI} kkal</p>
+        <p>Protein: ${g.PROTEIN} gr</p>
+        <p>Lemak: ${g.LEMAK} gr</p>
+        <p>Karbohidrat: ${g.KARBOHIDRAT} gr</p>
+        <p>Kalsium: ${g.KALSIUM} mg</p>
+        <p>Serat: ${g.SERAT} gr</p>
+      </div>
+    `;
+
+  });
 }
