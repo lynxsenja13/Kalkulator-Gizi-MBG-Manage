@@ -71,6 +71,9 @@ body {
 <body>
 
 <div class="layout">
+<button onclick="toggleSidebar()" style="position:fixed; top:10px; left:10px; z-index:1000;">
+☰
+</button>
 
   <!-- SIDEBAR -->
   <div class="sidebar">
@@ -148,24 +151,23 @@ body {
 
         </div>
 
-        <div id="hasil-wrapper" class="table-container">
-          <div id="hasil" class="hasil-grid"></div>
+        <div id="hasil-wrapper-dashboard" class="table-container">
+          <div id="hasilDashboard" class="hasil-grid"></div>
         </div>
+
+        <div class="card dark" id="cardCreateLaporan">
 
       </div>
     </div>
 
     <!-- INPUT MENU ONLY -->
     <div id="inputMenu" class="section">
-      <div class="header">
-        <h1>Input Menu</h1>
-      </div>
+  <div class="header">
+    <h1>Input Menu</h1>
+  </div>
 
-      <div class="card dark">
-        <h2>Input Bahan</h2>
-        <p>Gunakan menu input bahan pada dashboard.</p>
-      </div>
-    </div>
+    <div id="inputMenuMirror"></div>
+  </div>
 
     <!-- HASIL GIZI -->
     <div id="hasilGizi" class="section">
@@ -173,8 +175,8 @@ body {
         <h1>Hasil Perhitungan Gizi</h1>
       </div>
 
-      <div id="hasil-wrapper" class="table-container">
-        <div id="hasil" class="hasil-grid"></div>
+      <div id="hasil-wrapper-gizi" class="table-container">
+        <div id="hasilGiziTable" class="hasil-grid"></div>
       </div>
     </div>
 
