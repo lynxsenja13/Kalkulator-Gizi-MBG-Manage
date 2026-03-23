@@ -2,15 +2,17 @@
 // 🧠 FILTER LIBUR
 // ===============================
 function isAktif(kategori) {
-  return !window.liburKategori[kategori];
+  return !AppState.libur[kategori];
 }
 
 // ===============================
 // 🍱 CAPTION OMPRENGAN
 // ===============================
 function generateCaptionOmprengan() {
-  const gizi = window.hasilGiziPerKategori;
-  const menu = getMenuList();
+  AppState.mode = "OMPRENGAN"; // ✅ penting
+
+  const gizi = getGiziAktif();
+  const menu = getMenu();
 
   let teks = `🍱 Menu Bergizi Gratis\n📅 ${getTanggalFull()}\n\n`;
 
@@ -47,7 +49,9 @@ Analisis Nilai Gizi ${nama}
 }
 
 function generateCaptionSnack() {
-  const gizi = window.hasilGiziPerKategori;
+  AppState.mode = "SNACK"; // ✅ penting
+
+  const gizi = getGiziAktif();
 
   let teks = "";
 
