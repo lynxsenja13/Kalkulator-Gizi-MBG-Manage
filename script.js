@@ -1,4 +1,4 @@
-//Masih Error
+//Bismillah
 
 const AppState = {
   mode: "OMPRENGAN",
