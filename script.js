@@ -2198,8 +2198,6 @@ function clearKategori(kategori) {
   renderHasilGizi(window.hasilGiziPerKategori);
 }
 
-let database = []; // 🔥 global
-
 async function loadDatabase() {
   try {
     const res = await fetch(API_URL);
