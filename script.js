@@ -2100,8 +2100,6 @@ function renderHasilGizi(data) {
 
       </div>
     `;
-
-  });
 }
 
 function renderTabelBahan(kategori) {
