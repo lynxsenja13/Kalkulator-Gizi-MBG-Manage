@@ -45,3 +45,39 @@ Analisis Nilai Gizi ${nama}
  • Serat: ${g.SERAT} gr
 `;
 }
+
+function generateCaptionSnack() {
+  const gizi = window.hasilGiziPerKategori;
+
+  let teks = "";
+
+  if (!window.liburKategori.balita)
+    teks += blokSnack("Balita", gizi.BALITA);
+
+  if (!window.liburKategori.bumil)
+    teks += blokSnack("Bumil & Busui", gizi.BUMIL);
+
+  teks += blokSnack("Porsi Kecil", gizi.ANAK);
+  teks += blokSnack("Porsi Besar", gizi.DEWASA);
+
+  teks += `
+🌿 “Makan bergizi, tubuh berenergi!”
+
+#SPPGCicadas01 #MBG`;
+
+  return teks;
+}
+
+function blokSnack(nama, g) {
+  if (!g) return "";
+
+  return `
+Analisis Nilai Gizi Menu Keringan ${nama}
+ • Energi: ${g.ENERGI} kkal
+ • Protein: ${g.PROTEIN} gr
+ • Lemak: ${g.LEMAK} gr
+ • Karbohidrat: ${g.KARBOHIDRAT} gr
+ • Serat: ${g.SERAT} gr
+
+`;
+}
