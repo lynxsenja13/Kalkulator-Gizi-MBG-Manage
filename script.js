@@ -288,18 +288,11 @@ initAutocomplete();
 
 // ❌ HAPUS loadDatabase()
 }
-function toggleLibur(kat, checked){
+function toggleLibur(kategori, status) {
+  window.statusLibur = window.statusLibur || {};
+  window.statusLibur[kategori] = status;
 
-  kategoriLibur[kat] = checked;
-
-  // sync ke popup
-  const id = mapLibur[kat];
-  if(id){
-    const el = document.getElementById(id);
-    if(el) el.checked = checked;
-  }
-
-  generateLaporan();
+  renderHasilGizi(window.hasilGiziPerKategori);
 }
 
 function syncLiburModal(){
