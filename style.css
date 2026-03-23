@@ -2693,3 +2693,9 @@ letter-spacing:.5px;
   border: 1px solid #ccc;
   text-align: center;
 }
+
+.hasil-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
