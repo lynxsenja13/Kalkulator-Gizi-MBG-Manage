@@ -2027,21 +2027,30 @@ function renderHasilGizi(data) {
   const container = document.getElementById("hasil");
   if (!container) return;
 
+  container.innerHTML = "";
+
   Object.keys(data).forEach(kat => {
 
-  container.innerHTML += `
-    <div class="gizi-card">
+    container.innerHTML += `
+      <div class="gizi-card">
 
-      <div class="card-header">
-        <h3>${kat}</h3>
+        <!-- 🔥 HEADER (INI TEMPAT KODE KAMU MASUK) -->
+        <div class="card-header">
+          <h3>${kat}</h3>
+
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span>GRAM</span>
+            <button onclick="clearKategori('${kat}')">❌</button>
+          </div>
+        </div>
+
+        <!-- 🔥 TABEL -->
+        ${renderTabelBahan(kat)}
+
       </div>
-
-      ${renderTabelBahan(kat)}
-
-    </div>
-  `;
-
-});
+      `;
+    });
+  }
 
     const namaAKG = MAP_KATEGORI[kat];
     const akg = AKG[namaAKG] || {};
