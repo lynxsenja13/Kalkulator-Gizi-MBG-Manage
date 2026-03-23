@@ -445,30 +445,6 @@ const AKG = {
 AKG["Keringan Porsi Kecil"] = AKG["SD 1-3"];
 AKG["Keringan Porsi Besar"] = AKG["SMP"];
 
-// ================= LOAD DATABASE =================
-async function loadDatabase() {
-  try {
-
-    console.log("Loading database dari API...");
-
-    const res = await fetch(API_URL);
-
-    database = await res.json();
-    databaseLoaded = true;
-
-    console.log("Database loaded:", database.length);
-
-    initKategori();
-    renderKategori();
-    initAutocomplete();
-    saveCache();
-
-  } catch (err) {
-    console.error("Gagal load database:", err);
-    alert("Database gagal dimuat. Cek Apps Script.");
-  }
-}
-
 function resetCache() {
   localStorage.removeItem("dbGizi");
   location.reload();
