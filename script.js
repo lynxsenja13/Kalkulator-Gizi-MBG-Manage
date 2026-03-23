@@ -2085,3 +2085,114 @@ function renderHasilGizi(data) {
 
   });
 }
+
+function renderTabelBahan(kategori) {
+  const data = window.dataBahanPerKategori[kategori] || [];
+
+  let total = {
+    ENERGI: 0,
+    PROTEIN: 0,
+    LEMAK: 0,
+    KARBOHIDRAT: 0,
+    KALSIUM: 0,
+    SERAT: 0
+  };
+
+  let rows = data.map((item, index) => {
+
+    const g = item.gizi;
+
+    // 🔥 AKUMULASI TOTAL
+    total.ENERGI += g.ENERGI;
+    total.PROTEIN += g.PROTEIN;
+    total.LEMAK += g.LEMAK;
+    total.KARBOHIDRAT += g.KARBOHIDRAT;
+    total.KALSIUM += g.KALSIUM;
+    total.SERAT += g.SERAT;
+
+    return `
+      <tr>
+        <td>${item.nama}</td>
+
+        <td>
+          <input type="number"
+            value="${item.berat}"
+            onchange="updateBerat('${kategori}', ${index}, this.value)"
+            class="input-berat"
+          >
+        </td>
+
+        <td>${g.ENERGI.toFixed(1)}</td>
+        <td>${g.PROTEIN.toFixed(1)}</td>
+        <td>${g.LEMAK.toFixed(1)}</td>
+        <td>${g.KARBOHIDRAT.toFixed(1)}</td>
+        <td>${g.KALSIUM.toFixed(1)}</td>
+        <td>${g.SERAT.toFixed(1)}</td>
+
+        <td>
+          <button onclick="hapusBahan('${kategori}', ${index})">❌</button>
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  return `
+    <table class="gizi-table">
+      <thead>
+        <tr>
+          <th>Nama Bahan</th>
+          <th>Berat (g)</th>
+          <th>Energi</th>
+          <th>Protein</th>
+          <th>Lemak</th>
+          <th>Karbo</th>
+          <th>Kalsium</th>
+          <th>Serat</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        ${rows}
+
+        <!-- 🔥 TOTAL -->
+        <tr class="total-row">
+          <td colspan="2"><b>TOTAL</b></td>
+          <td>${total.ENERGI.toFixed(1)}</td>
+          <td>${total.PROTEIN.toFixed(1)}</td>
+          <td>${total.LEMAK.toFixed(1)}</td>
+          <td>${total.KARBOHIDRAT.toFixed(1)}</td>
+          <td>${total.KALSIUM.toFixed(1)}</td>
+          <td>${total.SERAT.toFixed(1)}</td>
+          <td></td>
+        </tr>
+
+      </tbody>
+    </table>
+  `;
+}
+
+function updateBerat(kategori, index, beratBaru) {
+  const item = window.dataBahanPerKategori[kategori][index];
+
+  const rasio = beratBaru / item.berat;
+
+  // 🔥 UPDATE SEMUA GIZI BERDASARKAN RASIO
+  Object.keys(item.gizi).forEach(k => {
+    item.gizi[k] *= rasio;
+  });
+
+  item.berat = Number(beratBaru);
+
+  // 🔥 RE-RENDER
+  renderSemuaKategori();
+}
+
+function hapusBahan(kategori, index) {
+  window.dataBahanPerKategori[kategori].splice(index, 1);
+  renderSemuaKategori();
+}
+
+function renderSemuaKategori() {
+  renderHasilGizi(window.hasilGiziPerKategori);
+}
