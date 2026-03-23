@@ -2383,3 +2383,20 @@ if(satuan === "PCS") return "Pcs";
 return satuan;
 
 }
+
+function showMenu(menu) {
+  const menus = ["dashboard", "input", "hasil", "laporan"];
+
+  menus.forEach(m => {
+    document.getElementById("menu-" + m).style.display = "none";
+  });
+
+  document.getElementById("menu-" + menu).style.display = "block";
+
+  // aktifin tombol
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  event.target.classList.add("active");
+}
