@@ -38,11 +38,11 @@ function blok(nama, g) {
 
   return `
 Analisis Nilai Gizi ${nama}
- • Energi: ${g.ENERGI} kkal
- • Protein: ${g.PROTEIN} gr
- • Lemak: ${g.LEMAK} gr
- • Karbohidrat: ${g.KARBOHIDRAT} gr
- • Serat: ${g.SERAT} gr
+ • Energi: ${g.ENERGI || 0} kkal
+ • Protein: ${g.PROTEIN || 0} gr
+ • Lemak: ${g.LEMAK || 0} gr
+ • Karbohidrat: ${g.KARBOHIDRAT || 0} gr
+ • Serat: ${g.SERAT || 0} gr
 `;
 }
 
@@ -73,11 +73,11 @@ function blokSnack(nama, g) {
 
   return `
 Analisis Nilai Gizi Menu Keringan ${nama}
- • Energi: ${g.ENERGI} kkal
- • Protein: ${g.PROTEIN} gr
- • Lemak: ${g.LEMAK} gr
- • Karbohidrat: ${g.KARBOHIDRAT} gr
- • Serat: ${g.SERAT} gr
+ • Energi: ${g.ENERGI || 0} kkal
+ • Protein: ${g.PROTEIN || 0} gr
+ • Lemak: ${g.LEMAK || 0} gr
+ • Karbohidrat: ${g.KARBOHIDRAT || 0} gr
+ • Serat: ${g.SERAT || 0} gr
 
 `;
 }
