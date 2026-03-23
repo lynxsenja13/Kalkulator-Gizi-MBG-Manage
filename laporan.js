@@ -106,7 +106,7 @@ function hitungTotal(d) {
 function generateLaporanHarian() {
   const d = getPenerimaFix();
   const total = hitungTotal(d);
-  const menu = getMenuList();
+  const menu = ambilMenuUntukLaporan().split("\n").filter(x => x.trim());
 
   let teks = `
 Yth. Dandim 0618/Kota Bandung
@@ -187,7 +187,7 @@ function syncLiburDariModal() {
 
 function generateLaporanGizi() {
   const gizi = window.hasilGiziPerKategori || {};
-  const menu = getMenuList();
+  const menu = ambilMenuUntukLaporan().split("\n").filter(x => x.trim());
   const tgl = getTanggalFull();
 
   let teks = `Assalamualaikum wr.wb, Selamat Pagi.
