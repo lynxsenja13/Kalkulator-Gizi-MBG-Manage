@@ -879,8 +879,6 @@ window.onload = function () {
   loadDatabase();
 
   showSection("dashboard");
-
-  setTimeout(generateLaporan, 500);
 };
 
 function sdSemuaLibur() {
