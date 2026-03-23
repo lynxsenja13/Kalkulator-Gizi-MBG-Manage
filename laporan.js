@@ -225,16 +225,13 @@ ${menu.map((m, i) => `${i + 1}. ${m}`).join("\n")}
   return teks;
 }
 
-function blokGizi(nama, g) {
-  return `
-
 *🥗 Analisis Nilai Gizi ${nama} 🥗*
- • Energi: ${g.ENERGI} kkal
- • Protein: ${g.PROTEIN} gr
- • Lemak: ${g.LEMAK} gr
- • Karbohidrat: ${g.KARBOHIDRAT} gr
+ • Energi: ${g.ENERGI || 0} kkal
+ • Protein: ${g.PROTEIN || 0} gr
+ • Lemak: ${g.LEMAK || 0} gr
+ • Karbohidrat: ${g.KARBOHIDRAT || 0} gr
  • Zat Besi: ${g.ZAT_BESI || 0} mg
- • Serat: ${g.SERAT} gr
+ • Serat: ${g.SERAT || 0} gr
 `;
 }
 
