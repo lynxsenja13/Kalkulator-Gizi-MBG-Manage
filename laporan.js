@@ -225,6 +225,9 @@ ${menu.map((m, i) => `${i + 1}. ${m}`).join("\n")}
   return teks;
 }
 
+function blokGizi(nama, g) {
+  return `
+
 *🥗 Analisis Nilai Gizi ${nama} 🥗*
  • Energi: ${g.ENERGI || 0} kkal
  • Protein: ${g.PROTEIN || 0} gr
