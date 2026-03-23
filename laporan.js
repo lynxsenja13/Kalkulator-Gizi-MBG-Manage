@@ -1,4 +1,16 @@
 // ===============================
+// 🔥 DEFAULT GLOBAL (WAJIB ADA)
+// ===============================
+window.liburKategori = window.liburKategori || {
+  balita: false,
+  bumil: false,
+  sd: false,
+  smp: false,
+  sma: false,
+  awig: false
+};
+
+// ===============================
 // 📊 DATA MASTER (BISA EDIT)
 // ===============================
 const DATA_SPPG = {
