@@ -1,5 +1,30 @@
 //Berhasil
 
+const AppState = {
+  mode: "OMPRENGAN",
+
+  bahan: {
+    OMPRENGAN: [],
+    SNACK: []
+  },
+
+  hasilGizi: {
+    OMPRENGAN: {},
+    SNACK: {}
+  },
+
+  menu: [],
+
+  libur: {
+    balita: false,
+    bumil: false,
+    awig: false,
+    sdyas: false,
+    smpyas: false,
+    smayas: false
+  }
+};
+
 let bahanMaster = {
   OMPRENGAN: {
     gizi: {},
@@ -1901,24 +1926,13 @@ function klikGenerate(jenis){
 
 }
 
-function generateKandunganGizi(){
-
-  if(!databaseLoaded){
-    alert("Database masih loading...");
-    return;
-  }
-
-  if(!bahanMaster.OMPRENGAN.detail.length && !bahanMaster.SNACK.detail.length){
-    alert("Masukkan bahan terlebih dahulu");
-    return;
-  }
-
-  // tampilkan halaman hasil
+function generateKandunganGizi() {
   showSection("hasilSection");
 
-  // hitung gizi
-  generateLaporanGizi();
+  const hasil = hitungGizi(); // function kamu
+  setGizi(AppState.mode, hasil);
 
+  renderHasilGizi(hasil);
 }
 
 function handleGenerate(jenis){
@@ -1951,4 +1965,20 @@ function lanjutkanGenerate(){
   else if(modeGenerate === "caption_snack"){
     generateCaptionSnack();
   }
+}
+
+function getMenu() {
+  return AppState.menu.filter(x => x.trim());
+}
+
+function setMenu(menuArray) {
+  AppState.menu = menuArray;
+}
+
+function getGiziAktif() {
+  return AppState.hasilGizi[AppState.mode] || {};
+}
+
+function setGizi(mode, data) {
+  AppState.hasilGizi[mode] = data;
 }
