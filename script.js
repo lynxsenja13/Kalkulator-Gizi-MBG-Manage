@@ -2029,8 +2029,6 @@ function renderHasilGizi(data) {
 
   Object.keys(data).forEach(kat => {
 
-  const g = data[kat];
-
   container.innerHTML += `
     <div class="gizi-card">
 
@@ -2042,6 +2040,7 @@ function renderHasilGizi(data) {
 
     </div>
   `;
+
 });
 
     const namaAKG = MAP_KATEGORI[kat];
