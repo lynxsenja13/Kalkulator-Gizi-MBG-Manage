@@ -11,308 +11,225 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+}
+
+.layout {
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: #111827;
+  color: white;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: none;
+  background: #1f2937;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebar button:hover {
+  background: #374151;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+</style>
+
 </head>
 <body>
 
-<div class="app">
+<div class="layout">
 
-  <!-- HEADER -->
-  <div class="header">
-    <img src="logo.png" class="logo" alt="Logo SPPG Cicadas 01" />
-    <h1>SPPG Cicadas 01</h1>
-    <p class="ahli-gizi">Ahli Gizi : Aliyah Khairunnisa Syafitri</p>
-    <p class="credit">Created by Fikri Purwana Senja</p>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>📊 Menu</h2>
+    <button onclick="showSection('dashboard')">Dashboard</button>
+    <button onclick="showSection('inputMenu')">Input Menu</button>
+    <button onclick="showSection('hasilGizi')">Hasil Perhitungan Gizi</button>
+    <button onclick="showSection('createLaporan')">Create Laporan</button>
   </div>
 
-  <!-- INPUT CARD -->
-  <div class="card dark">
+  <!-- CONTENT -->
+  <div class="content">
 
-    <h2>Input Bahan</h2>
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="section active">
 
-  <div class="menu-row">
-  <button id="btnOmprengan"
-          onclick="setModeMenu('OMPRENGAN')"
-          class="btn-secondary active-omprengan">
-    Menu Omprengan
-  </button>
+      <div class="app">
 
-  <button id="btnSnack"
-          onclick="setModeMenu('SNACK')"
-          class="btn-secondary">
-    Menu Snack
-  </button>
-</div>
+        <!-- HEADER -->
+        <div class="header">
+          <img src="logo.png" class="logo" />
+          <h1>SPPG Cicadas 01</h1>
+          <p class="ahli-gizi">Ahli Gizi : Aliyah Khairunnisa Syafitri</p>
+          <p class="credit">Created by Fikri Purwana Senja</p>
+        </div>
 
-<!-- 🔽 TAMBAHKAN INI -->
-<div id="kategoriCheckbox" class="kategori-scroll"></div>
+        <!-- INPUT CARD -->
+        <div class="card dark">
 
-<div class="input-row input-row-flex">
+          <h2>Input Bahan</h2>
 
-<div class="autocomplete-wrapper">
-  <input type="text" id="namaBahan" autocomplete="off">
-  <div id="autocomplete-list" class="autocomplete-items"></div>
-</div>
+          <div class="menu-row">
+            <button id="btnOmprengan"
+                    onclick="setModeMenu('OMPRENGAN')"
+                    class="btn-secondary active-omprengan">
+              Menu Omprengan
+            </button>
 
-  <input id="beratBahan" type="number" placeholder="Jumlah" class="input-jumlah">
+            <button id="btnSnack"
+                    onclick="setModeMenu('SNACK')"
+                    class="btn-secondary">
+              Menu Snack
+            </button>
+          </div>
 
-<select id="satuanBahan" class="input-satuan">
-  <option value="Gram">Gram</option>
-  <option value="Pcs">Pcs</option>
-</select>
+          <div id="kategoriCheckbox" class="kategori-scroll"></div>
 
-  <button type="button" class="btn-primary" onclick="tambahBahan()">
-    Tambah
-  </button>
+          <div class="input-row input-row-flex">
 
-</div>
+            <div class="autocomplete-wrapper">
+              <input type="text" id="namaBahan" autocomplete="off">
+              <div id="autocomplete-list" class="autocomplete-items"></div>
+            </div>
 
-    <ul id="listBahan"></ul>
+            <input id="beratBahan" type="number" placeholder="Jumlah" class="input-jumlah">
 
-   <div class="action-row">
+            <select id="satuanBahan" class="input-satuan">
+              <option value="Gram">Gram</option>
+              <option value="Pcs">Pcs</option>
+            </select>
 
-  <button type="button"
-          class="btn-success"
-          onclick="generateLaporan()">
-    Generate Laporan
-  </button>
+            <button type="button" class="btn-primary" onclick="tambahBahan()">
+              Tambah
+            </button>
 
-  <button type="button"
-          class="btn-secondary"
-          onclick="exportPDF()">
-    Export PDF
-  </button>
+          </div>
 
-  <button class="btn-kirim" onclick="kirimLaporanKeSpreadsheet()">
-    Kirim Spreadsheet
-  </button>
+          <ul id="listBahan"></ul>
 
-</div>
+          <div class="action-row">
+            <button class="btn-success" onclick="generateLaporan()">Generate Laporan</button>
+            <button class="btn-secondary" onclick="exportPDF()">Export PDF</button>
+            <button class="btn-kirim" onclick="kirimLaporanKeSpreadsheet()">Kirim Spreadsheet</button>
+          </div>
 
-  </div>
+        </div>
 
-  <h2 id="printTitle" class="print-title"></h2>
+        <div id="hasil-wrapper" class="table-container">
+          <div id="hasil" class="hasil-grid"></div>
+        </div>
 
-  <!-- HASIL -->
-  <div id="hasil-wrapper" class="table-container">
-  <div id="hasil" class="hasil-grid"></div>
-</div>
-
-  <!-- NOTE -->
-  <div class="card dark">
-    <h2>Catatan Hari Ini</h2>
-    <textarea id="note" placeholder="Tulis catatan hari ini..."></textarea>
-  </div>
-
-</div>
-
-<div id="laporanPDF" class="pdf-container" style="display:none;">
-
-  <!-- KOP SURAT -->
-  <div class="kop pdf-no-break">
-    <img src="logo.png" class="kop-logo">
-
-    <div class="kop-text">
-      <h1>SPPG CICADAS 01</h1>
-      <h2>Program Makan Bergizi Gratis</h2>
-      <p>Jl. Brigjen Katamso, Cihaur Geulis, Kec. Cibeunying Kidul, Kota Bandung</p>
-    </div>
-  </div>
-
-  <hr class="garis-kop">
-
-  <!-- JUDUL -->
-  <div class="header-laporan">
-  <h2 class="judul-laporan">
-    LAPORAN HASIL PERHITUNGAN GIZI
-  </h2>
-
-  <h3 id="jenisMenuLaporan"></h3>
-
-  <p id="tanggalLaporan" class="tanggal"></p>
-</div>
-
-  <!-- HASIL -->
-  <div id="hasilPDF" class="pdf-content"></div>
-
-  <!-- CATATAN -->
-  <div class="catatan-box pdf-no-break">
-    <h3>Catatan</h3>
-    <p id="printNote"></p>
-  </div>
-
-</div>
-  <div id="modalGizi" class="modal">
-  <div class="modal-content">
-    <h3 id="modalTitle">Input Kandungan Gizi</h3>
-    <p id="modalNama"></p>
-
-    <div class="modal-grid">
-      <input id="mEnergi" type="number" placeholder="Energi">
-      <input id="mProtein" type="number" placeholder="Protein">
-      <input id="mLemak" type="number" placeholder="Lemak">
-      <input id="mKarbo" type="number" placeholder="Karbohidrat">
-      <input id="mKalsium" type="number" placeholder="Kalsium">
-      <input id="mSerat" type="number" placeholder="Serat">
+      </div>
     </div>
 
-    <div class="modal-action">
-      <button onclick="tutupModal()" class="btn-cancel">Batal</button>
-      <button onclick="simpanGizi()" class="btn-save">Simpan</button>
-    </div>
-  </div>
-</div>
+    <!-- INPUT MENU ONLY -->
+    <div id="inputMenu" class="section">
+      <div class="header">
+        <h1>Input Menu</h1>
+      </div>
 
-  <div class="card dark" id="cardCreateLaporan">
-
-  <h2>📊 Create Laporan</h2>
-
-  <!-- TAB LEVEL 1 -->
-  <div class="tab-row">
-    <button id="tabLaporan"
-            class="btn-secondary active-tab"
-            onclick="setMainTab('laporan')">
-      📊 Laporan
-    </button>
-
-    <button id="tabCaption"
-            class="btn-secondary"
-            onclick="setMainTab('caption')">
-      📝 Caption
-    </button>
-  </div>
-
-  <!-- TAB LEVEL 2 (LAPORAN) -->
-  <div id="subTabLaporan" class="tab-row">
-
-    <button id="btnLapHarian"
-            class="btn-primary active-subtab"
-            onclick="setSubTab('harian')">
-      Laporan Harian
-    </button>
-
-    <button id="btnLapGizi"
-            class="btn-primary"
-            onclick="setSubTab('gizi')">
-      Laporan Gizi
-    </button>
-
-  </div>
-
-<!-- TAB LEVEL 2 (CAPTION) -->
-<div id="subTabCaption" class="tab-row" style="display:none;">
-
-  <button id="btnCapOmprengan"
-          class="btn-primary active-subtab-caption"
-          onclick="setSubTabCaption('omprengan')">
-    Caption Omprengan
-  </button>
-
-  <button id="btnCapSnack"
-          class="btn-primary"
-          onclick="setSubTabCaption('snack')">
-    Caption Snack
-  </button>
-
-</div>
-
-  <!-- INPUT MENU -->
-  <div id="menuContainer">
-    <input type="text"
-       class="input-menu"
-       placeholder="Nama menu"
-       oninput="updateMenuAwal(this.value)">
-
-    <button class="btn-secondary"
-            onclick="tambahMenuBaris()">
-      + Tambah Menu
-    </button>
-  </div>
-
-  <!-- GENERATE -->
-  <button class="btn-success"
-          onclick="bukaModalLibur()">
-    🚀 Generate
-  </button>
-
-</div>
-
-  <div id="modalLibur" class="modal">
-  <div class="modal-content">
-
-    <h3>Siapa yang libur?</h3>
-
-    <div class="libur-list">
-
-      <label class="switch-row">
-        <span>Balita</span>
-        <label class="ios-switch">
-          <input type="checkbox" id="libur_balita">
-          <span></span>
-        </label>
-      </label>
-
-      <label class="switch-row">
-        <span>Bumil & Busui</span>
-        <label class="ios-switch">
-          <input type="checkbox" id="libur_bumil">
-          <span></span>
-        </label>
-      </label>
-
-      <label class="switch-row">
-        <span>SD YAS</span>
-        <label class="ios-switch">
-          <input type="checkbox" id="libur_sdyas">
-          <span></span>
-        </label>
-      </label>
-
-      <label class="switch-row">
-        <span>SMP YAS</span>
-        <label class="ios-switch">
-          <input type="checkbox" id="libur_smpyas">
-          <span></span>
-        </label>
-      </label>
-
-      <label class="switch-row">
-        <span>SMA YAS</span>
-        <label class="ios-switch">
-          <input type="checkbox" id="libur_smayas">
-          <span></span>
-        </label>
-      </label>
-
-      <label class="switch-row">
-        <span>SDN Awi Gombong</span>
-        <label class="ios-switch">
-          <input type="checkbox" id="libur_awig">
-          <span></span>
-        </label>
-      </label>
-
+      <div class="card dark">
+        <h2>Input Bahan</h2>
+        <p>Gunakan menu input bahan pada dashboard.</p>
+      </div>
     </div>
 
-    <div class="modal-action">
-      <button class="btn-cancel" onclick="tutupModalLibur()">Batal</button>
-      <button class="btn-save" onclick="prosesGenerateLaporan()">Lanjut</button>
+    <!-- HASIL GIZI -->
+    <div id="hasilGizi" class="section">
+      <div class="header">
+        <h1>Hasil Perhitungan Gizi</h1>
+      </div>
+
+      <div id="hasil-wrapper" class="table-container">
+        <div id="hasil" class="hasil-grid"></div>
+      </div>
+    </div>
+
+    <!-- CREATE LAPORAN -->
+    <div id="createLaporan" class="section">
+
+      <div class="card dark" id="cardCreateLaporan">
+        <h2>📊 Create Laporan</h2>
+
+        <div class="tab-row">
+          <button id="tabLaporan" class="btn-secondary active-tab" onclick="setMainTab('laporan')">
+            📊 Laporan
+          </button>
+
+          <button id="tabCaption" class="btn-secondary" onclick="setMainTab('caption')">
+            📝 Caption
+          </button>
+        </div>
+
+        <div id="menuContainer">
+          <input type="text" class="input-menu" placeholder="Nama menu" oninput="updateMenuAwal(this.value)">
+          <button class="btn-secondary" onclick="tambahMenuBaris()">+ Tambah Menu</button>
+        </div>
+
+        <button class="btn-success" onclick="bukaModalLibur()">
+          🚀 Generate
+        </button>
+      </div>
+
+      <div class="card-hasil">
+        <div class="card-hasil-header">
+          <h3>Hasil Laporan</h3>
+        </div>
+
+        <textarea id="captionOutput"></textarea>
+
+        <button class="btn-copy" onclick="copyCaptionWA()">
+          📋 Copy WA
+        </button>
+      </div>
+
     </div>
 
   </div>
 </div>
 
-  <div class="card-hasil">
-  <div class="card-hasil-header">
-    <h3>Hasil Laporan</h3>
-  </div>
+<script>
+function showSection(sectionId) {
+  document.querySelectorAll('.section').forEach(sec => {
+    sec.classList.remove('active');
+  });
+  document.getElementById(sectionId).classList.add('active');
+}
+</script>
 
-  <textarea id="captionOutput"></textarea>
-
-  <button class="btn-copy" onclick="copyCaptionWA()">
-    📋 Copy WA
-  </button>
-</div>
-  
 <script src="config.js"></script>
 <script src="script.js"></script>
 
