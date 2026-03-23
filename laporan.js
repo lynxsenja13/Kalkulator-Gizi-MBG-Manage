@@ -172,3 +172,56 @@ function syncLiburDariModal() {
     awig: document.getElementById("libur_awig").checked
   };
 }
+
+function generateLaporanGizi() {
+  const gizi = window.hasilGiziPerKategori || {};
+  const menu = getMenuList();
+  const tgl = getTanggalFull();
+
+  let teks = `Assalamualaikum wr.wb, Selamat Pagi.
+Izin menginformasikan, untuk menu hari ini.
+Tanggal : ${tgl}
+
+*Menu:* 
+${menu.map((m, i) => `${i + 1}. ${m}`).join("\n")}
+`;
+
+  // ===============================
+  // 🔥 BLOK PER KATEGORI (AUTO SKIP LIBUR)
+  // ===============================
+  if (!window.liburKategori.balita && gizi.BALITA) {
+    teks += blokGizi("Balita", gizi.BALITA);
+  }
+
+  if (!window.liburKategori.bumil && gizi.BUMIL) {
+    teks += blokGizi("Bumil & Busui", gizi.BUMIL);
+  }
+
+  if (!window.liburKategori.sd && gizi.ANAK) {
+    teks += blokGizi("SD 1-3", gizi.ANAK);
+    teks += blokGizi("SD 4-6", gizi.ANAK);
+  }
+
+  if (!window.liburKategori.smp && gizi.REMAJA) {
+    teks += blokGizi("SMP", gizi.REMAJA);
+  }
+
+  if (!window.liburKategori.sma && gizi.DEWASA) {
+    teks += blokGizi("SMA", gizi.DEWASA);
+  }
+
+  return teks;
+}
+
+function blokGizi(nama, g) {
+  return `
+
+*🥗 Analisis Nilai Gizi ${nama} 🥗*
+ • Energi: ${g.ENERGI} kkal
+ • Protein: ${g.PROTEIN} gr
+ • Lemak: ${g.LEMAK} gr
+ • Karbohidrat: ${g.KARBOHIDRAT} gr
+ • Zat Besi: ${g.ZAT_BESI || 0} mg
+ • Serat: ${g.SERAT} gr
+`;
+}
