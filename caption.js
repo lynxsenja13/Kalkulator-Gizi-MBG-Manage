@@ -51,10 +51,10 @@ function generateCaptionSnack() {
 
   let teks = "";
 
-  if (!window.liburKategori.balita)
+  if (isAktif("balita"))
     teks += blokSnack("Balita", gizi.BALITA);
 
-  if (!window.liburKategori.bumil)
+  if (isAktif("bumil"))
     teks += blokSnack("Bumil & Busui", gizi.BUMIL);
 
   teks += blokSnack("Porsi Kecil", gizi.ANAK);
