@@ -738,7 +738,7 @@ syncLiburModal();
     return;
   }
 
-  const hasilDiv = document.getElementById("hasil");
+  const hasilDiv = document.getElementById("hasilDashboard");
   hasilDiv.innerHTML = "";
 
   // 🔥 RESET DATA SEBELUM HITUNG
@@ -1703,7 +1703,8 @@ if (outputBox) outputBox.value = caption.trim();
 
 function prosesGenerateLaporan() {
 
-kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
+  // sync libur
+  kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
   kategoriLibur["Bumil & Busui"] = document.getElementById("libur_bumil").checked;
   kategoriLibur["SD Awi Gombong"] = document.getElementById("libur_awig").checked;
   kategoriLibur["SD YAS"] = document.getElementById("libur_sdyas").checked;
@@ -1712,21 +1713,26 @@ kategoriLibur["Balita"] = document.getElementById("libur_balita").checked;
 
   tutupModalLibur();
 
+  // 🔥 HITUNG SEMUA DULU
   generateLaporan();
+
+  // 🔥 CEK TAB
   if (mainTabAktif === "caption") {
+
     if (subTabCaptionAktif === "omprengan") {
       generateCaptionOmprengan();
     } else {
       generateCaptionSnack();
     }
-    return;
-  }
 
-  // laporan biasa
-  if (subTabAktif === "gizi") {
-    generateLaporanGizi();
   } else {
-    generateCaptionHarian();
+
+    if (subTabAktif === "gizi") {
+      generateLaporanGizi();
+    } else {
+      generateCaptionHarian();
+    }
+
   }
 }
 
