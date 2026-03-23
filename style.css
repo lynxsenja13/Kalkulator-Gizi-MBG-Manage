@@ -2010,3 +2010,30 @@ tr{
 #laporanPDF tr{
   page-break-inside:avoid;
 }
+
+.navbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: #e5e7eb;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.nav-btn:hover {
+  background: #d1d5db;
+}
+
+.nav-btn.active {
+  background: #3b82f6;
+  color: white;
+}
