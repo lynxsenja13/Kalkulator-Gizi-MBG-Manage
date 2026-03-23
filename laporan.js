@@ -106,7 +106,9 @@ function hitungTotal(d) {
 function generateLaporanHarian() {
   const d = getPenerimaFix();
   const total = hitungTotal(d);
-  const menu = ambilMenuUntukLaporan().split("\n").filter(x => x.trim());
+
+  // ✅ GANTI INI
+  const menu = getMenu();
 
   let teks = `
 Yth. Dandim 0618/Kota Bandung
@@ -139,7 +141,7 @@ D. Jumlah penerima sebanyak *${total.penerima}* orang.
 Jumlah makan : *${total.makan}* porsi.
 
 E. Menu Makan hari ini ${getTanggalFull()}
-${menu.map((m,i)=>`${i+1}. ${m}`).join("\n")}
+${menu.map((m, i) => `${i + 1}. ${m}`).join("\n")}
 
 Demikian kami laporkan.
 Dokumentasi terlampir.
@@ -186,8 +188,9 @@ function syncLiburDariModal() {
 }
 
 function generateLaporanGizi() {
-  const gizi = window.hasilGiziPerKategori || {};
-  const menu = ambilMenuUntukLaporan().split("\n").filter(x => x.trim());
+  const gizi = getGiziAktif(); // ✅ dari state
+  const menu = getMenu(); // ✅ dari state
+  const libur = AppState.libur; // ✅ dari state
   const tgl = getTanggalFull();
 
   let teks = `Assalamualaikum wr.wb, Selamat Pagi.
@@ -199,43 +202,30 @@ ${menu.map((m, i) => `${i + 1}. ${m}`).join("\n")}
 `;
 
   // ===============================
-  // 🔥 BLOK PER KATEGORI (AUTO SKIP LIBUR)
+  // 🔥 BLOK PER KATEGORI
   // ===============================
-  if (!window.liburKategori.balita && gizi.BALITA) {
+  if (!libur.balita && gizi.BALITA) {
     teks += blokGizi("Balita", gizi.BALITA);
   }
 
-  if (!window.liburKategori.bumil && gizi.BUMIL) {
+  if (!libur.bumil && gizi.BUMIL) {
     teks += blokGizi("Bumil & Busui", gizi.BUMIL);
   }
 
-  if (!window.liburKategori.sd && gizi.ANAK) {
+  if (!libur.sd && gizi.ANAK) {
     teks += blokGizi("SD 1-3", gizi.ANAK);
     teks += blokGizi("SD 4-6", gizi.ANAK);
   }
 
-  if (!window.liburKategori.smp && gizi.REMAJA) {
+  if (!libur.smp && gizi.REMAJA) {
     teks += blokGizi("SMP", gizi.REMAJA);
   }
 
-  if (!window.liburKategori.sma && gizi.DEWASA) {
+  if (!libur.sma && gizi.DEWASA) {
     teks += blokGizi("SMA", gizi.DEWASA);
   }
 
   return teks;
-}
-
-function blokGizi(nama, g) {
-  return `
-
-*🥗 Analisis Nilai Gizi ${nama} 🥗*
- • Energi: ${g.ENERGI || 0} kkal
- • Protein: ${g.PROTEIN || 0} gr
- • Lemak: ${g.LEMAK || 0} gr
- • Karbohidrat: ${g.KARBOHIDRAT || 0} gr
- • Zat Besi: ${g.ZAT_BESI || 0} mg
- • Serat: ${g.SERAT || 0} gr
-`;
 }
 
 function isAktif(kategori) {
