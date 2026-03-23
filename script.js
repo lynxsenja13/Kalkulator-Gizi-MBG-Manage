@@ -2215,3 +2215,8 @@ function hapusBahan(kategori, index) {
 function renderSemuaKategori() {
   renderHasilGizi(window.hasilGiziPerKategori);
 }
+
+function clearKategori(kategori) {
+  window.dataBahanPerKategori[kategori] = [];
+  renderHasilGizi(window.hasilGiziPerKategori);
+}
