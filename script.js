@@ -2050,7 +2050,6 @@ function renderHasilGizi(data) {
       </div>
       `;
     });
-  }
 
     const namaAKG = MAP_KATEGORI[kat];
     const akg = AKG[namaAKG] || {};
