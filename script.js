@@ -1181,9 +1181,8 @@ function ambilDataLibur(){
 }
 
 function updateMenuAwal(value) {
-  if (!window.menuHarian) {
-    window.menuHarian = [""];
-  }
+  AppState.menu[0] = value;
+}
 
   window.menuHarian[0] = value;
 }
@@ -1981,4 +1980,16 @@ function getGiziAktif() {
 
 function setGizi(mode, data) {
   AppState.hasilGizi[mode] = data;
+}
+
+function generateByTab() {
+  const tabLaporan = document.getElementById("subTabLaporan").style.display !== "none";
+
+  if (tabLaporan) {
+    // default laporan harian
+    handleGenerate("laporan");
+  } else {
+    // default caption omprengan
+    handleGenerate("caption_omprengan");
+  }
 }
