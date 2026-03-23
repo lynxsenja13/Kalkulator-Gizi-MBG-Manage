@@ -154,13 +154,6 @@ function setModeMenu(menu) {
   generateLaporan();
 }
 
-function getNamaBahan(obj) {
-  const key = Object.keys(obj).find(k =>
-    k.toLowerCase().replace(/\s/g, "") === "namabahan"
-  );
-  return key ? String(obj[key]).toLowerCase().trim() : "";
-}
-
 function setModeKategori(value) {
   modeKategori = value;
 }
@@ -504,7 +497,7 @@ function tambahBahan() {
   const namaFix = nama.trim().toLowerCase();
 
 let db = database.find(d =>
-  getNamaBahan(d) === namaFix
+  d.nama === namaFix
 );
 
 
@@ -580,7 +573,7 @@ function hitungTotal(list) {
   list.forEach(item => {
 
    const db = database.find(d =>
-  getNamaBahan(d) === item.nama.toLowerCase().trim()
+  d.nama === item.nama.toLowerCase().trim()
 );
 
     if (!db) return;
@@ -1939,7 +1932,7 @@ function generateKandunganGizi() {
     window.dataBahanPerKategori[kat] = list.map(item => {
 
       const db = database.find(d =>
-        getNamaBahan(d) === item.nama.toLowerCase().trim()
+        d.nama === item.nama.toLowerCase().trim()
       );
 
       if (!db) return null;
@@ -2129,15 +2122,33 @@ function renderTabelBahan(kategori) {
 
         <!-- 🔥 TOTAL -->
         <tr class="total-row">
-          <td colspan="2"><b>TOTAL</b></td>
-          <td>${total.ENERGI.toFixed(1)}</td>
-          <td>${total.PROTEIN.toFixed(1)}</td>
-          <td>${total.LEMAK.toFixed(1)}</td>
-          <td>${total.KARBOHIDRAT.toFixed(1)}</td>
-          <td>${total.KALSIUM.toFixed(1)}</td>
-          <td>${total.SERAT.toFixed(1)}</td>
+          <td class="${total.ENERGI >= AKG[kategori].Energi ? 'ok' : 'bad'}">
+          ${total.ENERGI.toFixed(1)}
+          </td>
+
+          <td class="${total.PROTEIN >= AKG[kategori].Protein ? 'ok' : 'bad'}">
+          ${total.PROTEIN.toFixed(1)}
+          </td>
+
+          <td class="${total.LEMAK >= AKG[kategori].Lemak ? 'ok' : 'bad'}">
+            ${total.LEMAK.toFixed(1)}
+          </td>
+          
+          <td class="${total.KARBOHIDRAT >= AKG[kategori].Karbohidrat ? 'ok' : 'bad'}">
+            ${total.KARBOHIDRAT.toFixed(1)}
+          </td>
+          
+          <td class="${total.KALSIUM >= AKG[kategori].Kalsium ? 'ok' : 'bad'}">
+            ${total.KALSIUM.toFixed(1)}
+          </td>
+          
+          <td class="${total.SERAT >= AKG[kategori].Serat ? 'ok' : 'bad'}">
+            ${total.SERAT.toFixed(1)}
+          </td>
           <td></td>
         </tr>
+
+        
 
       </tbody>
     </table>
@@ -2183,14 +2194,16 @@ async function loadDatabase() {
 
     // 🔥 TARUH DI SINI
     database = data.map(item => ({
-      nama: item["Nama Bahan"]?.toLowerCase().trim(),
-      ENERGI: Number(item["Energi"]) || 0,
-      PROTEIN: Number(item["Protein"]) || 0,
-      LEMAK: Number(item["Lemak"]) || 0,
-      KARBOHIDRAT: Number(item["Karbohidrat"]) || 0,
-      KALSIUM: Number(item["Kalsium"]) || 0,
-      SERAT: Number(item["Serat"]) || 0
-    }));
+  nama: item["Nama Bahan"]?.toLowerCase().trim(),
+
+  ENERGI: Number(item["ENERGI"]) || 0,
+  PROTEIN: Number(item["PROTEIN"]) || 0,
+  LEMAK: Number(item["LEMAK"]) || 0,
+  KARBOHIDRAT: Number(item["KARBOHIDRAT"]) || 0,
+  KALSIUM: Number(item["KALSIUM"]) || 0,
+  SERAT: Number(item["SERAT"]) || 0,
+  BESI: Number(item["BESI"]) || 0
+}));
 
     console.log("DATABASE SIAP:", database);
 
