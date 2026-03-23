@@ -2384,17 +2384,19 @@ return satuan;
 
 }
 
-function showMenu(menu) {
-  const menus = ["dashboard", "input", "hasil", "laporan"];
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("hide");
+  document.querySelector(".main-content").classList.toggle("full");
+}
 
-  menus.forEach(m => {
-    document.getElementById("menu-" + m).style.display = "none";
+function showMenu(menu) {
+  document.querySelectorAll(".menu-section").forEach(el => {
+    el.style.display = "none";
   });
 
   document.getElementById("menu-" + menu).style.display = "block";
 
-  // aktifin tombol
-  document.querySelectorAll(".nav-btn").forEach(btn => {
+  document.querySelectorAll(".sidebar-btn").forEach(btn => {
     btn.classList.remove("active");
   });
 
