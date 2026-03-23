@@ -2668,3 +2668,28 @@ letter-spacing:.5px;
   color: #fca5a5;
   padding: 10px 0;
 }
+
+.gizi-table th {
+  background: #3b82f6;
+  color: white;
+  padding: 10px;
+}
+
+.gizi-table td {
+  background: #f1f5f9;
+  color: black;
+}
+
+.total-row td {
+  background: #ef4444;
+  color: white;
+  font-weight: bold;
+}
+
+.input-berat {
+  width: 70px;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
