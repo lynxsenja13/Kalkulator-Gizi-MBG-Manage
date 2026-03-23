@@ -923,15 +923,9 @@ document.addEventListener("keydown", function(e) {
   if (e.key === "Escape") tutupModal();
 });
 
-window.onload = function () {
+window.onload = async function() {
 
-  initKategori();
-  renderKategori();
-
-  loadCache();
-  loadDatabase();
-
-  showSection("dashboard");
+  await loadDatabase(); // 🔥 WAJIB
 };
 
 function sdSemuaLibur() {
@@ -2202,4 +2196,31 @@ function renderSemuaKategori() {
 function clearKategori(kategori) {
   window.dataBahanPerKategori[kategori] = [];
   renderHasilGizi(window.hasilGiziPerKategori);
+}
+
+let database = []; // 🔥 global
+
+async function loadDatabase() {
+  try {
+    const res = await fetch(API_URL);
+    const data = await res.json();
+
+    console.log("RAW DATA:", data);
+
+    // 🔥 TARUH DI SINI
+    database = data.map(item => ({
+      nama: item["Nama Bahan"]?.toLowerCase().trim(),
+      ENERGI: Number(item["Energi"]) || 0,
+      PROTEIN: Number(item["Protein"]) || 0,
+      LEMAK: Number(item["Lemak"]) || 0,
+      KARBOHIDRAT: Number(item["Karbohidrat"]) || 0,
+      KALSIUM: Number(item["Kalsium"]) || 0,
+      SERAT: Number(item["Serat"]) || 0
+    }));
+
+    console.log("DATABASE SIAP:", database);
+
+  } catch (err) {
+    console.error("Gagal ambil database:", err);
+  }
 }
