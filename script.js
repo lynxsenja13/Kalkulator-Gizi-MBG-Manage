@@ -1849,6 +1849,8 @@ function showSection(id) {
     sec.style.display = "none";
   });
 
+}
+
 function klikGenerate(mode){
 
 modeGenerate = mode;
