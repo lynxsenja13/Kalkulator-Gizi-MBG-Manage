@@ -1942,18 +1942,16 @@ function kirimKeSpreadsheet() {
   formData.append("data", JSON.stringify(data));
 
   fetch(API_URL2, {
-    method: "POST",
-    body: formData
-  })
-  .then(res => res.text())
-  .then(text => {
-    console.log("RESP:", text);
-    alert("Data berhasil dikirim");
-  })
-  .catch(err => {
-    console.error("Fetch error:", err);
-    alert("Gagal kirim");
-  });
+  method: "POST",
+  body: JSON.stringify(data)
+})
+.then(res => res.text())
+.then(res => {
+  console.log("RESPON:", res);
+})
+.catch(err => {
+  console.error("ERROR KIRIM:", err);
+});
 
   simpanDraftLokal(data);
 }
