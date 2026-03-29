@@ -1949,6 +1949,7 @@ function kirimKeSpreadsheet() {
     alert("Gagal kirim");
   });
 
+  simpanDraftLokal(data);
 }
 
 function kirimLaporan(data) {
@@ -2439,4 +2440,38 @@ function getTanggalDipilih() {
     month: "long",
     year: "numeric"
   });
+}
+
+function simpanDraftLokal(data) {
+  let all = JSON.parse(localStorage.getItem("laporanDraft") || "{}");
+
+  all[data.tanggal] = data;
+
+  localStorage.setItem("laporanDraft", JSON.stringify(all));
+}
+
+function loadDraftTanggal() {
+  const tanggal = getTanggalDipilih();
+
+  const all = JSON.parse(localStorage.getItem("laporanDraft") || "{}");
+
+  const data = all[tanggal];
+
+  if (!data) {
+    alert("Data tidak ditemukan");
+    return;
+  }
+
+  // restore data utama
+  window.dataSpreadsheet = {
+    OMPRENGAN: data.omprengan,
+    SNACK: data.snack
+  };
+
+  kategoriLibur = data.libur || {};
+
+  // restore menu
+  menuSemua = data.menu || [""];
+
+  generateLaporan();
 }
