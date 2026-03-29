@@ -1111,15 +1111,20 @@ function exportPDF(){
   }, 500);
 
 }
+
 function getTanggalLengkap() {
+  const bulan = [
+    "Januari","Februari","Maret","April","Mei","Juni",
+    "Juli","Agustus","September","Oktober","November","Desember"
+  ];
+
+  const hari = [
+    "Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"
+  ];
+
   const now = new Date();
 
-  const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
-  const tanggal = now.getDate();
-  const bulan = now.toLocaleDateString("id-ID", { month: "long" });
-  const tahun = now.getFullYear();
-
-  return `${hari}, ${tanggal} ${bulan} ${tahun}`;
+  return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
 }
 
 function setJudulLaporan() {
@@ -2156,12 +2161,19 @@ function kirimLaporanKeSpreadsheet() {
   };
 
   fetch(API_URL2, {
-    method: "POST",
-    body: JSON.stringify(data)
-  })
-  .then(res => res.text())
-  .then(res => alert("Berhasil kirim"))
-  .catch(err => alert("Gagal kirim"));
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json" // ✅ TAMBAHKAN INI
+  },
+  body: JSON.stringify(data)
+})
+.then(res => res.text()) // ✅ UBAH json → text
+.then(res => {
+  console.log("RESPON ASLI:", res); // ✅ DEBUG WAJIB
+})
+.catch(err => {
+  console.error("ERROR KIRIM:", err);
+});
 }
 
 function debounce(fn, delay = 150) {
@@ -2484,3 +2496,16 @@ window.addEventListener("DOMContentLoaded", () => {
     input.value = today;
   }
 });
+
+function getNamaSheet() {
+  const bulan = [
+    "Januari","Februari","Maret","April","Mei","Juni",
+    "Juli","Agustus","September","Oktober","November","Desember"
+  ];
+
+  const hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+
+  const now = new Date();
+
+  return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
+}
