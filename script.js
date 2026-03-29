@@ -1943,8 +1943,12 @@ function kirimKeSpreadsheet() {
 
   fetch(API_URL2, {
   method: "POST",
-  body: JSON.stringify(data)
-})
+  mode: "no-cors",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  body: "data=" + encodeURIComponent(JSON.stringify(data))
+});
 .then(res => res.text())
 .then(res => {
   console.log("RESPON:", res);
