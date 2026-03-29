@@ -25,7 +25,7 @@ const STATE = {
   modeKategori:"SEMUA",
   mainTab:"laporan",
   subTab:"harian",
-  subTabCaption:"omprengan"
+  subTabCaption:"omprengan",
   id: Date.now()
 }
 
