@@ -1190,7 +1190,7 @@ const totalD =
 
 // 🔥 TOTAL MAKAN (SEMUA)
 const totalSemua = Object.values(data).reduce((a,b)=>a+b,0);
-  const tanggal = formatTanggalIndonesia();
+  const tanggal = getTanggalDipilih();
 
 let menuList = ambilMenuUntukLaporan().join("\n");
   
@@ -2124,60 +2124,45 @@ sheet.getRange(row,6).setBackground(warnaSerat);
 
 function kirimLaporanKeSpreadsheet() {
 
-  const tanggal = formatTanggalIndonesia();
-  const menuFix = ambilMenuUntukLaporan();
-
-  const semuaDetail = [];
-  const semuaLibur = {};
-
-  // gabungkan semua data spreadsheet
-  Object.keys(window.dataSpreadsheet).forEach(mode => {
-
-    const dataMode = window.dataSpreadsheet[mode];
-
-    if (dataMode && dataMode.detail) {
-      semuaDetail.push(...dataMode.detail);
-    }
-
-  });
-
-  // ambil status libur
-  Object.keys(kategoriLibur).forEach(kat => {
-    semuaLibur[kat] = kategoriLibur[kat];
-  });
+  generateLaporan(); // pastikan semua update
 
   const data = {
-    tanggal: tanggal,
-    menu: menuFix,
+    tanggal: getTanggalDipilih(),
+    menu: ambilMenuUntukLaporan(),
+
+    laporanHarian: document.getElementById("captionOutput")?.value || "",
+
+    captionOmprengan: (function(){
+      generateCaptionOmprengan();
+      return document.getElementById("captionOutput").value;
+    })(),
+
+    captionSnack: (function(){
+      generateCaptionSnack();
+      return document.getElementById("captionOutput").value;
+    })(),
+
     omprengan: window.dataSpreadsheet.OMPRENGAN,
     snack: window.dataSpreadsheet.SNACK,
-    detail: semuaDetail,
-    libur: semuaLibur,
-    catatan: document.getElementById("note")?.value || ""
+
+    detail: [
+      ...window.dataSpreadsheet.OMPRENGAN.detail,
+      ...window.dataSpreadsheet.SNACK.detail
+    ],
+
+    libur: kategoriLibur
   };
-
-  console.log(data);
-
-  const formData = new FormData();
-  formData.append("data", JSON.stringify(data));
 
   fetch(API_URL2, {
     method: "POST",
-    body: formData
+    body: JSON.stringify(data)
   })
   .then(res => res.text())
-  .then(res => {
-    console.log("RESP:", res);
-    alert("Berhasil kirim laporan");
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Gagal kirim");
-  });
-
+  .then(res => alert("Berhasil kirim"))
+  .catch(err => alert("Gagal kirim"));
 }
 
-  function debounce(fn, delay = 150) {
+function debounce(fn, delay = 150) {
   let t;
   return (...args) => {
     clearTimeout(t);
@@ -2440,4 +2425,18 @@ function autoIsiBerat(nama) {
       inputSatuan.value = "GRAM"; // fallback
     }
   }
+}
+
+function getTanggalDipilih() {
+  const val = document.getElementById("inputTanggal")?.value;
+
+  if (!val) return formatTanggalIndonesia(); // fallback hari ini
+
+  const d = new Date(val);
+
+  return d.toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
 }
