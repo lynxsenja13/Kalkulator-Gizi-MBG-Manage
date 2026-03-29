@@ -28,6 +28,9 @@ const STATE = {
   subTabCaption:"omprengan"
 }
 
+const id = Date.now();
+data.id = id;
+
 let autocompleteInitialized = false;
 let modeMenu = "OMPRENGAN";
 let kategoriLibur = {
