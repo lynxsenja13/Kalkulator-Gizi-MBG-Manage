@@ -2478,3 +2478,11 @@ function loadDraftTanggal() {
 
   generateLaporan();
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("inputTanggal");
+  if (input) {
+    const today = new Date().toISOString().split("T")[0];
+    input.value = today;
+  }
+});
