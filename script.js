@@ -29,8 +29,6 @@ const STATE = {
   id: Date.now()
 }
 
-const id = Date.now();
-
 let autocompleteInitialized = false;
 let modeMenu = "OMPRENGAN";
 let kategoriLibur = {
