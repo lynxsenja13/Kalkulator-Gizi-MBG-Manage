@@ -26,10 +26,10 @@ const STATE = {
   mainTab:"laporan",
   subTab:"harian",
   subTabCaption:"omprengan"
+  id: Date.now()
 }
 
 const id = Date.now();
-data.id = id;
 
 let autocompleteInitialized = false;
 let modeMenu = "OMPRENGAN";
