@@ -1,3 +1,5 @@
+//Berhasil
+
 let bahanMaster = {
   OMPRENGAN: [],
   SNACK: []
@@ -25,8 +27,7 @@ const STATE = {
   modeKategori:"SEMUA",
   mainTab:"laporan",
   subTab:"harian",
-  subTabCaption:"omprengan",
-  id: Date.now()
+  subTabCaption:"omprengan"
 }
 
 let autocompleteInitialized = false;
@@ -65,7 +66,7 @@ const PENERIMA_DEFAULT = {
   "BALITA": 211,
   "BUMIL & BUSUI": 125,
 
-  "SD Awi Gombong": 1015,
+  "SD Awi Gombong": 1016,
   "SD YAS": 186,
 
   "SMP YAS": 630,
@@ -1111,20 +1112,15 @@ function exportPDF(){
   }, 500);
 
 }
-
 function getTanggalLengkap() {
-  const bulan = [
-    "Januari","Februari","Maret","April","Mei","Juni",
-    "Juli","Agustus","September","Oktober","November","Desember"
-  ];
-
-  const hari = [
-    "Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"
-  ];
-
   const now = new Date();
 
-  return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
+  const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
+  const tanggal = now.getDate();
+  const bulan = now.toLocaleDateString("id-ID", { month: "long" });
+  const tahun = now.getFullYear();
+
+  return `${hari}, ${tanggal} ${bulan} ${tahun}`;
 }
 
 function setJudulLaporan() {
@@ -1196,7 +1192,7 @@ const totalD =
 
 // 🔥 TOTAL MAKAN (SEMUA)
 const totalSemua = Object.values(data).reduce((a,b)=>a+b,0);
-  const tanggal = getTanggalDipilih();
+  const tanggal = formatTanggalIndonesia();
 
 let menuList = ambilMenuUntukLaporan().join("\n");
   
@@ -1942,22 +1938,19 @@ function kirimKeSpreadsheet() {
   formData.append("data", JSON.stringify(data));
 
   fetch(API_URL2, {
-  method: "POST",
-  mode: "no-cors",
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded"
-  },
-  body: "data=" + encodeURIComponent(JSON.stringify(data))
-});
-.then(res => res.text())
-.then(res => {
-  console.log("RESPON:", res);
-})
-.catch(err => {
-  console.error("ERROR KIRIM:", err);
-});
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(text => {
+    console.log("RESP:", text);
+    alert("Data berhasil dikirim");
+  })
+  .catch(err => {
+    console.error("Fetch error:", err);
+    alert("Gagal kirim");
+  });
 
-  simpanDraftLokal(data);
 }
 
 function kirimLaporan(data) {
@@ -2133,52 +2126,60 @@ sheet.getRange(row,6).setBackground(warnaSerat);
 
 function kirimLaporanKeSpreadsheet() {
 
-  generateLaporan(); // pastikan semua update
+  const tanggal = formatTanggalIndonesia();
+  const menuFix = ambilMenuUntukLaporan();
+
+  const semuaDetail = [];
+  const semuaLibur = {};
+
+  // gabungkan semua data spreadsheet
+  Object.keys(window.dataSpreadsheet).forEach(mode => {
+
+    const dataMode = window.dataSpreadsheet[mode];
+
+    if (dataMode && dataMode.detail) {
+      semuaDetail.push(...dataMode.detail);
+    }
+
+  });
+
+  // ambil status libur
+  Object.keys(kategoriLibur).forEach(kat => {
+    semuaLibur[kat] = kategoriLibur[kat];
+  });
 
   const data = {
-    tanggal: getTanggalDipilih(),
-    menu: ambilMenuUntukLaporan(),
-
-    laporanHarian: document.getElementById("captionOutput")?.value || "",
-
-    captionOmprengan: (function(){
-      generateCaptionOmprengan();
-      return document.getElementById("captionOutput").value;
-    })(),
-
-    captionSnack: (function(){
-      generateCaptionSnack();
-      return document.getElementById("captionOutput").value;
-    })(),
-
+    tanggal: tanggal,
+    menu: menuFix,
     omprengan: window.dataSpreadsheet.OMPRENGAN,
     snack: window.dataSpreadsheet.SNACK,
-
-    detail: [
-      ...window.dataSpreadsheet.OMPRENGAN.detail,
-      ...window.dataSpreadsheet.SNACK.detail
-    ],
-
-    libur: kategoriLibur
+    detail: semuaDetail,
+    libur: semuaLibur,
+    catatan: document.getElementById("note")?.value || ""
   };
 
+  console.log(data);
+
+  const formData = new FormData();
+  formData.append("data", JSON.stringify(data));
+
   fetch(API_URL2, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json" // ✅ TAMBAHKAN INI
-  },
-  body: JSON.stringify(data)
-})
-.then(res => res.text()) // ✅ UBAH json → text
-.then(res => {
-  console.log("RESPON ASLI:", res); // ✅ DEBUG WAJIB
-})
-.catch(err => {
-  console.error("ERROR KIRIM:", err);
-});
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(res => {
+    console.log("RESP:", res);
+    alert("Berhasil kirim laporan");
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Gagal kirim");
+  });
+
 }
 
-function debounce(fn, delay = 150) {
+  function debounce(fn, delay = 150) {
   let t;
   return (...args) => {
     clearTimeout(t);
@@ -2441,73 +2442,4 @@ function autoIsiBerat(nama) {
       inputSatuan.value = "GRAM"; // fallback
     }
   }
-}
-
-function getTanggalDipilih() {
-  const val = document.getElementById("inputTanggal")?.value;
-
-  if (!val) return formatTanggalIndonesia(); // fallback hari ini
-
-  const d = new Date(val);
-
-  return d.toLocaleDateString("id-ID", {
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  });
-}
-
-function simpanDraftLokal(data) {
-  let all = JSON.parse(localStorage.getItem("laporanDraft") || "{}");
-
-  all[data.tanggal] = data;
-
-  localStorage.setItem("laporanDraft", JSON.stringify(all));
-}
-
-function loadDraftTanggal() {
-  const tanggal = getTanggalDipilih();
-
-  const all = JSON.parse(localStorage.getItem("laporanDraft") || "{}");
-
-  const data = all[tanggal];
-
-  if (!data) {
-    alert("Data tidak ditemukan");
-    return;
-  }
-
-  // restore data utama
-  window.dataSpreadsheet = {
-    OMPRENGAN: data.omprengan,
-    SNACK: data.snack
-  };
-
-  kategoriLibur = data.libur || {};
-
-  // restore menu
-  menuSemua = data.menu || [""];
-
-  generateLaporan();
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("inputTanggal");
-  if (input) {
-    const today = new Date().toISOString().split("T")[0];
-    input.value = today;
-  }
-});
-
-function getNamaSheet() {
-  const bulan = [
-    "Januari","Februari","Maret","April","Mei","Juni",
-    "Juli","Agustus","September","Oktober","November","Desember"
-  ];
-
-  const hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-
-  const now = new Date();
-
-  return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
 }
