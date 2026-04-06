@@ -1,8 +1,8 @@
 //Berhasil
 
 let bahanMaster = {
-  OMPRENGAN: [],
-  SNACK: []
+  OMPRENGAN: {},
+  SNACK: {}
 };
 
 // ✅ TAMBAHKAN INI
@@ -210,7 +210,7 @@ if (selected.includes("SEMUA") || selected.length === 0) {
     const berat = pendingBerat;
 const satuan = document.getElementById("satuanBahan")?.value || "GRAM";
 
-kategoriData[modeMenu][k].push({
+kategoriData[modeMenu][tanggalAktif][k].push({
   nama: namaBaru.trim(),
   berat,
   satuan
@@ -220,7 +220,7 @@ kategoriData[modeMenu][k].push({
 } else {
 
   selected.forEach(k => {
-  kategoriData[modeMenu][k].push({
+  kategoriData[modeMenu][tanggalAktif][k].push({
     nama: namaBaru.trim(),
     berat,
     satuan
@@ -540,7 +540,9 @@ let db = database.find(d =>
 }
 
   // ✅ MASUKKAN DATA
-  bahanMaster[modeMenu].push({ 
+  initTanggal(tanggalAktif);
+
+  bahanMaster[modeMenu][tanggalAktif].push({
   nama: nama.trim().toLowerCase(),
   berat,
   satuan
@@ -551,7 +553,7 @@ let db = database.find(d =>
 if (selected.includes("SEMUA") || selected.length === 0) {
 
   getKategoriAktif().forEach(k => {
-    kategoriData[modeMenu][k].push({
+      kategoriData[modeMenu][tanggalAktif][k].push({
       nama: nama.trim(),
       berat,
       satuan
@@ -561,11 +563,11 @@ if (selected.includes("SEMUA") || selected.length === 0) {
 } else {
 
   selected.forEach(k => {
-    if (!kategoriData[modeMenu][k]) {
-      kategoriData[modeMenu][k] = [];
+    if (!kategoriData[modeMenu][tanggalAktif][k]) {
+      kategoriData[modeMenu][tanggalAktif][k] = [];
     }
 
-    kategoriData[modeMenu][k].push({
+    kategoriData[modeMenu][tanggalAktif][k].push({
       nama: nama.trim(),
       berat,
       satuan
@@ -584,7 +586,9 @@ function renderList() {
   const ul = document.getElementById("listBahan");
   ul.innerHTML = "";
 
-  bahanMaster[modeMenu].forEach(b => {
+  const list = bahanMaster[modeMenu][tanggalAktif] || [];
+
+    list.forEach(b => {
     ul.innerHTML += `<li>${b.nama} - ${b.berat} ${formatSatuan(b.satuan)}</li>`;
   });
 }
@@ -760,7 +764,7 @@ syncLiburModal();
 
   semuaMenu.forEach(menu => {
 
-    const listAktif = bahanMaster[menu] || [];
+    const listAktif = bahanMaster[menu][tanggalAktif] || [];
     const kategoriList = menu === "OMPRENGAN" ? kategoriOmprengan : kategoriSnack;
 
     kategoriList.forEach(kat => {
@@ -784,7 +788,7 @@ syncLiburModal();
         return;
       }
 
-      const dataKategori = kategoriData[menu][kat] || [];
+      const dataKategori = kategoriData[menu][tanggalAktif][kat] || [];
       const dataAktif = dataKategori.filter(item =>
         listAktif.some(b => b.nama === item.nama)
       );
@@ -928,7 +932,7 @@ function renderAKG(nutrien, total, kategori) {
 // ================= EDITABLE BERAT =================
 function renderEditableList(menu, kat) {
 
-  const list = kategoriData[menu][kat] || [];
+  const list = kategoriData[menu][tanggalAktif][kat] || [];
 
   let html = `<div class="editable-list">`;
 
@@ -970,14 +974,14 @@ function renderEditableList(menu, kat) {
 }
 
 function editBerat(menu, kat, index, value) {
-  kategoriData[menu][kat][index].berat = parseFloat(value) || 0;
+  kategoriData[menu][tanggalAktif][kat][index].berat = parseFloat(value) || 0;
   renderList();
   generateLaporan();
 }
 
 function hapusBahan(menu, kat, index) {
-  const item = kategoriData[menu][kat][index];
-  kategoriData[menu][kat].splice(index,1);
+  const item = kategoriData[menu][tanggalAktif][kat][index];
+  kategoriData[menu][tanggalAktif][kat].splice(index,1);
   generateLaporan();
 }
 
@@ -1135,6 +1139,9 @@ document.addEventListener("keydown", function(e) {
 
 window.onload = function () {
 
+  tanggalAktif = formatTanggalIndonesia();
+  initTanggal(tanggalAktif);
+  
   initKategori();
   renderKategori();
 
@@ -2443,4 +2450,52 @@ function autoIsiBerat(nama) {
       inputSatuan.value = "GRAM"; // fallback
     }
   }
+}
+
+function initTanggal(tanggal) {
+  ["OMPRENGAN", "SNACK"].forEach(menu => {
+
+    if (!bahanMaster[menu][tanggal]) {
+      bahanMaster[menu][tanggal] = [];
+    }
+
+    if (!kategoriData[menu][tanggal]) {
+      kategoriData[menu][tanggal] = {};
+    }
+
+    const list = menu === "OMPRENGAN"
+      ? kategoriOmprengan
+      : kategoriSnack;
+
+    list.forEach(k => {
+      if (!kategoriData[menu][tanggal][k]) {
+        kategoriData[menu][tanggal][k] = [];
+      }
+    });
+
+  });
+}
+
+function gantiTanggal(tanggal) {
+  tanggalAktif = tanggal;
+
+  initTanggal(tanggal);
+
+  document.getElementById("tanggalAktifText").innerText = tanggal;
+
+  renderList();
+  generateLaporan();
+}
+
+function handleTanggal(value) {
+  const date = new Date(value);
+
+  const hari = date.toLocaleDateString("id-ID", { weekday: "long" });
+  const tanggal = date.getDate();
+  const bulan = date.toLocaleDateString("id-ID", { month: "long" });
+  const tahun = date.getFullYear();
+
+  const format = `${hari}, ${tanggal} ${bulan} ${tahun}`;
+
+  gantiTanggal(format);
 }
