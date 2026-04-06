@@ -1672,7 +1672,8 @@
   }
   });
   
-  caption += `Assalamualaikum wr.wb, Selamat Pagi.
+  caption += 
+  `Assalamualaikum wr.wb, Selamat Pagi.
   Izin menginformasikan, untuk menu hari ini.
   Tanggal : ${tanggal}
   
