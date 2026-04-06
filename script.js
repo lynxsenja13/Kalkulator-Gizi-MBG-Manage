@@ -1672,36 +1672,36 @@
   
   caption += 
   `Assalamualaikum wr.wb, Selamat Pagi.
-  Izin menginformasikan, untuk menu hari ini.
-  Tanggal : ${tanggal}
+Izin menginformasikan, untuk menu hari ini.
+Tanggal : ${tanggal}
   
-  Menu:
-  ${menuText}
-  `;
+Menu:
+${menuText}
+`;
   
-  const gizi = window.hasilGizi.OMPRENGAN || {};
+const gizi = window.hasilGizi.OMPRENGAN || {};
   
-  if (!libur.balita)
-  caption += blokGizi("🥗 *Analisis Nilai Gizi Balita* 🥗", gizi.balita);
+if (!libur.balita)
+caption += blokGizi("🥗 *Analisis Nilai Gizi Balita* 🥗", gizi.balita);
   
-  if (!libur.bumil)
-  caption += blokGizi("🥗 *Analisis Nilai Gizi Bumil & Busui* 🥗", gizi.bumil);
+if (!libur.bumil)
+caption += blokGizi("🥗 *Analisis Nilai Gizi Bumil & Busui* 🥗", gizi.bumil);
   
-  if (!libur.sd)
-  caption += blokGizi("🥗 *Analisis Nilai Gizi SD 1-3* 🥗", gizi.sd1_3);
+if (!libur.sd)
+caption += blokGizi("🥗 *Analisis Nilai Gizi SD 1-3* 🥗", gizi.sd1_3);
   
-  if (!libur.sd)
-  caption += blokGizi("🥗 *Analisis Nilai Gizi SD 4-6* 🥗", gizi.sd4_6);
+if (!libur.sd)
+caption += blokGizi("🥗 *Analisis Nilai Gizi SD 4-6* 🥗", gizi.sd4_6);
   
-  if (!libur.smp)
-  caption += blokGizi("🥗 *Analisis Nilai Gizi SMP* 🥗", gizi.smp);
+if (!libur.smp)
+caption += blokGizi("🥗 *Analisis Nilai Gizi SMP* 🥗", gizi.smp);
   
-  if (!libur.sma)
-  caption += blokGizi("🥗 *Analisis Nilai Gizi SMA* 🥗", gizi.sma);
+if (!libur.sma)
+caption += blokGizi("🥗 *Analisis Nilai Gizi SMA* 🥗", gizi.sma);
   
-  const outputBox = document.getElementById("captionOutput");
-  if (outputBox) outputBox.value = caption.trim();
-  }
+const outputBox = document.getElementById("captionOutput");
+if (outputBox) outputBox.value = caption.trim();
+}
   
   function prosesGenerateLaporan() {
   
@@ -1779,40 +1779,40 @@
     const gizi = window.hasilGizi.OMPRENGAN || {};
   
   let caption = `🍱 Menu Bergizi Gratis
-  📅 ${tanggalAktif}
+📅 ${tanggalAktif}
   
-  🥗 Menu:
-  ${menuText}
+🥗 Menu:
+${menuText}
   
-  ⚖️ Kandungan Gizi (per porsi):
-  `;
+⚖️ Kandungan Gizi (per porsi):
+`;
   
-    if (!libur.balita)
-    caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
+if (!libur.balita)
+caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
   
-  if (!libur.bumil)
-    caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
+if (!libur.bumil)
+caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
   
-  if (!libur.sd13)
-    caption += blokGizi("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
+if (!libur.sd13)
+caption += blokGizi("Analisis Nilai Gizi SD 1-3", gizi.sd1_3);
   
-  if (!libur.sd46)
-    caption += blokGizi("Analisis Nilai Gizi SD 4-6", gizi.sd4_6);
+if (!libur.sd46)
+caption += blokGizi("Analisis Nilai Gizi SD 4-6", gizi.sd4_6);
   
-  if (!libur.smp)
-    caption += blokGizi("Analisis Nilai Gizi SMP", gizi.smp);
+if (!libur.smp)
+caption += blokGizi("Analisis Nilai Gizi SMP", gizi.smp);
   
-  if (!libur.sma)
-    caption += blokGizi("Analisis Nilai Gizi SMA", gizi.sma);
+if (!libur.sma)
+caption += blokGizi("Analisis Nilai Gizi SMA", gizi.sma);
   
-    caption += `
-  🌿 “Makan bergizi, tubuh berenergi!”
+caption += `
+🌿 “Makan bergizi, tubuh berenergi!”
   
-  #SPPGCicadas01 #MakanBergiziGratis #MBG #MakanSehat #GiziSeimbang
-  `;
+#SPPGCicadas01 #MakanBergiziGratis #MBG #MakanSehat #GiziSeimbang
+`;
   
-    document.getElementById("captionOutput").value = caption.trim();
-  }
+document.getElementById("captionOutput").value = caption.trim();
+}
   
   function generateCaptionSnack() {
   
@@ -1825,35 +1825,36 @@
   
   let caption = `🍪 Snack Bergizi Gratis
   
-  ⚖️ Kandungan Gizi (per porsi):
-  `;
+⚖️ Kandungan Gizi (per porsi):
+`;
   
-    if (!kategoriLibur["Balita"]) {
-      caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
-    }
+if (!kategoriLibur["Balita"]) {
+caption += blokGizi("Analisis Nilai Gizi Balita", gizi.balita);
+}
   
-    if (!kategoriLibur["Bumil & Busui"]) {
-      caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
-    }
+if (!kategoriLibur["Bumil & Busui"]) {
+caption += blokGizi("Analisis Nilai Gizi Bumil & Busui", gizi.bumil);
+}
   
-    if (!kategoriLibur["Keringan Porsi Kecil"] && gizi.kecil) {
-      caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", kecil);
-    }
+if (!kategoriLibur["Keringan Porsi Kecil"] && gizi.kecil) {
+caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Kecil", kecil);
+}
   
-    if (!kategoriLibur["Keringan Porsi Besar"] && gizi.besar) {
-      caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", besar);
-    }
+if (!kategoriLibur["Keringan Porsi Besar"] && gizi.besar) {
+caption += blokGizi("Analisis Nilai Gizi Keringan Sekolah Besar", besar);
+}
   
-    caption += `
-  🌿 “Makan bergizi, tubuh berenergi!”
+caption += `
+🌿 “Makan bergizi, tubuh berenergi!”
   
-  #SPPGCicadas01 #MakanBergiziGratis #MBG #MakanSehat #GiziSeimbang
-  `;
+#SPPGCicadas01 #MakanBergiziGratis #MBG #MakanSehat #GiziSeimbang
+`;
   
-    document.getElementById("captionOutput").value = caption.trim();
-  }
-  function blokGizi(judul, data) {
-    if (!data) return "";
+document.getElementById("captionOutput").value = caption.trim();
+}
+
+function blokGizi(judul, data) {
+ if (!data) return "";
   
     return `
   ${judul}
