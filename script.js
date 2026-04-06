@@ -2505,3 +2505,24 @@ function rapikanTeks(teks) {
     .join("\n")
     .trim();
 }
+
+function bukaPopupKirim() {
+  document.getElementById("popupKirim").style.display = "flex";
+}
+
+function tutupPopup() {
+  document.getElementById("popupKirim").style.display = "none";
+}
+
+function prosesKirim() {
+
+  const pilihan = {
+    harian: document.getElementById("pilihHarian").checked,
+    gizi: document.getElementById("pilihGizi").checked,
+    capOmprengan: document.getElementById("pilihOmprengan").checked,
+    capSnack: document.getElementById("pilihSnack").checked
+  };
+
+  kirimLaporanKeSpreadsheet(pilihan);
+  tutupPopup();
+}
