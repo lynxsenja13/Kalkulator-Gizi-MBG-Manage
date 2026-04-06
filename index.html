@@ -44,6 +44,11 @@ window.APP_READY = true;
   <div class="card dark">
 
     <h2>Input Bahan</h2>
+    <div class="tanggal-row">
+  <label>Pilih Tanggal:</label>
+  <input type="date" id="tanggalInput" onchange="handleTanggal(this.value)">
+  <h4 id="tanggalAktifText"></h4>
+</div>
 
   <div class="menu-row">
   <button id="btnOmprengan"
