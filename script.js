@@ -1937,7 +1937,7 @@ function kirimKeSpreadsheet() {
   .then(() => {
   alert("Berhasil kirim laporan");
   })
-    .catch(err => {
+  .catch(err => {
   console.error(err);
   alert("Gagal kirim");
   });
