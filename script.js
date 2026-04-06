@@ -1206,8 +1206,7 @@
   
   let menuList = ambilMenuUntukLaporan().join("\n");
     
-    const caption = `
-  Yth. Dandim 0618/Kota Bandung
+  const caption = `Yth. Dandim 0618/Kota Bandung
   Cc. Pasiter Kodim 0618/Kota Bandung
   
   Selamat Pagi Komandan,
@@ -1247,7 +1246,7 @@
   
     const output = document.getElementById("captionOutput");
     if (output) {
-      output.value = caption.trim();
+      output.value = rapikanTeks(caption);
       autoResizeTextarea(output);
     }
   }
@@ -1499,8 +1498,7 @@
     // =========================
     // BUAT TEKS LAPORAN
     // =========================
-    const laporanText = `
-  Yth. Dandim 0618/Kota Bandung
+  const laporanText = `Yth. Dandim 0618/Kota Bandung
   Cc. Pasiter Kodim 0618/Kota Bandung
   
   Selamat Pagi Komandan,
@@ -1780,7 +1778,7 @@
     
     const gizi = window.hasilGizi.OMPRENGAN || {};
   
-    let caption = `🍱 Menu Bergizi Gratis
+  let caption = `🍱 Menu Bergizi Gratis
   📅 ${tanggalAktif}
   
   🥗 Menu:
@@ -1825,8 +1823,7 @@
     const kecil = gizi.kecil || {};
     const besar = gizi.besar || {};
   
-    let caption = `
-  🍪 Snack Bergizi Gratis
+  let caption = `🍪 Snack Bergizi Gratis
   
   ⚖️ Kandungan Gizi (per porsi):
   `;
@@ -2483,3 +2480,11 @@
   
     gantiTanggal(format);
   }
+
+function rapikanTeks(teks) {
+  return teks
+    .split("\n")
+    .map(line => line.trimStart())
+    .join("\n")
+    .trim();
+}
