@@ -1781,7 +1781,7 @@
     const gizi = window.hasilGizi.OMPRENGAN || {};
   
     let caption = `🍱 Menu Bergizi Gratis
-  📅 ${hari}, ${tanggal}
+  📅 ${tanggalAktif}
   
   🥗 Menu:
   ${menuText}
