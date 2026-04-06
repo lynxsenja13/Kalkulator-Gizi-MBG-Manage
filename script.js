@@ -1634,6 +1634,7 @@
     // 🔥 kalau nanti mau dipakai, simpan global
     window.totalPenerima = totalPenerima;
     window.jumlahMakan = jumlahMakan;
+    window.lastLaporanText = hasilLaporan;
   }
   
   function autoResizeTextarea(el) {
@@ -2137,7 +2138,7 @@ function blokGizi(judul, data) {
 
   // 🔥 AMBIL TEXT
   const laporanHarian = window.lastLaporanText || "";
-  const laporanGizi = document.getElementById("laporanGizi")?.value || "";
+  const laporanGizi = document.getElementById("captionOutput")?.value || "";
   const captionOmprengan = window.captionOmprengan || "";
   const captionSnack = window.captionSnack || "";
 
