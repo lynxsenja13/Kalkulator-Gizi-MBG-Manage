@@ -350,6 +350,20 @@ window.addEventListener("load", () => {
   }, 2000);
 });
 </script>
+
+<div id="popupKirim" class="modal">
+  <div class="modal-content">
+    <h3>Kirim dengan Laporan</h3>
+
+    <label><input type="checkbox" id="pilihHarian"> Laporan Harian</label><br>
+    <label><input type="checkbox" id="pilihGizi"> Laporan Gizi</label><br>
+    <label><input type="checkbox" id="pilihOmprengan"> Caption Omprengan</label><br>
+    <label><input type="checkbox" id="pilihSnack"> Caption Snack</label><br><br>
+
+    <button onclick="prosesKirim()">Kirim</button>
+    <button onclick="tutupPopup()">Batal</button>
+  </div>
+</div>
   
 <script src="config.js"></script>
 <script src="script.js"></script>
