@@ -1202,7 +1202,7 @@ const totalD =
 
 // 🔥 TOTAL MAKAN (SEMUA)
 const totalSemua = Object.values(data).reduce((a,b)=>a+b,0);
-  const tanggal = formatTanggalIndonesia();
+  const tanggal = tanggalAktif;
 
 let menuList = ambilMenuUntukLaporan().join("\n");
   
@@ -1494,14 +1494,8 @@ function prosesLaporan() {
   // =========================
   // FORMAT TANGGAL
   // =========================
-  const today = new Date();
-  const tanggalStr = today.toLocaleDateString("id-ID", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long",
-    year: "numeric"
-  });
-
+  const tanggal = tanggalAktif;
+  
   // =========================
   // BUAT TEKS LAPORAN
   // =========================
@@ -1666,13 +1660,7 @@ const libur = {
   sma: liburData["SMA YAS"] || false
 };
 
-const now = new Date();
-const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
-const tanggal = now.toLocaleDateString("id-ID", {
-  day: "2-digit",
-  month: "long",
-  year: "numeric"
-});
+const tanggal = tanggalAktif;
 
 const menuInputs = document.querySelectorAll("#menuContainer .input-menu");
 
@@ -1765,14 +1753,8 @@ function setSubTabCaption(mode) {
 
 function generateCaptionOmprengan() {
 generateLaporan(); // 🔥 refresh gizi dulu
-  const now = new Date();
-  const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
-  const tanggal = now.toLocaleDateString("id-ID", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric"
-  });
-
+  const tanggal = tanggalAktif;
+  
   // menu
   const menuInputs = document.querySelectorAll("#menuContainer .input-menu");
   let menuText = ambilMenuUntukLaporan().join("\n");
@@ -2136,7 +2118,7 @@ sheet.getRange(row,6).setBackground(warnaSerat);
 
 function kirimLaporanKeSpreadsheet() {
 
-  const tanggal = formatTanggalIndonesia();
+  const tanggal = tanggalAktif;
   const menuFix = ambilMenuUntukLaporan();
 
   const semuaDetail = [];
