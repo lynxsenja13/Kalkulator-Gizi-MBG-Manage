@@ -1700,7 +1700,7 @@ if (!libur.sma)
 caption += blokGizi("🥗 *Analisis Nilai Gizi SMA* 🥗", gizi.sma);
   
 const outputBox = document.getElementById("captionOutput");
-if (outputBox) outputBox.value = caption.trim();
+if (outputBox) outputBox.value = rapikanTeks(caption);
 }
   
   function prosesGenerateLaporan() {
@@ -1811,7 +1811,7 @@ caption += `
 #SPPGCicadas01 #MakanBergiziGratis #MBG #MakanSehat #GiziSeimbang
 `;
   
-document.getElementById("captionOutput").value = caption.trim();
+document.getElementById("captionOutput").value = rapikanTeks(caption);
 }
   
   function generateCaptionSnack() {
@@ -1850,7 +1850,7 @@ caption += `
 #SPPGCicadas01 #MakanBergiziGratis #MBG #MakanSehat #GiziSeimbang
 `;
   
-document.getElementById("captionOutput").value = caption.trim();
+document.getElementById("captionOutput").value = rapikanTeks(caption);
 }
 
 function blokGizi(judul, data) {
