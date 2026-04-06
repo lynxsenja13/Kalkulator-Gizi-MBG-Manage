@@ -1141,6 +1141,8 @@ window.onload = function () {
 
   tanggalAktif = formatTanggalIndonesia();
   initTanggal(tanggalAktif);
+
+  document.getElementById("tanggalAktifText").innerText = tanggalAktif;
   
   initKategori();
   renderKategori();
