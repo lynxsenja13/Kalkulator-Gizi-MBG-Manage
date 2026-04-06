@@ -1812,7 +1812,7 @@ caption += `
 `;
   
 document.getElementById("captionOutput").value = rapikanTeks(caption);
-window.captionOmprengan = caption;
+window.captionOmprengan = caption.trim(); // 🔥 TAMBAHKAN
 }
   
   function generateCaptionSnack() {
@@ -1852,7 +1852,7 @@ caption += `
 `;
   
 document.getElementById("captionOutput").value = rapikanTeks(caption);
-window.captionSnack = caption;
+window.captionSnack = caption.trim(); // 🔥 TAMBAHKAN
 }
 
 function blokGizi(judul, data) {
@@ -2117,7 +2117,7 @@ function blokGizi(judul, data) {
   }
   
   function kirimLaporanKeSpreadsheet(pilihan = {}) {
-
+  generateLaporan(); // 🔥 WAJIB biar gizi & menu keisi
   const tanggal = tanggalAktif;
   const menuFix = ambilMenuUntukLaporan();
 
@@ -2137,7 +2137,7 @@ function blokGizi(judul, data) {
 
   // 🔥 AMBIL TEXT
   const laporanHarian = window.lastLaporanText || "";
-  const laporanGizi = document.getElementById("captionOutput")?.value || "";
+  const laporanGizi = document.getElementById("laporanGizi")?.value || "";
   const captionOmprengan = window.captionOmprengan || "";
   const captionSnack = window.captionSnack || "";
 
