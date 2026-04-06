@@ -1931,13 +1931,16 @@ function kirimKeSpreadsheet() {
 
   fetch(API_URL2, {
     method: "POST",
+    mode: "no-cors",
     body: formData
   })
-  .then(res => res.text())
-  .then(text => {
-    console.log("RESP:", text);
-    alert("Data berhasil dikirim");
+  .then(() => {
+  alert("Berhasil kirim laporan");
   })
+.catch(err => {
+  console.error(err);
+  alert("Gagal kirim");
+  });
   .catch(err => {
     console.error("Fetch error:", err);
     alert("Gagal kirim");
