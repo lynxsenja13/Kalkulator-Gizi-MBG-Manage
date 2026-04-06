@@ -45,6 +45,7 @@ let kategoriData = {
   SNACK: {}
 };
 
+let tanggalAktif = formatTanggalIndonesia();
 let database = [];
 let databaseLoaded = false;
 let pendingNama = null;
