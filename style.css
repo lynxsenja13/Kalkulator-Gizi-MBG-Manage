@@ -2246,3 +2246,8 @@ button:hover {
 button:active {
   transform: scale(0.96);
 }
+
+.btn-kirim {
+  width: 100%;
+  margin-top: 10px;
+}
