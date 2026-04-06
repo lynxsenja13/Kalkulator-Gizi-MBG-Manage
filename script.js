@@ -1812,6 +1812,7 @@ caption += `
 `;
   
 document.getElementById("captionOutput").value = rapikanTeks(caption);
+window.captionOmprengan = caption;
 }
   
   function generateCaptionSnack() {
@@ -1851,6 +1852,7 @@ caption += `
 `;
   
 document.getElementById("captionOutput").value = rapikanTeks(caption);
+window.captionSnack = caption;
 }
 
 function blokGizi(judul, data) {
