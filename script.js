@@ -2114,60 +2114,74 @@ function blokGizi(judul, data) {
       .setMimeType(ContentService.MimeType.JSON);
   }
   
-  function kirimLaporanKeSpreadsheet() {
-  
-    const tanggal = tanggalAktif;
-    const menuFix = ambilMenuUntukLaporan();
-  
-    const semuaDetail = [];
-    const semuaLibur = {};
-  
-    // gabungkan semua data spreadsheet
-    Object.keys(window.dataSpreadsheet).forEach(mode => {
-  
-      const dataMode = window.dataSpreadsheet[mode];
-  
-      if (dataMode && dataMode.detail) {
-        semuaDetail.push(...dataMode.detail);
-      }
-  
-    });
-  
-    // ambil status libur
-    Object.keys(kategoriLibur).forEach(kat => {
-      semuaLibur[kat] = kategoriLibur[kat];
-    });
-  
-    const data = {
-      tanggal: tanggal,
-      menu: menuFix,
-      omprengan: window.dataSpreadsheet.OMPRENGAN,
-      snack: window.dataSpreadsheet.SNACK,
-      detail: semuaDetail,
-      libur: semuaLibur,
-      catatan: document.getElementById("note")?.value || ""
-    };
-  
-    console.log(data);
-  
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(data));
-  
-    fetch(API_URL2, {
-      method: "POST",
-      body: formData
-    })
-    .then(res => res.text())
-    .then(res => {
-      console.log("RESP:", res);
-      alert("Berhasil kirim laporan");
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Gagal kirim");
-    });
-  
+  function kirimLaporanKeSpreadsheet(pilihan = {}) {
+
+  const tanggal = tanggalAktif;
+  const menuFix = ambilMenuUntukLaporan();
+
+  const semuaDetail = [];
+  const semuaLibur = {};
+
+  Object.keys(window.dataSpreadsheet).forEach(mode => {
+    const dataMode = window.dataSpreadsheet[mode];
+    if (dataMode && dataMode.detail) {
+      semuaDetail.push(...dataMode.detail);
+    }
+  });
+
+  Object.keys(kategoriLibur).forEach(kat => {
+    semuaLibur[kat] = kategoriLibur[kat];
+  });
+
+  // 🔥 AMBIL TEXT
+  const laporanHarian = window.lastLaporanText || "";
+  const laporanGizi = document.getElementById("captionOutput")?.value || "";
+  const captionOmprengan = window.captionOmprengan || "";
+  const captionSnack = window.captionSnack || "";
+
+  // 🔥 VALIDASI (kalau tidak pilih apa2)
+  if (
+    !pilihan.harian &&
+    !pilihan.gizi &&
+    !pilihan.capOmprengan &&
+    !pilihan.capSnack
+  ) {
+    alert("Pilih minimal 1 jenis laporan!");
+    return;
   }
+
+  const data = {
+    tanggal: tanggal,
+    menu: menuFix,
+    omprengan: window.dataSpreadsheet.OMPRENGAN,
+    snack: window.dataSpreadsheet.SNACK,
+    detail: semuaDetail,
+    libur: semuaLibur,
+    catatan: document.getElementById("note")?.value || "",
+
+    // 🔥 TAMBAHAN BARU
+    laporanHarian: pilihan.harian ? laporanHarian : "",
+    laporanGizi: pilihan.gizi ? laporanGizi : "",
+    captionOmprengan: pilihan.capOmprengan ? captionOmprengan : "",
+    captionSnack: pilihan.capSnack ? captionSnack : ""
+  };
+
+  const formData = new FormData();
+  formData.append("data", JSON.stringify(data));
+
+  fetch(API_URL2, {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(() => {
+    alert("Berhasil kirim laporan");
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Gagal kirim");
+  });
+}
   
     function debounce(fn, delay = 150) {
     let t;
