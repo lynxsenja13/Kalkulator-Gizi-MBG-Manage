@@ -1898,15 +1898,18 @@ function blokGizi(judul, data) {
 
   generateLaporan();
 
-  const now = new Date(getKeyTanggal()); // ✅ PINDAH KE SINI
+  const selectedDate = new Date(getKeyTanggal());
 
-  const payload = {
-      tanggal: new Date(getKeyTanggal()).toLocaleDateString("id-ID", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    })
+    const payload = {
+      tanggalISO: selectedDate.toISOString(), // untuk backend (opsional)
+      tanggal: selectedDate.toLocaleDateString("id-ID", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }),
+      detail: ...
+    };
     detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
       window.dataSpreadsheet.SNACK.detail
     ),
