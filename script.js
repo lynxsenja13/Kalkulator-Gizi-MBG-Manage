@@ -1101,7 +1101,7 @@
   
   }
   function getTanggalLengkap() {
-    const now = getgetKeyTanggal()();
+    const now = new Date(getKeyTanggal()); // ✅ FIX
   
     const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
     const tanggal = now.getDate();
@@ -2550,5 +2550,7 @@ function hitungGiziDetail(list) {
 }
 
 function getKeyTanggal(){
-  return tanggalDipilih || new Date().toISOString().split("T")[0];
+  return tanggalDipilih 
+    ? tanggalDipilih 
+    : new Date().toISOString().split("T")[0];
 }
