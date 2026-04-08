@@ -1023,7 +1023,7 @@
       "Juli","Agustus","September","Oktober","November","Desember"
     ];
   
-    const now = tanggalDipilih ? new Date(tanggalDipilih) : new Date();
+    const now = getTanggalAktif();
   
     const tgl = String(now.getDate()).padStart(2, "0");
     const namaBulan = bulan[now.getMonth()];
@@ -1039,7 +1039,7 @@
       "Juli","Agustus","September","Oktober","November","Desember"
     ];
   
-    const now = tanggalDipilih ? new Date(tanggalDipilih) : new Date();
+    const now = getTanggalAktif();
   
     return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
   }
@@ -1101,7 +1101,7 @@
   
   }
   function getTanggalLengkap() {
-    const now = tanggalDipilih ? new Date(tanggalDipilih) : new Date();
+    const now = getTanggalAktif();
   
     const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
     const tanggal = now.getDate();
@@ -1902,7 +1902,7 @@ function blokGizi(judul, data) {
   generateLaporan();
 
   const payload = {
-    tanggal: getTanggalLengkap(),
+    const now = getTanggalAktif();
     detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
       window.dataSpreadsheet.SNACK.detail
     ),
@@ -2481,7 +2481,7 @@ function blokGizi(judul, data) {
     return;
   }
 
-  const date = new Date(val);
+  const date = getTanggalAktif();
 
   const formatted = date.toLocaleDateString("id-ID", {
     weekday: "long",
