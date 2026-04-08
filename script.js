@@ -1022,7 +1022,7 @@
       "Juli","Agustus","September","Oktober","November","Desember"
     ];
   
-    const now = getgetKeyTanggal()();
+    const now = new Date(getKeyTanggal());
   
     const tgl = String(now.getDate()).padStart(2, "0");
     const namaBulan = bulan[now.getMonth()];
@@ -1038,7 +1038,7 @@
       "Juli","Agustus","September","Oktober","November","Desember"
     ];
   
-    const now = getgetKeyTanggal()();
+    const now = new Date(getKeyTanggal());
   
     return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
   }
@@ -1121,12 +1121,12 @@
   
   window.onload = function () {
 
-  getKeyTanggal() = null; // ✅ jangan isi manual
-
-  initTanggal("default");
+  tanggalDipilih = null; // ✅
 
   const today = new Date().toISOString().split("T")[0];
-  handleTanggal(today); // ✅ set awal tapi tetap fleksibel
+
+  handleTanggal(today); // set default hari ini
+  initTanggal(today);
 
   initKategori();
   renderKategori();
@@ -1899,7 +1899,7 @@ function blokGizi(judul, data) {
   generateLaporan();
 
   const payload = {
-    const now = getgetKeyTanggal()();
+    const now = new Date(getKeyTanggal());
     detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
       window.dataSpreadsheet.SNACK.detail
     ),
@@ -2457,28 +2457,25 @@ function blokGizi(judul, data) {
   }
   
   function gantiTanggal(tanggal) {
-    getKeyTanggal() = tanggal;
-  
-    initTanggal(tanggal);
-  
-    document.getElementById("getKeyTanggal()Text").innerText = tanggal;
-  
-    renderList();
-    generateLaporan();
-  }
+  tanggalDipilih = tanggal; // ✅ yang benar
+
+  initTanggal(tanggal);
+  renderList();
+  generateLaporan();
+}
   
  function handleTanggal(val){
 
-  tanggalDipilih = val; // simpan tanggal dari input (format: YYYY-MM-DD)
+  tanggalDipilih = val;
 
-  const display = document.getElementById("tanggalText"); // ✅ ID normal
+  const display = document.getElementById("tanggalText");
 
   if(!val){
     display.innerText = "Pilih tanggal";
     return;
   }
 
-  const date = new Date(val); // ✅ ambil dari input
+  const date = new Date(val);
 
   const formatted = date.toLocaleDateString("id-ID", {
     weekday: "long",
@@ -2488,6 +2485,11 @@ function blokGizi(judul, data) {
   });
 
   display.innerText = formatted;
+
+  // 🔥 WAJIB BIAR SEMUA IKUT TANGGAL
+  initTanggal(getKeyTanggal());
+  renderList();
+  generateLaporan();
 }
 
 function rapikanTeks(teks) {
