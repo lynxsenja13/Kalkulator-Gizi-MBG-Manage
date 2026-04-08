@@ -2469,25 +2469,18 @@ function blokGizi(judul, data) {
     generateLaporan();
   }
   
-  function handleTanggal(val) {
-  tanggalAktif = val;
-
-  const el = document.getElementById("tanggalAktifText");
-
-  if (!val) {
-    el.innerText = "";
-    return;
+    function handleTanggal(value) {
+    const date = new Date(value);
+  
+    const hari = date.toLocaleDateString("id-ID", { weekday: "long" });
+    const tanggal = date.getDate();
+    const bulan = date.toLocaleDateString("id-ID", { month: "long" });
+    const tahun = date.getFullYear();
+  
+    const format = `${hari}, ${tanggal} ${bulan} ${tahun}`;
+  
+    gantiTanggal(format);
   }
-
-  const date = new Date(val);
-
-  el.innerText = date.toLocaleDateString("id-ID", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  });
-}
 
 function rapikanTeks(teks) {
   return teks
