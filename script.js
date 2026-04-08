@@ -913,7 +913,9 @@
         `;
       });
     });
+  window.laporanGiziText = hasilTeksGizi; // sesuaikan dengan variabel kamu
   }
+
   function renderAKG(nutrien, total, kategori) {
     const nilai = total[nutrien] || 0;
     const target = AKG[kategori][nutrien] || 1;
@@ -1814,6 +1816,7 @@ caption += `
   
 document.getElementById("captionOutput").value = rapikanTeks(caption);
 window.captionOmprengan = caption.trim(); // 🔥 TAMBAHKAN
+window.captionOmprengan = caption;    
 }
   
   function generateCaptionSnack() {
@@ -1854,6 +1857,7 @@ caption += `
   
 document.getElementById("captionOutput").value = rapikanTeks(caption);
 window.captionSnack = caption.trim(); // 🔥 TAMBAHKAN
+window.captionSnack = caption;
 }
 
 function blokGizi(judul, data) {
@@ -2118,7 +2122,11 @@ function blokGizi(judul, data) {
   }
   
   function kirimLaporanKeSpreadsheet(pilihan = {}) {
-  generateLaporan(); // 🔥 WAJIB biar gizi & menu keisi
+
+  generateLaporan();
+  generateCaptionOmprengan();
+  generateCaptionSnack();
+
   const tanggal = tanggalAktif;
   const menuFix = ambilMenuUntukLaporan();
 
@@ -2136,13 +2144,12 @@ function blokGizi(judul, data) {
     semuaLibur[kat] = kategoriLibur[kat];
   });
 
-  // 🔥 AMBIL TEXT
+  // 🔥 DATA SUDAH DIJAMIN ADA
   const laporanHarian = window.lastLaporanText || "";
-  const laporanGizi = document.getElementById("captionOutput")?.value || "";
+  const laporanGizi = window.laporanGiziText || "";
   const captionOmprengan = window.captionOmprengan || "";
   const captionSnack = window.captionSnack || "";
 
-  // 🔥 VALIDASI (kalau tidak pilih apa2)
   if (
     !pilihan.harian &&
     !pilihan.gizi &&
@@ -2162,7 +2169,6 @@ function blokGizi(judul, data) {
     libur: semuaLibur,
     catatan: document.getElementById("note")?.value || "",
 
-    // 🔥 TAMBAHAN BARU
     laporanHarian: pilihan.harian ? laporanHarian : "",
     laporanGizi: pilihan.gizi ? laporanGizi : "",
     captionOmprengan: pilihan.capOmprengan ? captionOmprengan : "",
