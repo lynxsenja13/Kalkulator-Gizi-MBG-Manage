@@ -2311,3 +2311,25 @@ button:active {
 .date-display:hover {
   box-shadow: 0 0 0 2px rgba(255,255,255,0.15);
 }
+
+.date-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.date-wrapper input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2; /* 🔥 biar di atas */
+}
+
+.date-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* 🔥 penting */
+  z-index: 1;
+}
