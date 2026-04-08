@@ -43,67 +43,73 @@ window.APP_READY = true;
   <!-- INPUT CARD -->
   <div class="card dark">
 
-    <h2>Input Bahan</h2>
-    <label>Pilih Tanggal:</label>
-    <input type="date" id="tanggalInput" onchange="handleTanggal(this.value)">
-    <h4 id="tanggalAktifText"></h4>
+  <h2>Input Bahan</h2>
+
+  <label>Pilih Tanggal:</label>
+  <input type="date" id="tanggalInput" onchange="handleTanggal(this.value)">
+  <h4 id="tanggalAktifText"></h4>
+
+  <!-- MENU -->
+  <div class="menu-row">
+    <button id="btnOmprengan"
+            onclick="setModeMenu('OMPRENGAN')"
+            class="btn-secondary active-omprengan">
+      Menu Omprengan
+    </button>
+
+    <button id="btnSnack"
+            onclick="setModeMenu('SNACK')"
+            class="btn-secondary">
+      Menu Snack
+    </button>
+  </div>
+
+  <!-- KATEGORI -->
+  <div id="kategoriCheckbox" class="kategori-scroll"></div>
+
+  <!-- INPUT -->
+  <div class="input-row input-row-flex">
+
+    <div class="autocomplete-wrapper">
+      <input type="text" id="namaBahan" autocomplete="off">
+      <div id="autocomplete-list" class="autocomplete-items"></div>
     </div>
 
-  <div class="menu-row">
-  <button id="btnOmprengan"
-          onclick="setModeMenu('OMPRENGAN')"
-          class="btn-secondary active-omprengan">
-    Menu Omprengan
-  </button>
+    <input id="beratBahan" type="number" placeholder="Jumlah" class="input-jumlah">
 
-  <button id="btnSnack"
-          onclick="setModeMenu('SNACK')"
-          class="btn-secondary">
-    Menu Snack
-  </button>
-</div>
+    <select id="satuanBahan" class="input-satuan">
+      <option value="">Pilih Satuan</option>
+      <option value="Gram">Gram</option>
+      <option value="Pcs">Pcs</option>
+    </select>
 
-<!-- 🔽 TAMBAHKAN INI -->
-<div id="kategoriCheckbox" class="kategori-scroll"></div>
+    <button type="button" class="btn-primary" onclick="tambahBahan()">
+      Tambah
+    </button>
 
-<div class="input-row input-row-flex">
+  </div>
 
-<div class="autocomplete-wrapper">
-  <input type="text" id="namaBahan" autocomplete="off">
-  <div id="autocomplete-list" class="autocomplete-items"></div>
-</div>
+  <!-- LIST -->
+  <ul id="listBahan"></ul>
 
-  <input id="beratBahan" type="number" placeholder="Jumlah" class="input-jumlah">
+  <!-- ACTION -->
+  <div class="action-row">
 
-<select id="satuanBahan" class="input-satuan">
-  <option value="">Pilih Satuan</option>
-  <option value="Gram">Gram</option>
-  <option value="Pcs">Pcs</option>
-</select>
+    <button type="button"
+            class="btn-success"
+            onclick="generateLaporan()">
+      Generate Laporan
+    </button>
 
-  <button type="button" class="btn-primary" onclick="tambahBahan()">
-    Tambah
-  </button>
+    <button type="button"
+            class="btn-secondary"
+            onclick="exportPDF()">
+      Export PDF
+    </button>
 
-</div>
+  </div>
 
-    <ul id="listBahan"></ul>
-
-   <div class="action-row">
-
-  <button type="button"
-          class="btn-success"
-          onclick="generateLaporan()">
-    Generate Laporan
-  </button>
-
-  <button type="button"
-          class="btn-secondary"
-          onclick="exportPDF()">
-    Export PDF
-  </button>
-
-</div>
+</div> <!-- ✅ BARU DITUTUP DI SINI -->
 
   </div>
 
