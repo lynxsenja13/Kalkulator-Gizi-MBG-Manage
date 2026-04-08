@@ -2469,9 +2469,9 @@ function blokGizi(judul, data) {
     generateLaporan();
   }
   
-    function handleTanggal(val){
+  function handleTanggal(val){
 
-  const display = document.getElementById("tanggalDisplay");
+  const display = document.getElementById("tanggalAktifText");
 
   if(!val){
     display.innerText = "Pilih tanggal";
