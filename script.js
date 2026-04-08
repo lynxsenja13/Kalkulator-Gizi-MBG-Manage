@@ -2480,14 +2480,13 @@ function blokGizi(judul, data) {
   }
 
   const date = new Date(val);
-  const opsi = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  };
 
-  el.innerText = "Dipilih: " + date.toLocaleDateString("id-ID", opsi);
+  el.innerText = date.toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
 }
 
 function rapikanTeks(teks) {
