@@ -44,7 +44,8 @@
     OMPRENGAN: {},
     SNACK: {}
   };
-  
+
+  let tanggalDipilih = null;
   let tanggalAktif = formatTanggalIndonesia();
   let database = [];
   let databaseLoaded = false;
@@ -1022,7 +1023,7 @@
       "Juli","Agustus","September","Oktober","November","Desember"
     ];
   
-    const now = new Date();
+    const now = tanggalDipilih ? new Date(tanggalDipilih) : new Date();
   
     const tgl = String(now.getDate()).padStart(2, "0");
     const namaBulan = bulan[now.getMonth()];
@@ -1038,7 +1039,7 @@
       "Juli","Agustus","September","Oktober","November","Desember"
     ];
   
-    const now = new Date();
+    const now = tanggalDipilih ? new Date(tanggalDipilih) : new Date();
   
     return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
   }
@@ -1100,7 +1101,7 @@
   
   }
   function getTanggalLengkap() {
-    const now = new Date();
+    const now = tanggalDipilih ? new Date(tanggalDipilih) : new Date();
   
     const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
     const tanggal = now.getDate();
@@ -2470,6 +2471,9 @@ function blokGizi(judul, data) {
   }
   
  function handleTanggal(val){
+
+  tanggalDipilih = val; // 🔥 simpan
+
   const display = document.getElementById("tanggalAktifText");
 
   if(!val){
