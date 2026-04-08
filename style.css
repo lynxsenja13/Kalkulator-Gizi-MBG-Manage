@@ -2251,3 +2251,60 @@ button:active {
   width: 100%;
   margin-top: 10px;
 }
+
+/* CONTAINER */
+.date-container {
+  margin-bottom: 15px;
+}
+
+.date-label {
+  font-size: 14px;
+  color: #ccc;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* WRAPPER */
+.date-input-wrapper {
+  position: relative;
+}
+
+/* INPUT */
+#tanggalInput {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: #1f2937;
+  color: #fff;
+  transition: 0.3s;
+}
+
+/* HOVER */
+#tanggalInput:hover {
+  background: #273447;
+}
+
+/* FOCUS */
+#tanggalInput:focus {
+  box-shadow: 0 0 0 2px #4ade80;
+}
+
+/* ICON */
+.date-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* DISPLAY TANGGAL */
+.date-display {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #9ca3af;
+}
