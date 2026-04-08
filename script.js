@@ -631,6 +631,25 @@
   
     return total;
   }
+
+  function hitungTotalDariDetail(detailBahan) {
+  return detailBahan.reduce((acc, item) => {
+    acc.Energi += item.energi;
+    acc.Protein += item.protein;
+    acc.Lemak += item.lemak;
+    acc.Karbohidrat += item.karbo;
+    acc.Kalsium += item.kalsium;
+    acc.Serat += item.serat;
+    return acc;
+  }, {
+    Energi: 0,
+    Protein: 0,
+    Lemak: 0,
+    Karbohidrat: 0,
+    Kalsium: 0,
+    Serat: 0
+  });
+}
   
   function renderTabelKategori(menu, kat, dataBahan, standar) {
   
@@ -836,7 +855,7 @@
         const key = keyMap[kat];
   
         if (key) {
-          window.dataSpreadsheet[menu].gizi[key] = {
+          window.hasilGizi[menu][keyCaption] = {
             energi: Number((total.Energi || 0).toFixed(2)),
             protein: Number((total.Protein || 0).toFixed(2)),
             lemak: Number((total.Lemak || 0).toFixed(2)),
