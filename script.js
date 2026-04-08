@@ -747,23 +747,6 @@
       kalsium: total.kalsium,
       serat: total.serat
     };
-      const total = {
-      energi: 0,
-      protein: 0,
-      lemak: 0,
-      karbo: 0,
-      kalsium: 0,
-      serat: 0
-    };
-    
-    dataBahan.forEach(item => {
-      total.energi += item.energi;
-      total.protein += item.protein;
-      total.lemak += item.lemak;
-      total.karbo += item.karbo;
-      total.kalsium += item.kalsium;
-      total.serat += item.serat;
-    });
     return html;
   }
   
