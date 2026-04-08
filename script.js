@@ -1908,8 +1908,6 @@ function blokGizi(judul, data) {
         month: "long",
         year: "numeric"
       }),
-      detail: ...
-    };
     detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
       window.dataSpreadsheet.SNACK.detail
     ),
