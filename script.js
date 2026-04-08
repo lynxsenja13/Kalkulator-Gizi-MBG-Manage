@@ -733,35 +733,21 @@
       </table>
     </div>
   `;
-    return html;
 
-  // 🔥 SIMPAN TOTAL YANG SAMA DENGAN TABEL
-if (!window.hasilGizi[menu]) {
-  window.hasilGizi[menu] = {};
-}
-
-const mapCaption = {
-  "Balita": "balita",
-  "Bumil & Busui": "bumil",
-  "SD 1-3": "sd1_3",
-  "SD 4-6": "sd4_6",
-  "SMP": "smp",
-  "SMA": "sma",
-  "Keringan Porsi Kecil": "kecil",
-  "Keringan Porsi Besar": "besar"
-};
-
-const key = mapCaption[kat];
-
-  if (key) {
-    window.hasilGizi[menu][key] = {
-      energi: Number(total.energi.toFixed(1)),
-      protein: Number(total.protein.toFixed(1)),
-      lemak: Number(total.lemak.toFixed(1)),
-      karbo: Number(total.karbo.toFixed(1)),
-      serat: Number(total.serat.toFixed(1))
-      };
+    // ✅ SIMPAN KE GLOBAL (INI KUNCI UTAMA)
+    if (!window.hasilGizi[menu]) {
+      window.hasilGizi[menu] = {};
     }
+    
+    window.hasilGizi[menu][kat] = {
+      energi: total.energi,
+      protein: total.protein,
+      lemak: total.lemak,
+      karbo: total.karbo,
+      kalsium: total.kalsium,
+      serat: total.serat
+    };
+    return html;
   }
   
   function generateLaporan() {
