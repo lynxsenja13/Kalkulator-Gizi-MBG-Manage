@@ -46,7 +46,6 @@
   };
 
   let tanggalDipilih = null;
-  let getKeyTanggal() = formatTanggalIndonesia();
   let database = [];
   let databaseLoaded = false;
   let pendingNama = null;
@@ -88,6 +87,10 @@
     SMP: "SMP YAS",
     SMA: "SMA YAS"
   };
+
+  function getKeyTanggal() {
+    return tanggalDipilih || formatTanggalIndonesia();
+  }
   
   function setModeMenu(menu) {
     modeMenu = menu;
@@ -2470,16 +2473,16 @@ function blokGizi(judul, data) {
   
  function handleTanggal(val){
 
-  tanggalDipilih = val; // 🔥 simpan
+  tanggalDipilih = val; // simpan tanggal dari input (format: YYYY-MM-DD)
 
-  const display = document.getElementById("getKeyTanggal()Text");
+  const display = document.getElementById("tanggalText"); // ✅ ID normal
 
   if(!val){
     display.innerText = "Pilih tanggal";
     return;
   }
 
-  const date = getgetKeyTanggal()();
+  const date = new Date(val); // ✅ ambil dari input
 
   const formatted = date.toLocaleDateString("id-ID", {
     weekday: "long",
