@@ -1894,34 +1894,34 @@ function blokGizi(judul, data) {
     if (yakin) callback();
   }
   
- function kirimSpreadsheet() {
+function kirimSpreadsheet() {
 
   generateLaporan();
 
-  const selectedDate = new Date(getKeyTanggal());
+  const selectedDate = new Date(getKeyTanggal() + "T00:00:00");
 
-const menu = Array.from(document.querySelectorAll("[id^='menu']"))
-  .map(el => el.value)
-  .filter(v => v.trim() !== "");
+  const menu = Array.from(document.querySelectorAll("[id^='menu']"))
+    .map(el => el.value)
+    .filter(v => v && v.trim() !== "");
 
-const payload = {
-  tanggal: selectedDate.toLocaleDateString("id-ID", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  }),
+  const payload = {
+    tanggal: selectedDate.toLocaleDateString("id-ID", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }),
 
-  detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
-    window.dataSpreadsheet.SNACK.detail
-  ),
+    detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
+      window.dataSpreadsheet.SNACK.detail
+    ),
 
-  laporanHarian: document.getElementById("captionOutput")?.value || "",
+    laporanHarian: document.getElementById("captionOutput")?.value || "",
 
-  menu: menu, // ✅ sudah aman tanpa AppState
+    menu: menu,
 
-  catatan: document.getElementById("note")?.value || ""
-};
+    catatan: document.getElementById("note")?.value || ""
+  };
 
   fetch(API_URL2, {
     method: "POST",
@@ -2566,5 +2566,15 @@ function hitungGiziDetail(list) {
 }
 
 function getKeyTanggal() {
-  return tanggalDipilih || new Date().toISOString().split("T")[0];
+  const input = document.getElementById("tanggalInput")?.value;
+
+  if (input) return input;
+
+  const today = new Date();
+
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`; // format YYYY-MM-DD
 }
