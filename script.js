@@ -1902,7 +1902,7 @@ function blokGizi(judul, data) {
   generateLaporan();
 
   const payload = {
-    tanggal: tanggalAktif,
+    tanggal: getTanggalLengkap(),
     detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
       window.dataSpreadsheet.SNACK.detail
     ),
