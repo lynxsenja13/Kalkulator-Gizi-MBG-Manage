@@ -45,15 +45,10 @@ window.APP_READY = true;
 
   <h2>Input Bahan</h2>
 
-  <div class="tanggal-wrapper">
-
-  <label>Pilih Tanggal</label>
-
-  <div class="date-wrapper">
+  <div class="tanggal-full">
   <input type="date" id="tanggalInput" onchange="handleTanggal(this.value)">
-  <span class="date-icon">📅</span>
+  <span class="tanggal-text" id="tanggalAktifText">Pilih tanggal</span>
   </div>
-  <h4 id="tanggalAktifText">Pilih tanggal</h4>
     
   <!-- MENU -->
   <div class="menu-row">
