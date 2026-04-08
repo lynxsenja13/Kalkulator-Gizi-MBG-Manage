@@ -1901,7 +1901,12 @@ function blokGizi(judul, data) {
   const now = new Date(getKeyTanggal()); // ✅ PINDAH KE SINI
 
   const payload = {
-    tanggal: now.toISOString(), // opsional tapi disarankan
+      tanggal: new Date(getKeyTanggal()).toLocaleDateString("id-ID", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    })
     detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
       window.dataSpreadsheet.SNACK.detail
     ),
