@@ -87,10 +87,6 @@
     SMP: "SMP YAS",
     SMA: "SMA YAS"
   };
-
-  function getKeyTanggal() {
-    return tanggalDipilih || formatTanggalIndonesia();
-  }
   
   function setModeMenu(menu) {
     modeMenu = menu;
