@@ -1896,31 +1896,35 @@ function blokGizi(judul, data) {
     if (yakin) callback();
   }
   
-  function kirimSpreadsheet() {
+ function kirimSpreadsheet() {
 
-  // pastikan data terbaru
   generateLaporan();
 
   const payload = {
     tanggal: tanggalAktif,
-    data: window.dataSpreadsheet
+    detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
+      window.dataSpreadsheet.SNACK.detail
+    ),
+    laporanHarian: document.getElementById("captionOutput")?.value || "",
+    menu: [], // kalau ada menu bisa isi
+    catatan: document.getElementById("note")?.value || ""
   };
 
-  fetch(API_URL2, { // ✅ pakai API_URL2
+  fetch(API_URL2, {
     method: "POST",
-    body: JSON.stringify({
-      type: "laporan_harian",
-      payload: payload
-    })
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "data=" + encodeURIComponent(JSON.stringify(payload))
   })
   .then(res => res.json())
   .then(res => {
-    alert("✅ Laporan harian berhasil dikirim!");
-    console.log("Response:", res);
+    alert("✅ Berhasil dikirim!");
+    console.log(res);
   })
   .catch(err => {
     console.error(err);
-    alert("❌ Gagal kirim laporan");
+    alert("❌ Gagal kirim");
   });
 
 }
