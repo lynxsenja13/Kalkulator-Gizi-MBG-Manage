@@ -2548,8 +2548,6 @@ function hitungGiziDetail(list) {
   return { detail, total };
 }
 
-function getKeyTanggal(){
-  return tanggalDipilih 
-    ? tanggalDipilih 
-    : new Date().toISOString().split("T")[0];
+function getKeyTanggal() {
+  return tanggalDipilih || new Date().toISOString().split("T")[0];
 }
