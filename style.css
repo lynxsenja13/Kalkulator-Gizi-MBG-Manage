@@ -2287,6 +2287,10 @@ button:active {
   padding: 14px 16px;
   box-sizing: border-box;
   margin-bottom: 10px;
+
+  display: flex;
+  justify-content: center;   /* 👉 tengah horizontal */
+  align-items: center;       /* 👉 tengah vertikal */
 }
 
 .tanggal-full input {
@@ -2300,15 +2304,17 @@ button:active {
   font-size: 15px;
   color: #333;
   font-weight: 500;
+
   display: flex;
   align-items: center;
   gap: 8px;
+  justify-content: center;   /* 👉 teks + icon ikut center */
+  text-align: center;
 }
 
 .tanggal-text::before {
   content: "📅";
 }
-
 .tanggal-full:hover {
   box-shadow: 0 0 0 2px #4CAF50;
 }
