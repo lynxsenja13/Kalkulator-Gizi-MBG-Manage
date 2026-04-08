@@ -1898,8 +1898,10 @@ function blokGizi(judul, data) {
 
   generateLaporan();
 
+  const now = new Date(getKeyTanggal()); // ✅ PINDAH KE SINI
+
   const payload = {
-    const now = new Date(getKeyTanggal());
+    tanggal: now.toISOString(), // opsional tapi disarankan
     detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
       window.dataSpreadsheet.SNACK.detail
     ),
