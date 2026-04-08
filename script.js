@@ -554,7 +554,7 @@
   
     getKategoriAktif().forEach(k => {
         kategoriData[modeMenu][tanggalAktif][k].push({
-        nama: nama.trim(),
+        nama: nama.trim().toLowerCase()
         berat,
         satuan
       });
@@ -607,8 +607,10 @@
     list.forEach(item => {
   
      const db = database.find(d =>
-    getNamaBahan(d) === item.nama.toLowerCase().trim()
-  );
+  String(getNamaBahan(d) ?? "")
+    .toLowerCase()
+    .includes(item.nama.toLowerCase().trim())
+);
   
       if (!db) return;
   
@@ -790,10 +792,11 @@
   
         const dataKategori = kategoriData[menu][tanggalAktif][kat] || [];
         const dataAktif = dataKategori.filter(item =>
-          listAktif.some(b => b.nama === item.nama)
+          listAktif.some(b =>
+            b.nama.toLowerCase().trim() === item.nama.toLowerCase().trim()
+          )
         );
-  
-        const total = hitungTotal(dataAktif);
+        const { detail: detailBahan, total } = hitungGiziDetail(dataAktif);
   
         // ================= SIMPAN GIZI UNTUK CAPTION =================
         const mapCaption = {
@@ -835,21 +838,16 @@
   
         if (key) {
           window.dataSpreadsheet[menu].gizi[key] = {
-            energi: Number((total.Energi || 0).toFixed(2)),
-            protein: Number((total.Protein || 0).toFixed(2)),
-            lemak: Number((total.Lemak || 0).toFixed(2)),
-            karbo: Number((total.Karbohidrat || 0).toFixed(2)),
+            energi: Number(total.Energi.toFixed(2)),
+            protein: Number(total.Protein.toFixed(2)),
+            lemak: Number(total.Lemak.toFixed(2)),
+            karbo: Number(total.Karbohidrat.toFixed(2)),
             besi: 0,
-            serat: Number((total.Serat || 0).toFixed(2))
+            serat: Number(total.Serat.toFixed(2))
           };
         }
   
         // ================= DETAIL PER BAHAN =================
-        const detailBahan = dataAktif.map(item => {
-          const db = database.find(d =>
-            String(getNamaBahan(d) ?? "").toLowerCase().includes(item.nama.toLowerCase().trim())
-          );
-  
           let faktor = item.satuan === "GRAM" ? item.berat / 100 : item.berat;
   
           return {
@@ -2525,4 +2523,54 @@ function prosesKirim() {
 
   kirimLaporanKeSpreadsheet(pilihan);
   tutupPopup();
+}
+
+function hitungGiziDetail(list) {
+  const detail = [];
+
+  let total = {
+    Energi: 0,
+    Protein: 0,
+    Lemak: 0,
+    Karbohidrat: 0,
+    Kalsium: 0,
+    Serat: 0
+  };
+
+  list.forEach(item => {
+    const db = database.find(d =>
+      getNamaBahan(d) === item.nama.toLowerCase().trim()
+    );
+
+    if (!db) return;
+
+    const faktor = item.satuan === "GRAM"
+      ? item.berat / 100
+      : item.berat;
+
+    const gizi = {
+      energi: faktor * Number(db["ENERGI"] ?? db["energi"] ?? 0),
+      protein: faktor * Number(db["PROTEIN"] ?? db["protein"] ?? 0),
+      lemak: faktor * Number(db["LEMAK"] ?? db["lemak"] ?? 0),
+      karbo: faktor * Number(db["KARBOHIDRAT"] ?? db["karbohidrat"] ?? 0),
+      kalsium: faktor * Number(db["KALSIUM"] ?? db["kalsium"] ?? 0),
+      serat: faktor * Number(db["SERAT"] ?? db["serat"] ?? 0)
+    };
+
+    detail.push({
+      nama: item.nama,
+      berat: item.berat,
+      satuan: item.satuan,
+      ...gizi
+    });
+
+    total.Energi += gizi.energi;
+    total.Protein += gizi.protein;
+    total.Lemak += gizi.lemak;
+    total.Karbohidrat += gizi.karbo;
+    total.Kalsium += gizi.kalsium;
+    total.Serat += gizi.serat;
+  });
+
+  return { detail, total };
 }
