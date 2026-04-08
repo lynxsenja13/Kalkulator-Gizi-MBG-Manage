@@ -553,8 +553,8 @@
   if (selected.includes("SEMUA") || selected.length === 0) {
   
     getKategoriAktif().forEach(k => {
-        kategoriData[modeMenu][tanggalAktif][k].push({
-        nama: nama.trim().toLowerCase()
+      kategoriData[modeMenu][tanggalAktif][k].push({
+        nama: nama.trim().toLowerCase(),
         berat,
         satuan
       });
