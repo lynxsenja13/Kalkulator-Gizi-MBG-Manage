@@ -46,7 +46,7 @@
   };
 
   let tanggalDipilih = null;
-  let tanggalAktif = formatTanggalIndonesia();
+  let getKeyTanggal() = formatTanggalIndonesia();
   let database = [];
   let databaseLoaded = false;
   let pendingNama = null;
@@ -211,7 +211,7 @@
       const berat = pendingBerat;
   const satuan = document.getElementById("satuanBahan")?.value || "GRAM";
   
-  kategoriData[modeMenu][tanggalAktif][k].push({
+  kategoriData[modeMenu][getKeyTanggal()][k].push({
     nama: namaBaru.trim(),
     berat,
     satuan
@@ -221,7 +221,7 @@
   } else {
   
     selected.forEach(k => {
-    kategoriData[modeMenu][tanggalAktif][k].push({
+    kategoriData[modeMenu][getKeyTanggal()][k].push({
       nama: namaBaru.trim(),
       berat,
       satuan
@@ -541,9 +541,9 @@
   }
   
     // ✅ MASUKKAN DATA
-    initTanggal(tanggalAktif);
+    initTanggal(getKeyTanggal());
   
-    bahanMaster[modeMenu][tanggalAktif].push({
+    bahanMaster[modeMenu][getKeyTanggal()].push({
     nama: nama.trim().toLowerCase(),
     berat,
     satuan
@@ -554,7 +554,7 @@
   if (selected.includes("SEMUA") || selected.length === 0) {
   
     getKategoriAktif().forEach(k => {
-      kategoriData[modeMenu][tanggalAktif][k].push({
+      kategoriData[modeMenu][getKeyTanggal()][k].push({
         nama: nama.trim().toLowerCase(),
         berat,
         satuan
@@ -564,11 +564,11 @@
   } else {
   
     selected.forEach(k => {
-      if (!kategoriData[modeMenu][tanggalAktif][k]) {
-        kategoriData[modeMenu][tanggalAktif][k] = [];
+      if (!kategoriData[modeMenu][getKeyTanggal()][k]) {
+        kategoriData[modeMenu][getKeyTanggal()][k] = [];
       }
   
-      kategoriData[modeMenu][tanggalAktif][k].push({
+      kategoriData[modeMenu][getKeyTanggal()][k].push({
         nama: nama.trim(),
         berat,
         satuan
@@ -587,7 +587,7 @@
     const ul = document.getElementById("listBahan");
     ul.innerHTML = "";
   
-    const list = bahanMaster[modeMenu][tanggalAktif] || [];
+    const list = bahanMaster[modeMenu][getKeyTanggal()] || [];
   
       list.forEach(b => {
       ul.innerHTML += `<li>${b.nama} - ${b.berat} ${formatSatuan(b.satuan)}</li>`;
@@ -767,7 +767,7 @@
   
     semuaMenu.forEach(menu => {
   
-      const listAktif = bahanMaster[menu][tanggalAktif] || [];
+      const listAktif = bahanMaster[menu][getKeyTanggal()] || [];
       const kategoriList = menu === "OMPRENGAN" ? kategoriOmprengan : kategoriSnack;
   
       kategoriList.forEach(kat => {
@@ -791,7 +791,7 @@
           return;
         }
   
-        const dataKategori = kategoriData[menu][tanggalAktif][kat] || [];
+        const dataKategori = kategoriData[menu][getKeyTanggal()][kat] || [];
         const dataAktif = dataKategori.filter(item =>
           listAktif.some(b =>
             b.nama.toLowerCase().trim() === item.nama.toLowerCase().trim()
@@ -915,7 +915,7 @@
   // ================= EDITABLE BERAT =================
   function renderEditableList(menu, kat) {
   
-    const list = kategoriData[menu][tanggalAktif][kat] || [];
+    const list = kategoriData[menu][getKeyTanggal()][kat] || [];
   
     let html = `<div class="editable-list">`;
   
@@ -957,14 +957,14 @@
   }
   
   function editBerat(menu, kat, index, value) {
-    kategoriData[menu][tanggalAktif][kat][index].berat = parseFloat(value) || 0;
+    kategoriData[menu][getKeyTanggal()][kat][index].berat = parseFloat(value) || 0;
     renderList();
     generateLaporan();
   }
   
   function hapusBahan(menu, kat, index) {
-    const item = kategoriData[menu][tanggalAktif][kat][index];
-    kategoriData[menu][tanggalAktif][kat].splice(index,1);
+    const item = kategoriData[menu][getKeyTanggal()][kat][index];
+    kategoriData[menu][getKeyTanggal()][kat].splice(index,1);
     generateLaporan();
   }
   
@@ -1023,7 +1023,7 @@
       "Juli","Agustus","September","Oktober","November","Desember"
     ];
   
-    const now = getTanggalAktif();
+    const now = getgetKeyTanggal()();
   
     const tgl = String(now.getDate()).padStart(2, "0");
     const namaBulan = bulan[now.getMonth()];
@@ -1039,7 +1039,7 @@
       "Juli","Agustus","September","Oktober","November","Desember"
     ];
   
-    const now = getTanggalAktif();
+    const now = getgetKeyTanggal()();
   
     return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
   }
@@ -1101,7 +1101,7 @@
   
   }
   function getTanggalLengkap() {
-    const now = getTanggalAktif();
+    const now = getgetKeyTanggal()();
   
     const hari = now.toLocaleDateString("id-ID", { weekday: "long" });
     const tanggal = now.getDate();
@@ -1121,22 +1121,20 @@
   });
   
   window.onload = function () {
-  
-    tanggalAktif = formatTanggalIndonesia();
-    initTanggal(tanggalAktif);
-  
-    document.getElementById("tanggalAktifText").innerText = tanggalAktif;
-    
-    initKategori();
-    renderKategori();
-  
-    // load cache dulu (biar cepat)
-    loadCache();
-  
-    // selalu sync database terbaru
-    loadDatabase();
-  
-  };
+
+  getKeyTanggal() = null; // ✅ jangan isi manual
+
+  initTanggal("default");
+
+  const today = new Date().toISOString().split("T")[0];
+  handleTanggal(today); // ✅ set awal tapi tetap fleksibel
+
+  initKategori();
+  renderKategori();
+
+  loadCache();
+  loadDatabase();
+};
   
   function sdSemuaLibur() {
     return kategoriLibur["SD Awi Gombong"] && kategoriLibur["SD YAS"];
@@ -1185,7 +1183,7 @@
   
   // 🔥 TOTAL MAKAN (SEMUA)
   const totalSemua = Object.values(data).reduce((a,b)=>a+b,0);
-    const tanggal = tanggalAktif;
+    const tanggal = getTanggalLengkap();
   
   let menuList = ambilMenuUntukLaporan().join("\n");
     
@@ -1476,7 +1474,7 @@
     // =========================
     // FORMAT TANGGAL
     // =========================
-    const tanggal = tanggalAktif;
+    const tanggal = getTanggalLengkap();
     
     // =========================
     // BUAT TEKS LAPORAN
@@ -1641,7 +1639,7 @@
     sma: liburData["SMA YAS"] || false
   };
   
-  const tanggal = tanggalAktif;
+  const tanggal = getTanggalLengkap();
   
   const menuInputs = document.querySelectorAll("#menuContainer .input-menu");
   
@@ -1735,7 +1733,7 @@ if (outputBox) outputBox.value = rapikanTeks(caption);
   
   function generateCaptionOmprengan() {
   generateLaporan(); // 🔥 refresh gizi dulu
-    const tanggal = tanggalAktif;
+    const tanggal = getTanggalLengkap();
     
     // menu
     const menuInputs = document.querySelectorAll("#menuContainer .input-menu");
@@ -1762,7 +1760,7 @@ if (outputBox) outputBox.value = rapikanTeks(caption);
     const gizi = window.hasilGizi.OMPRENGAN || {};
   
   let caption = `🍱 Menu Bergizi Gratis
-📅 ${tanggalAktif}
+📅 ${getKeyTanggal()}
   
 🥗 Menu:
 ${menuText}
@@ -1902,7 +1900,7 @@ function blokGizi(judul, data) {
   generateLaporan();
 
   const payload = {
-    const now = getTanggalAktif();
+    const now = getgetKeyTanggal()();
     detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
       window.dataSpreadsheet.SNACK.detail
     ),
@@ -2103,7 +2101,7 @@ function blokGizi(judul, data) {
   
   function kirimLaporanKeSpreadsheet(pilihan = {}) {
   generateLaporan(); // 🔥 WAJIB biar gizi & menu keisi
-  const tanggal = tanggalAktif;
+  const tanggal = getTanggalLengkap();
   const menuFix = ambilMenuUntukLaporan();
 
   const semuaDetail = [];
@@ -2460,11 +2458,11 @@ function blokGizi(judul, data) {
   }
   
   function gantiTanggal(tanggal) {
-    tanggalAktif = tanggal;
+    getKeyTanggal() = tanggal;
   
     initTanggal(tanggal);
   
-    document.getElementById("tanggalAktifText").innerText = tanggal;
+    document.getElementById("getKeyTanggal()Text").innerText = tanggal;
   
     renderList();
     generateLaporan();
@@ -2474,14 +2472,14 @@ function blokGizi(judul, data) {
 
   tanggalDipilih = val; // 🔥 simpan
 
-  const display = document.getElementById("tanggalAktifText");
+  const display = document.getElementById("getKeyTanggal()Text");
 
   if(!val){
     display.innerText = "Pilih tanggal";
     return;
   }
 
-  const date = getTanggalAktif();
+  const date = getgetKeyTanggal()();
 
   const formatted = date.toLocaleDateString("id-ID", {
     weekday: "long",
@@ -2549,4 +2547,8 @@ function hitungGiziDetail(list) {
   });
 
   return { detail, total };
+}
+
+function getKeyTanggal(){
+  return tanggalDipilih || new Date().toISOString().split("T")[0];
 }
