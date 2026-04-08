@@ -1913,9 +1913,9 @@ function blokGizi(judul, data) {
   fetch(API_URL2, {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/json"
     },
-    body: "data=" + encodeURIComponent(JSON.stringify(payload))
+    body: JSON.stringify(payload)
   })
   .then(res => res.json())
   .then(res => {
