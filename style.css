@@ -2251,3 +2251,41 @@ button:active {
   width: 100%;
   margin-top: 10px;
 }
+
+.tanggal-wrapper {
+  margin-bottom: 16px;
+}
+
+.tanggal-wrapper label {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.tanggal-box {
+  position: relative;
+  background: #1e1e2f;
+  border-radius: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: 0.2s;
+}
+
+.tanggal-box:hover {
+  border: 1px solid #4CAF50;
+}
+
+.tanggal-box input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#tanggalDisplay {
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+}
