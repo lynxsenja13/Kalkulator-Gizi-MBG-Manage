@@ -2278,3 +2278,33 @@ button:active {
   transform: translateY(-50%);
   opacity: 0.7;
 }
+
+.tanggal-full {
+  position: relative;
+  width: 100%;
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.tanggal-full input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.tanggal-text {
+  font-size: 15px;
+  color: #333;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tanggal-text::before {
+  content: "📅";
+}
