@@ -2469,8 +2469,7 @@ function blokGizi(judul, data) {
     generateLaporan();
   }
   
-  function handleTanggal(val){
-
+ function handleTanggal(val){
   const display = document.getElementById("tanggalAktifText");
 
   if(!val){
