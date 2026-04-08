@@ -1900,8 +1900,6 @@ function blokGizi(judul, data) {
 
   const selectedDate = new Date(getKeyTanggal());
 
-  const selectedDate = new Date(getKeyTanggal());
-
 const menu = Array.from(document.querySelectorAll("[id^='menu']"))
   .map(el => el.value)
   .filter(v => v.trim() !== "");
