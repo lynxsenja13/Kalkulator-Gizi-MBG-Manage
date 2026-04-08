@@ -876,6 +876,24 @@
             serat: db ? faktor * Number(db["SERAT"] ?? db["serat"] ?? 0) : 0
           };
         });
+
+                // ✅ TAMBAHKAN DI SINI
+        const total = detailBahan.reduce((acc, item) => {
+          acc.Energi += item.energi;
+          acc.Protein += item.protein;
+          acc.Lemak += item.lemak;
+          acc.Karbohidrat += item.karbo;
+          acc.Kalsium += item.kalsium;
+          acc.Serat += item.serat;
+          return acc;
+        }, {
+          Energi: 0,
+          Protein: 0,
+          Lemak: 0,
+          Karbohidrat: 0,
+          Kalsium: 0,
+          Serat: 0
+        });
   
         // ================= SIMPAN DETAIL =================
         detailBahan.forEach(b => {
