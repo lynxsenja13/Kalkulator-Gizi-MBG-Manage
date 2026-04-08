@@ -2278,3 +2278,36 @@ button:active {
   transform: translateY(-50%);
   opacity: 0.7;
 }
+
+.date-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.date-wrapper input[type="date"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.date-display {
+  width: 100%;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+  font-weight: 600;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* hover biar bagus */
+.date-display:hover {
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.15);
+}
