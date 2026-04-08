@@ -45,7 +45,7 @@ window.APP_READY = true;
 
   <h2>Input Bahan</h2>
 
-  <div class="date-wrapper">
+  <div class="date-wrapper" onclick="document.getElementById('tanggalInput').showPicker()">
   <input type="date" id="tanggalInput" onchange="handleTanggal(this.value)">
   <span class="date-icon">📅</span>
   </div>
