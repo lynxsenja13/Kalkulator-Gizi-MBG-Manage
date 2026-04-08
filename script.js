@@ -1900,24 +1900,30 @@ function blokGizi(judul, data) {
 
   const selectedDate = new Date(getKeyTanggal());
 
-  const payload = {
-    tanggal: selectedDate.toLocaleDateString("id-ID", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    }),
-  
-    detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
-      window.dataSpreadsheet.SNACK.detail
-    ),
-  
-    laporanHarian: document.getElementById("captionOutput")?.value || "",
-  
-    menu: AppState.menu || [], // ✅ FIX DI SINI
-  
-    catatan: document.getElementById("note")?.value || ""
-  };
+  const selectedDate = new Date(getKeyTanggal());
+
+const menu = Array.from(document.querySelectorAll("[id^='menu']"))
+  .map(el => el.value)
+  .filter(v => v.trim() !== "");
+
+const payload = {
+  tanggal: selectedDate.toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }),
+
+  detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
+    window.dataSpreadsheet.SNACK.detail
+  ),
+
+  laporanHarian: document.getElementById("captionOutput")?.value || "",
+
+  menu: menu, // ✅ sudah aman tanpa AppState
+
+  catatan: document.getElementById("note")?.value || ""
+};
 
   fetch(API_URL2, {
     method: "POST",
