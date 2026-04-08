@@ -847,22 +847,6 @@
           };
         }
   
-        // ================= DETAIL PER BAHAN =================
-          let faktor = item.satuan === "GRAM" ? item.berat / 100 : item.berat;
-  
-          return {
-            nama: item.nama,
-            berat: item.berat,
-            satuan: item.satuan,
-            energi: db ? faktor * Number(db["ENERGI"] ?? db["energi"] ?? 0) : 0,
-            protein: db ? faktor * Number(db["PROTEIN"] ?? db["protein"] ?? 0) : 0,
-            lemak: db ? faktor * Number(db["LEMAK"] ?? db["lemak"] ?? 0) : 0,
-            karbo: db ? faktor * Number(db["KARBOHIDRAT"] ?? db["karbohidrat"] ?? 0) : 0,
-            kalsium: db ? faktor * Number(db["KALSIUM"] ?? db["kalsium"] ?? 0) : 0,
-            serat: db ? faktor * Number(db["SERAT"] ?? db["serat"] ?? 0) : 0
-          };
-        });
-  
         // ================= SIMPAN DETAIL =================
         detailBahan.forEach(b => {
           window.dataSpreadsheet[menu].detail.push({
