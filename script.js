@@ -913,7 +913,6 @@
         `;
       });
     });
-  window.laporanGiziText = hasilTeksGizi; // sesuaikan dengan variabel kamu
   }
 
   function renderAKG(nutrien, total, kategori) {
