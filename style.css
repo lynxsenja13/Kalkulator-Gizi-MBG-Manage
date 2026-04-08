@@ -2252,40 +2252,29 @@ button:active {
   margin-top: 10px;
 }
 
-.tanggal-wrapper {
-  margin-bottom: 16px;
-}
-
-.tanggal-wrapper label {
-  font-size: 13px;
-  color: #aaa;
-  margin-bottom: 6px;
-  display: block;
-}
-
-.tanggal-box {
+.date-wrapper {
   position: relative;
-  background: #1e1e2f;
+  width: 100%;
+}
+
+.date-wrapper input {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
   border-radius: 12px;
-  padding: 14px 16px;
-  cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.05);
-  transition: 0.2s;
+  border: none;
+  background: #1e1e2f;
+  color: white;
+  font-size: 14px;
 }
 
-.tanggal-box:hover {
-  border: 1px solid #4CAF50;
+.date-wrapper input:focus {
+  outline: 2px solid #4CAF50;
 }
 
-.tanggal-box input {
+.date-icon {
   position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-#tanggalDisplay {
-  font-size: 15px;
-  font-weight: 500;
-  color: #fff;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
 }
