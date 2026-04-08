@@ -1896,36 +1896,34 @@ function blokGizi(judul, data) {
     if (yakin) callback();
   }
   
-  function kirimKeSpreadsheet() {
-  
-    if (!window.dataSpreadsheet) {
-      alert("Generate laporan dulu!");
-      return;
-    }
-  
-    // 🔥 PAKSA GENERATE SEMUA MENU
-    const modeBackup = modeMenu;
-    generateLaporan();
-  
-    modeMenu = modeBackup;
-  
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(data));
-  
-    fetch(API_URL2, {
-      method: "POST",
-      mode: "no-cors",
-      body: formData
+  function kirimSpreadsheet() {
+
+  // pastikan data terbaru
+  generateLaporan();
+
+  const payload = {
+    tanggal: tanggalAktif,
+    data: window.dataSpreadsheet
+  };
+
+  fetch(API_URL2, { // ✅ pakai API_URL2
+    method: "POST",
+    body: JSON.stringify({
+      type: "laporan_harian",
+      payload: payload
     })
-    .then(() => {
-    alert("Berhasil kirim laporan");
-    })
-    .catch(err => {
+  })
+  .then(res => res.json())
+  .then(res => {
+    alert("✅ Laporan harian berhasil dikirim!");
+    console.log("Response:", res);
+  })
+  .catch(err => {
     console.error(err);
-    alert("Gagal kirim");
-    });
-  
-  }
+    alert("❌ Gagal kirim laporan");
+  });
+
+}
   
   function kirimLaporan(data) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
