@@ -1906,16 +1906,16 @@ function blokGizi(judul, data) {
       window.dataSpreadsheet.SNACK.detail
     ),
     laporanHarian: document.getElementById("captionOutput")?.value || "",
-    menu: [], // kalau ada menu bisa isi
+    menu: [],
     catatan: document.getElementById("note")?.value || ""
   };
 
   fetch(API_URL2, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: JSON.stringify(payload)
+    body: "data=" + encodeURIComponent(JSON.stringify(payload))
   })
   .then(res => res.json())
   .then(res => {
