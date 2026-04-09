@@ -1759,7 +1759,7 @@ if (outputBox) outputBox.value = rapikanTeks(caption);
     const gizi = window.hasilGizi.OMPRENGAN || {};
   
   let caption = `🍱 Menu Bergizi Gratis
-📅 ${getKeyTanggal()}
+📅 ${tanggal}
   
 🥗 Menu:
 ${menuText}
