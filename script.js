@@ -1905,23 +1905,25 @@ function kirimSpreadsheet() {
     .filter(Boolean);
 
   const payload = {
-    tanggal: selectedDate.toLocaleDateString("id-ID", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    }),
+  tanggal: selectedDate.toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }),
 
-    detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
-      window.dataSpreadsheet.SNACK.detail
-    ),
+  detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
+    window.dataSpreadsheet.SNACK.detail
+  ),
 
-    laporanHarian: document.getElementById("captionOutput")?.value || "",
+  laporanHarian: document.getElementById("captionOutput")?.value || "",
 
-    menu: menu,
+  menu: menu,
 
-    catatan: document.getElementById("note")?.value || ""
-  };
+  gizi: window.dataSpreadsheet.gizi, // 🔥 INI WAJIB
+
+  catatan: document.getElementById("note")?.value || ""
+};
 
   fetch(API_URL2, {
     method: "POST",
