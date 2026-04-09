@@ -45,6 +45,7 @@
     SNACK: {}
   };
 
+  let dataLoaded = false;
   let tanggalDipilih = null;
   let database = [];
   let databaseLoaded = false;
@@ -1947,6 +1948,7 @@ function kirimSpreadsheet() {
     console.error(err);
     alert("❌ Gagal kirim");
   });
+  
 }
   
   function kirimLaporan(data) {
