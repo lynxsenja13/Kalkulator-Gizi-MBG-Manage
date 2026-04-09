@@ -1862,8 +1862,10 @@ function blokGizi(judul, data) {
 
   const input = document.createElement("input");
   input.type = "text";
-  input.className = "input-menu";
   input.placeholder = "Nama menu";
+
+  // 🔥 WAJIB ADA INI
+  input.className = "input-menu";
 
   container.appendChild(input);
 }
@@ -2585,7 +2587,16 @@ function getKeyTanggal() {
 }
 
 function ambilSemuaMenu() {
-  const inputs = document.querySelectorAll(".input-menu");
+  const container = document.getElementById("menuContainer");
+
+  if (!container) {
+    console.error("❌ menuContainer tidak ditemukan");
+    return [];
+  }
+
+  const inputs = container.querySelectorAll("input");
+
+  console.log("INPUT KETEMU:", inputs);
 
   return Array.from(inputs)
     .map(input => input.value.trim())
