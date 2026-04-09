@@ -1044,61 +1044,50 @@
   }
   
   function exportPDF(){
-  
-    const laporan = document.getElementById("laporanPDF");
-  
-    // ===== tanggal =====
-    document.getElementById("tanggalLaporan").innerText =
-      formatTanggalIndonesia();
-  
-    const mode = modeMenu === "OMPRENGAN"
-      ? "Menu Omprengan"
-      : "Menu Snack";
-  
-    document.getElementById("jenisMenuLaporan").innerText = mode;
-  
-    // ===== clone hasil laporan =====
-    const hasilAsli = document.getElementById("hasil");
-    const clone = hasilAsli.cloneNode(true);
-  
-    // hapus elemen interaktif
-    clone.querySelectorAll("input,button,.libur-ios-wrapper,.btn-hapus").forEach(el=>{
-      el.remove();
+
+  generateLaporan(); // ✅ WAJIB
+
+  const laporan = document.getElementById("laporanPDF");
+
+  document.getElementById("tanggalLaporan").innerText =
+    formatTanggalIndonesia();
+
+  const mode = modeMenu === "OMPRENGAN"
+    ? "Menu Omprengan"
+    : "Menu Snack";
+
+  document.getElementById("jenisMenuLaporan").innerText = mode;
+
+  const hasilAsli = document.getElementById("hasil");
+
+  console.log("ISI HASIL:", hasilAsli.innerHTML); // ✅ DEBUG
+
+  const clone = hasilAsli.cloneNode(true);
+
+  clone.querySelectorAll("input,button,.libur-ios-wrapper,.btn-hapus")
+    .forEach(el => el.remove());
+
+  document.getElementById("hasilPDF").innerHTML = clone.innerHTML;
+
+  document.getElementById("printNote").innerText =
+    document.getElementById("note").value || "-";
+
+  laporan.style.display = "block";
+
+  const opt = {
+    margin: 10,
+    filename: `Laporan Gizi ${formatTanggalFile()}.pdf`,
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+  };
+
+  setTimeout(() => {
+    html2pdf().set(opt).from(laporan).save().then(()=>{
+      laporan.style.display = "none";
     });
-  
-    document.getElementById("hasilPDF").innerHTML = clone.innerHTML;
-  
-    // ===== catatan =====
-    document.getElementById("printNote").innerText =
-      document.getElementById("note").value || "-";
-  
-    // tampilkan container
-    laporan.style.display = "block";
-  
-    const opt = {
-      margin: 10,
-      filename: `Laporan Gizi ${formatTanggalFile()}.pdf`,
-      html2canvas: {
-        scale: 2,
-        useCORS: true
-      },
-      jsPDF: {
-        unit: "mm",
-        format: "a4",
-        orientation: "portrait"
-      },
-      pagebreak: {
-        mode: ["css", "legacy"]
-      }
-    };
-  
-    setTimeout(() => {
-      html2pdf().set(opt).from(laporan).save().then(()=>{
-        laporan.style.display = "none";
-      });
-    }, 500);
-  
-  }
+  }, 800); // ✅ tambah delay
+}
+
   function getTanggalLengkap() {
     const now = new Date(getKeyTanggal()); // ✅ FIX
   
