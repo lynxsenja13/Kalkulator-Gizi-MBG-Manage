@@ -1900,7 +1900,7 @@ function kirimSpreadsheet() {
 
   const selectedDate = new Date(getKeyTanggal() + "T00:00:00");
 
-  const menu = Array.from(document.querySelectorAll("[id^='menu']"))
+  const menu = Array.from(document.querySelectorAll("input[name='menu']"))
     .map(el => el.value)
     .filter(v => v && v.trim() !== "");
 
