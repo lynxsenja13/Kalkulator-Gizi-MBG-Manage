@@ -742,8 +742,8 @@
   
   syncLiburModal();
     
-    if (!databaseLoaded) {
-      alert("Database masih loading...");
+    if (!dataLoaded) {
+      console.log("Database masih loading...");
       return;
     }
   
