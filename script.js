@@ -45,7 +45,7 @@
     SNACK: {}
   };
 
-  let dataLoaded = false;
+  let databaseLoaded = false;
   let tanggalDipilih = null;
   let database = [];
   let databaseLoaded = false;
@@ -515,7 +515,7 @@
   // ================= TAMBAH BAHAN =================
   function tambahBahan() {
     if (!databaseLoaded) {
-      alert("Tunggu database selesai load dulu");
+      console.warn("Database masih loading...");
       return;
     }
   
@@ -743,7 +743,7 @@
   
   syncLiburModal();
     
-    if (!dataLoaded) {
+    if (!databaseLoaded) {
       console.log("Database masih loading...");
       return;
     }
