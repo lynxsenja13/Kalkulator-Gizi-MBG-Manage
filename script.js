@@ -1900,9 +1900,9 @@ function kirimSpreadsheet() {
 
   const selectedDate = new Date(getKeyTanggal() + "T00:00:00");
 
-  const menu = Array.from(document.querySelectorAll("input[name='menu']"))
-    .map(el => el.value)
-    .filter(v => v && v.trim() !== "");
+  const menu = Array.from(document.querySelectorAll(".input-menu"))
+    .map(el => el.value.trim())
+    .filter(Boolean);
 
   const payload = {
     tanggal: selectedDate.toLocaleDateString("id-ID", {
