@@ -1047,7 +1047,30 @@
 
   generateLaporan(); // ✅ WAJIB
 
-  const laporan = document.getElementById("laporanPDF");
+  const element = document.createElement("div");
+
+// ambil isi hasil
+const hasilAsli = document.getElementById("hasil");
+const clone = hasilAsli.cloneNode(true);
+
+// bersihin elemen tidak perlu
+clone.querySelectorAll("input,button,.libur-ios-wrapper,.btn-hapus")
+  .forEach(el => el.remove());
+
+// inject ke element baru
+element.innerHTML = `
+  <h2>Laporan Gizi</h2>
+  <p>${formatTanggalIndonesia()}</p>
+  ${clone.innerHTML}
+`;
+
+// styling biar kebaca pdf
+element.style.padding = "20px";
+element.style.background = "#fff";
+element.style.color = "#000";
+
+// tambahkan ke body sementara
+document.body.appendChild(element);
 
   document.getElementById("tanggalLaporan").innerText =
     formatTanggalIndonesia();
