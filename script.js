@@ -48,7 +48,6 @@
   let databaseLoaded = false;
   let tanggalDipilih = null;
   let database = [];
-  let databaseLoaded = false;
   let pendingNama = null;
   let pendingBerat = null;
   let modeKategori = "SEMUA";
