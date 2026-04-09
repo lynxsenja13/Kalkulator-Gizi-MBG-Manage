@@ -1858,9 +1858,15 @@ function blokGizi(judul, data) {
   }
   
   function tambahMenuBaris() {
-    menuHarian.push("");
-    renderMenuHarian();
-  }
+  const container = document.getElementById("menuContainer");
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.className = "input-menu";
+  input.placeholder = "Nama menu";
+
+  container.appendChild(input);
+}
   
   function editMenuHarian(index, value) {
     menuHarian[index] = value;
@@ -1898,32 +1904,30 @@ function kirimSpreadsheet() {
 
   generateLaporan();
 
-  const selectedDate = new Date(getKeyTanggal() + "T00:00:00");
-
-  const menu = Array.from(document.querySelectorAll(".input-menu"))
-    .map(el => el.value.trim())
-    .filter(Boolean);
+  const selectedDate = getKeyTanggal() 
+    ? new Date(getKeyTanggal()) 
+    : new Date();
 
   const payload = {
-  tanggal: selectedDate.toLocaleDateString("id-ID", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  }),
 
-  detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
-    window.dataSpreadsheet.SNACK.detail
-  ),
+    tanggal: selectedDate.toLocaleDateString("id-ID", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }),
 
-  laporanHarian: document.getElementById("captionOutput")?.value || "",
+    detail: window.dataSpreadsheet.OMPRENGAN.detail.concat(
+      window.dataSpreadsheet.SNACK.detail
+    ),
 
-  menu: menu,
+    laporanHarian: document.getElementById("captionOutput")?.value || "",
 
-  gizi: window.dataSpreadsheet.gizi, // 🔥 INI WAJIB
+    // 🔥 INI YANG PALING PENTING
+    menu: ambilSemuaMenu(),
 
-  catatan: document.getElementById("note")?.value || ""
-};
+    catatan: document.getElementById("note")?.value || ""
+  };
 
   fetch(API_URL2, {
     method: "POST",
@@ -1935,13 +1939,12 @@ function kirimSpreadsheet() {
   .then(res => res.json())
   .then(res => {
     alert("✅ Berhasil dikirim!");
-    console.log(res);
+    console.log(payload); // 🔥 DEBUG
   })
   .catch(err => {
     console.error(err);
     alert("❌ Gagal kirim");
   });
-
 }
   
   function kirimLaporan(data) {
@@ -2579,4 +2582,12 @@ function getKeyTanggal() {
   const day = String(today.getDate()).padStart(2, "0");
 
   return `${year}-${month}-${day}`; // format YYYY-MM-DD
+}
+
+function ambilSemuaMenu() {
+  const inputs = document.querySelectorAll(".input-menu");
+
+  return Array.from(inputs)
+    .map(input => input.value.trim())
+    .filter(val => val !== "");
 }
