@@ -690,7 +690,7 @@
       html += `
         <tr>
           <td>${item.nama}</td>
-          <td>${beratFinal}</td>
+          <td>${item.berat}</td>
           <td>${item.energi.toFixed(1)}</td>
           <td>${item.protein.toFixed(1)}</td>
           <td>${item.lemak.toFixed(1)}</td>
@@ -806,7 +806,25 @@
             b.nama.toLowerCase().trim() === item.nama.toLowerCase().trim()
           )
         );
-        const { detail: detailBahan, total } = hitungGiziDetail(dataAktif);
+        // 🔥 FIX NASI PER KATEGORI (SEBELUM HITUNG GIZI)
+        const dataFix = dataAktif.map(item => {
+        
+          let beratFinal = item.berat;
+        
+          if (item.nama && item.nama.toLowerCase().includes("nasi")) {
+            if (BERAT_NASI[kat]) {
+              beratFinal = BERAT_NASI[kat];
+            }
+          }
+        
+          return {
+            ...item,
+            berat: beratFinal
+          };
+        });
+        
+        // 🔥 pakai dataFix, bukan dataAktif
+        const { detail: detailBahan, total } = hitungGiziDetail(dataFix);
   
         // ================= SIMPAN GIZI UNTUK CAPTION =================
         const mapCaption = {
