@@ -2454,6 +2454,7 @@ function kirimSpreadsheet() {
   };
   
   const defaultBerat = {
+    nasi: 100,
     ayam: 80,
     telur: 60,
     minyak: 5,
@@ -2480,37 +2481,32 @@ function kirimSpreadsheet() {
     tempe: "Gram",
   };
   
-  function autoIsiBerat(nama, kategori) {
-  const inputBerat = document.getElementById("beratBahan");
-  const inputSatuan = document.getElementById("satuanBahan");
-
-  if (!inputBerat || !inputSatuan) return;
-
-  // ❗ jangan override kalau user sudah isi manual
-  if (inputBerat.value) return;
-
-  const key = normalizeText(nama);
-  const k = normalizeText(kategori);
-
-  // ✅ KHUSUS NASI
-  if (key.includes("nasi")) {
-    if (defaultBeratNasiKategori[k]) {
-      inputBerat.value = defaultBeratNasiKategori[k];
-      inputSatuan.value = "GRAM";
-      return;
+  function autoIsiBerat(nama) {
+    const inputBerat = document.getElementById("beratBahan");
+    const inputSatuan = document.getElementById("satuanBahan");
+  
+    if (!inputBerat || !inputSatuan) return;
+  
+    // ❗ jangan override kalau user sudah isi manual
+    if (inputBerat.value) return;
+  
+    const key = nama.toLowerCase().trim();
+  
+    const found = Object.keys(defaultBerat).find(k =>
+      key.includes(k)
+    );
+  
+    // 🔥 NAH KODE KAMU TARUH DI SINI
+    if (found) {
+      inputBerat.value = defaultBerat[found];
+  
+      if (defaultSatuan[found]) {
+        inputSatuan.value = defaultSatuan[found];
+      } else {
+        inputSatuan.value = "GRAM"; // fallback
+      }
     }
   }
-
-  // ✅ selain nasi → default lama
-  const found = Object.keys(defaultBerat).find(k2 =>
-    key.includes(k2)
-  );
-
-  if (found) {
-    inputBerat.value = defaultBerat[found];
-    inputSatuan.value = defaultSatuan[found] || "GRAM";
-  }
-}
 
 function normalizeText(text) {
   return (text || "").toLowerCase().trim();
