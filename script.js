@@ -675,8 +675,19 @@
     let beratFinal = item.berat;
   
     if (item.nama && item.nama.toLowerCase().includes("nasi")) {
-      if (BERAT_NASI[kat]) {
-        beratFinal = BERAT_NASI[kat];
+      const katFix = kat.trim().toLowerCase();
+    
+      const mapping = {
+        "balita": 80,
+        "sd 1-3": 100,
+        "sd 4-6": 100,
+        "smp": 150,
+        "sma": 200,
+        "bumil & busui": 200
+      };
+    
+      if (mapping[katFix]) {
+        beratFinal = mapping[katFix];
       }
     }
       
