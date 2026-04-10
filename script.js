@@ -1053,12 +1053,20 @@
 
     // 🔥 hapus kategori yang tidak punya bahan
   clone.querySelectorAll(".card-kategori").forEach(card => {
-    const adaBahan = card.querySelectorAll("tbody tr").length > 0;
-  
-    if (!adaBahan) {
-      card.remove();
+  let adaIsi = false;
+
+  card.querySelectorAll("tbody tr").forEach(row => {
+    const nama = row.querySelector("input, select");
+
+    if (nama && nama.value.trim() !== "") {
+      adaIsi = true;
     }
   });
+
+  if (!adaIsi) {
+    card.remove();
+  }
+});
 
   // 🔥 hapus elemen yang tidak perlu
   clone.querySelectorAll("input,button,.btn-hapus")
