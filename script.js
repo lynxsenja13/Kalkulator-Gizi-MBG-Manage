@@ -1101,12 +1101,19 @@
 
   <hr style="border:1px solid black; margin:10px 0;">
 
-  <h3 style="text-align:center; margin:5px 0;">
+  <div style="text-align:center; margin-top:10px; margin-bottom:10px;">
+  
+  <h2 style="margin:0; font-size:16px; letter-spacing:1px;">
     LAPORAN HASIL PERHITUNGAN GIZI
-  </h3>
-  <p style="text-align:center; margin:0 0 10px 0;">
-    ${tanggal}
+  </h2>
+
+  <div style="width:80px; height:2px; background:black; margin:6px auto;"></div>
+
+  <p style="margin:4px 0; font-size:12px;">
+    <i>${tanggal}</i>
   </p>
+
+</div>
 
   ${clone.innerHTML}
 
@@ -1125,24 +1132,43 @@
 
   element.querySelectorAll(".card-kategori").forEach(card => {
     card.style.pageBreakInside = "avoid";
+
+  element.style.width = "210mm";
+  element.style.minHeight = "297mm";
+  element.style.padding = "15mm";
+  element.style.boxSizing = "border-box";
+  element.style.fontSize = "10px";
   });    
 
   const today = new Date();
   const tanggalFile = tanggal.replace(/,/g, "").replace(/\s+/g, "-");
       
   // 🔥 INI YANG KAMU TANYA → TARUH DI SINI
+  setTimeout(() => {
   html2pdf()
     .set({
-      margin: 10,
+      margin: [15, 10, 15, 10], // atas, kiri, bawah, kanan
       filename: `Laporan Gizi MBG ${tanggalFile}.pdf`,
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        letterRendering: true
+      },
+      jsPDF: {
+        unit: "mm",
+        format: "a4",
+        orientation: "portrait"
+      },
+      pagebreak: {
+        mode: ['avoid-all', 'css', 'legacy']
+      }
     })
     .from(element)
     .save()
     .then(() => {
-      document.body.removeChild(element); // hapus setelah selesai
+      document.body.removeChild(element);
     });
+}, 500); // ⬅️ penting (tunggu render)
 }
 
   function getTanggalLengkap() {
