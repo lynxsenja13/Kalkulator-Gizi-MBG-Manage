@@ -1056,12 +1056,12 @@
   let adaIsi = false;
 
   card.querySelectorAll("tbody tr").forEach(row => {
-    const nama = row.querySelector("input, select");
+  const text = row.innerText.trim();
 
-    if (nama && nama.value.trim() !== "") {
-      adaIsi = true;
-    }
-  });
+  if (text !== "") {
+    adaIsi = true;
+  }
+});
 
   if (!adaIsi) {
     card.remove();
