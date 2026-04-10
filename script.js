@@ -670,6 +670,16 @@
     `;
   
     dataBahan.forEach(item => {
+    
+      // 🔥 FIX KHUSUS NASI
+    let beratFinal = item.berat;
+  
+    if (item.nama && item.nama.toLowerCase().includes("nasi")) {
+      if (BERAT_NASI[kat]) {
+        beratFinal = BERAT_NASI[kat];
+      }
+    }
+      
       total.energi += item.energi;
       total.protein += item.protein;
       total.lemak += item.lemak;
@@ -680,7 +690,7 @@
       html += `
         <tr>
           <td>${item.nama}</td>
-          <td>${item.berat}</td>
+          <td>${beratFinal}</td>
           <td>${item.energi.toFixed(1)}</td>
           <td>${item.protein.toFixed(1)}</td>
           <td>${item.lemak.toFixed(1)}</td>
@@ -2444,13 +2454,13 @@ function kirimSpreadsheet() {
   
   }
 
-  const defaultBeratNasiKategori = {
-    "balita": 80,
-    "bumil & busui": 200,
-    "sd 1-3": 100,
-    "sd 4-6": 100,
-    "smp": 150,
-    "sma": 200
+  const BERAT_NASI = {
+    "Balita": 80,
+    "SD 1-3": 100,
+    "SD 4-6": 100,
+    "SMP": 150,
+    "SMA": 200,
+    "Bumil & Busui": 200
   };
   
   const defaultBerat = {
