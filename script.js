@@ -2443,10 +2443,18 @@ function kirimSpreadsheet() {
   return satuan;
   
   }
+
+  const defaultBeratNasiKategori = {
+    "balita": 80,
+    "bumil & busui": 200,
+    "sd 1-3": 100,
+    "sd 4-6": 100,
+    "smp": 150,
+    "sma": 200
+  };
   
   const defaultBerat = {
     ayam: 80,
-    nasi: 100,
     telur: 60,
     minyak: 5,
     jeruk: 135,
@@ -2472,32 +2480,41 @@ function kirimSpreadsheet() {
     tempe: "Gram",
   };
   
-  function autoIsiBerat(nama) {
-    const inputBerat = document.getElementById("beratBahan");
-    const inputSatuan = document.getElementById("satuanBahan");
-  
-    if (!inputBerat || !inputSatuan) return;
-  
-    // ❗ jangan override kalau user sudah isi manual
-    if (inputBerat.value) return;
-  
-    const key = nama.toLowerCase().trim();
-  
-    const found = Object.keys(defaultBerat).find(k =>
-      key.includes(k)
-    );
-  
-    // 🔥 NAH KODE KAMU TARUH DI SINI
-    if (found) {
-      inputBerat.value = defaultBerat[found];
-  
-      if (defaultSatuan[found]) {
-        inputSatuan.value = defaultSatuan[found];
-      } else {
-        inputSatuan.value = "GRAM"; // fallback
-      }
+  function autoIsiBerat(nama, kategori) {
+  const inputBerat = document.getElementById("beratBahan");
+  const inputSatuan = document.getElementById("satuanBahan");
+
+  if (!inputBerat || !inputSatuan) return;
+
+  // ❗ jangan override kalau user sudah isi manual
+  if (inputBerat.value) return;
+
+  const key = normalizeText(nama);
+  const k = normalizeText(kategori);
+
+  // ✅ KHUSUS NASI
+  if (key.includes("nasi")) {
+    if (defaultBeratNasiKategori[k]) {
+      inputBerat.value = defaultBeratNasiKategori[k];
+      inputSatuan.value = "GRAM";
+      return;
     }
   }
+
+  // ✅ selain nasi → default lama
+  const found = Object.keys(defaultBerat).find(k2 =>
+    key.includes(k2)
+  );
+
+  if (found) {
+    inputBerat.value = defaultBerat[found];
+    inputSatuan.value = defaultSatuan[found] || "GRAM";
+  }
+}
+
+function normalizeText(text) {
+  return (text || "").toLowerCase().trim();
+}
   
   function initTanggal(tanggal) {
     ["OMPRENGAN", "SNACK"].forEach(menu => {
