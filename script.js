@@ -1043,7 +1043,7 @@
     return `${hari[now.getDay()]}, ${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
   }
   
-  function exportPDF() {
+    function exportPDF() {
   // 🔥 pastikan data terbaru
   generateLaporan();
 
@@ -1927,21 +1927,19 @@ function kirimSpreadsheet() {
   };
 
   fetch(API_URL2, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: "data=" + encodeURIComponent(JSON.stringify(payload))
+  method: "POST",
+  mode: "no-cors", // 🔥 INI KUNCI
+  body: new URLSearchParams({
+    data: JSON.stringify(payload)
   })
-  .then(res => res.json())
-  .then(res => {
-    alert("✅ Berhasil dikirim!");
-    console.log(payload); // 🔥 DEBUG
-  })
-  .catch(err => {
-    console.error(err);
-    alert("❌ Gagal kirim");
-  });
+})
+.then(() => {
+  alert("✅ Berhasil dikirim!");
+})
+.catch(err => {
+  console.error(err);
+  alert("❌ Gagal kirim");
+});
   
 }
   
