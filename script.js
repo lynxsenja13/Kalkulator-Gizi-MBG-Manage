@@ -1126,12 +1126,15 @@
   element.querySelectorAll(".card-kategori").forEach(card => {
     card.style.pageBreakInside = "avoid";
   });    
+
+  const today = new Date();
+  const tanggalFile = tanggal.replace(/,/g, "").replace(/\s+/g, "-");
       
   // 🔥 INI YANG KAMU TANYA → TARUH DI SINI
   html2pdf()
     .set({
       margin: 10,
-      filename: `Laporan Gizi.pdf`,
+      filename: `Laporan Gizi MBG ${tanggalFile}.pdf`,
       html2canvas: { scale: 2 },
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
     })
