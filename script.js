@@ -1051,6 +1051,15 @@
   const hasilAsli = document.getElementById("hasil");
   const clone = hasilAsli.cloneNode(true);
 
+    // 🔥 hapus kategori yang tidak punya bahan
+  clone.querySelectorAll(".card-kategori").forEach(card => {
+    const adaBahan = card.querySelectorAll("tbody tr").length > 0;
+  
+    if (!adaBahan) {
+      card.remove();
+    }
+  });
+
   // 🔥 hapus elemen yang tidak perlu
   clone.querySelectorAll("input,button,.btn-hapus")
     .forEach(el => el.remove());
@@ -1063,13 +1072,27 @@
   const element = document.createElement("div");
 
   element.innerHTML = `
-    <h2 style="text-align:center;">LAPORAN HASIL PERHITUNGAN GIZI</h2>
-    <p style="text-align:center;">${tanggal}</p>
-    ${clone.innerHTML}
-    <br>
-    <h3>Catatan</h3>
-    <p>${note || "-"}</p>
-  `;
+  <div style="text-align:center; margin-bottom:20px;">
+    <img src="logo.png" style="width:80px; margin-bottom:10px;">
+    
+    <h2 style="margin:0;">SPPG KOTA BANDUNG CIBEUNYING KIDUL CICADAS</h2>
+    <p style="margin:0;">
+      Jl. Brigjen Katamso, Cihaur Geulis, Kec. Cibeunying Kidul, Kota Bandung
+    </p>
+    <p style="margin:5px 0;">
+      Ahli Gizi : Aliyah Khairunnisa Syafitri
+    </p>
+  </div>
+
+  <h3 style="text-align:center;">LAPORAN HASIL PERHITUNGAN GIZI</h3>
+  <p style="text-align:center;">${tanggal}</p>
+
+  ${clone.innerHTML}
+
+  <br>
+  <h3>Catatan</h3>
+  <p style="white-space: pre-line;">${note || "-"}</p>
+`;
 
   // styling biar kebaca
   element.style.padding = "20px";
@@ -1079,6 +1102,10 @@
   // tempel ke body (biar ke-render)
   document.body.appendChild(element);
 
+  element.querySelectorAll(".card-kategori").forEach(card => {
+    card.style.pageBreakInside = "avoid";
+  });    
+      
   // 🔥 INI YANG KAMU TANYA → TARUH DI SINI
   html2pdf()
     .set({
