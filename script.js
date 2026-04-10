@@ -1072,20 +1072,33 @@
   const element = document.createElement("div");
 
   element.innerHTML = `
-  <div style="text-align:center; margin-bottom:20px;">
-    <img src="logo.png" style="width:80px; margin-bottom:10px;">
-    
-    <h2 style="margin:0;">SPPG KOTA BANDUNG CIBEUNYING KIDUL CICADAS</h2>
-    <p style="margin:0;">
+  <div style="text-align:center; margin-bottom:10px;">
+    <img src="logo.png" style="width:70px; display:block; margin:0 auto 8px auto;">
+
+    <h2 style="margin:0; font-size:16px; font-weight:bold;">
+      SPPG KOTA BANDUNG
+    </h2>
+    <h3 style="margin:0; font-size:14px; font-weight:bold;">
+      CIBEUNYING KIDUL - CICADAS
+    </h3>
+
+    <p style="margin:2px 0; font-size:12px;">
       Jl. Brigjen Katamso, Cihaur Geulis, Kec. Cibeunying Kidul, Kota Bandung
     </p>
-    <p style="margin:5px 0;">
-      Ahli Gizi : Aliyah Khairunnisa Syafitri
+
+    <p style="margin:2px 0; font-size:12px;">
+      Ahli Gizi: <b>Aliyah Khairunnisa Syafitri</b>
     </p>
   </div>
 
-  <h3 style="text-align:center;">LAPORAN HASIL PERHITUNGAN GIZI</h3>
-  <p style="text-align:center;">${tanggal}</p>
+  <hr style="border:1px solid black; margin:10px 0;">
+
+  <h3 style="text-align:center; margin:5px 0;">
+    LAPORAN HASIL PERHITUNGAN GIZI
+  </h3>
+  <p style="text-align:center; margin:0 0 10px 0;">
+    ${tanggal}
+  </p>
 
   ${clone.innerHTML}
 
