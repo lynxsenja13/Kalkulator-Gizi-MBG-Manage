@@ -1225,11 +1225,11 @@
       "BALITA": kategoriLibur["Balita"] ? 0 : 211,
       "BUMIL & BUSUI": kategoriLibur["Bumil & Busui"] ? 0 : 125,
   
-      "SD Awi Gombong": kategoriLibur["SD Awi Gombong"] ? 0 : 1015,
+      "SD Awi Gombong": kategoriLibur["SD Awi Gombong"] ? 0 : 1016,
       "SD YAS": kategoriLibur["SD YAS"] ? 0 : 186,
   
       "SMP YAS": kategoriLibur["SMP YAS"] ? 0 : 630,
-      "SMA YAS": kategoriLibur["SMA YAS"] ? 0 : 534,
+      "SMA YAS": kategoriLibur["SMA YAS"] ? 0 : 364,
   
       "Guru & Tendik SD Awi Gombong": kategoriLibur["SD Awi Gombong"] ? 0 : 62,
       "Guru & Tendik SD YAS": kategoriLibur["SD YAS"] ? 0 : 17,
