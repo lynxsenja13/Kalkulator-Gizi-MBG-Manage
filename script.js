@@ -2727,3 +2727,34 @@ function loadDataDariSpreadsheet(tanggal) {
       generateLaporan();
     });
 }
+
+function isiMenuDariSpreadsheet(menuList) {
+  const container = document.getElementById("menuContainer");
+
+  // reset
+  container.innerHTML = "";
+
+  menuList.forEach((menu, i) => {
+    const input = document.createElement("input");
+    input.className = "input-menu";
+    input.value = menu;
+
+    container.appendChild(input);
+  });
+}
+
+function isiBahanDariSpreadsheet(detail) {
+  const key = getKeyTanggal();
+
+  bahanMaster.OMPRENGAN[key] = [];
+  bahanMaster.SNACK[key] = [];
+
+  detail.forEach(item => {
+    // sementara masuk OMPRENGAN semua (bisa disempurnakan nanti)
+    bahanMaster.OMPRENGAN[key].push({
+      nama: item.nama,
+      berat: item.berat,
+      kategori: item.kategori
+    });
+  });
+}
