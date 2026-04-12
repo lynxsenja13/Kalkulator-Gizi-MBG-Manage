@@ -2703,21 +2703,27 @@ function loadDataDariSpreadsheet(tanggal) {
     .then(res => {
 
       if (res.status === "not_found") {
-        console.log("Sheet belum ada, lanjut kosong");
+        console.log("Sheet belum ada");
+        
+        renderList();
+        generateLaporan();
         return;
       }
 
-      // 🔥 ISI MENU
+      // 🔥 ISI DATA
       isiMenuDariSpreadsheet(res.menu);
-
-      // 🔥 ISI BAHAN
       isiBahanDariSpreadsheet(res.detail);
 
-      // 🔥 RENDER ULANG
+      // 🔥 RENDER SETELAH DATA MASUK
+      renderList();
       generateLaporan();
 
     })
     .catch(err => {
-      console.error("Gagal load data:", err);
+      console.error(err);
+
+      // fallback
+      renderList();
+      generateLaporan();
     });
 }
