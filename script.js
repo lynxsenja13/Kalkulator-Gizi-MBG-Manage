@@ -791,6 +791,13 @@
         }
   
         const dataKategori = kategoriData[menu][getKeyTanggal()][kat] || [];
+        const dataAktif = dataKategori.filter(item =>
+          listAktif.some(b =>
+            b.nama.toLowerCase().trim() === item.nama.toLowerCase().trim()
+          )
+        );
+        
+        // 🔥 WAJIB DI SINI (DALAM LOOP KATEGORI)
         dataAktif.forEach(item => {
           if (item.nama && item.nama.toLowerCase().includes("nasi")) {
             const beratBaru = getBeratNasiByKategori(kat, item.berat);
