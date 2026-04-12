@@ -2587,12 +2587,10 @@ function kirimSpreadsheet() {
 
   display.innerText = formatted;
 
+  // 🔥 WAJIB BIAR SEMUA IKUT TANGGAL
   initTanggal(getKeyTanggal());
   renderList();
   generateLaporan();
-
-  // 🔥 TAMBAHKAN INI
-  loadDariSpreadsheet(formatted);
 }
 
 function rapikanTeks(teks) {
@@ -2697,80 +2695,4 @@ function getBeratNasiByKategori(kategori, beratDefault) {
   if (kat.includes("sd")) return 100;
 
   return beratDefault;
-}
-
-function loadDariSpreadsheet(tanggalText) {
-
-  fetch(API_URL2 + "?tanggal=" + encodeURIComponent(tanggalText))
-    .then(res => res.json())
-    .then(res => {
-
-      if (res.status === "empty") {
-        console.log("Data kosong, sheet belum ada");
-        return;
-      }
-
-      // 🔥 RESET DULU
-      bahanMaster.OMPRENGAN = {};
-      bahanMaster.SNACK = {};
-
-      const key = getKeyTanggal();
-
-      bahanMaster.OMPRENGAN[key] = [];
-      bahanMaster.SNACK[key] = [];
-
-      // ===== ISI DETAIL =====
-      res.detail.forEach(item => {
-        bahanMaster[item.menu][key].push({
-          nama: item.nama,
-          berat: item.berat,
-          energi: item.energi,
-          protein: item.protein,
-          lemak: item.lemak,
-          karbo: item.karbo,
-          kalsium: item.kalsium,
-          serat: item.serat
-        });
-      });
-
-      // ===== ISI MENU =====
-      isiMenuDariSpreadsheet(res.menu);
-
-      // 🔥 RENDER ULANG
-      renderList();
-      generateLaporan();
-
-    })
-    .catch(err => {
-      console.error("Gagal load:", err);
-    });
-}
-
-function isiMenuDariSpreadsheet(menuArray) {
-  const container = document.getElementById("menuContainer");
-
-  container.innerHTML = "";
-
-  menuArray.forEach(m => {
-    const input = document.createElement("input");
-    input.className = "input-menu";
-    input.value = m;
-    container.appendChild(input);
-  });
-}
-
-function isiBahanDariSpreadsheet(detail) {
-  const key = getKeyTanggal();
-
-  bahanMaster.OMPRENGAN[key] = [];
-  bahanMaster.SNACK[key] = [];
-
-  detail.forEach(item => {
-    // sementara masuk OMPRENGAN semua (bisa disempurnakan nanti)
-    bahanMaster.OMPRENGAN[key].push({
-      nama: item.nama,
-      berat: item.berat,
-      kategori: item.kategori
-    });
-  });
 }
