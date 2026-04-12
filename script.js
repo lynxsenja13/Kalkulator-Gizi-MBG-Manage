@@ -2587,10 +2587,10 @@ function kirimSpreadsheet() {
 
   display.innerText = formatted;
 
-  // 🔥 WAJIB BIAR SEMUA IKUT TANGGAL
   initTanggal(getKeyTanggal());
-  renderList();
-  generateLaporan();
+
+  // 🔥 cukup panggil ini saja
+  loadDataDariSpreadsheet(formatted);
 }
 
 function rapikanTeks(teks) {
@@ -2695,4 +2695,29 @@ function getBeratNasiByKategori(kategori, beratDefault) {
   if (kat.includes("sd")) return 100;
 
   return beratDefault;
+}
+
+function loadDataDariSpreadsheet(tanggal) {
+  fetch(API_URL2 + "?tanggal=" + encodeURIComponent(tanggal))
+    .then(res => res.json())
+    .then(res => {
+
+      if (res.status === "not_found") {
+        console.log("Sheet belum ada, lanjut kosong");
+        return;
+      }
+
+      // 🔥 ISI MENU
+      isiMenuDariSpreadsheet(res.menu);
+
+      // 🔥 ISI BAHAN
+      isiBahanDariSpreadsheet(res.detail);
+
+      // 🔥 RENDER ULANG
+      generateLaporan();
+
+    })
+    .catch(err => {
+      console.error("Gagal load data:", err);
+    });
 }
