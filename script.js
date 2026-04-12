@@ -2588,9 +2588,11 @@ function kirimSpreadsheet() {
   display.innerText = formatted;
 
   initTanggal(getKeyTanggal());
+  renderList();
+  generateLaporan();
 
-  // 🔥 cukup panggil ini saja
-  loadDataDariSpreadsheet(formatted);
+  // 🔥 TAMBAHKAN INI
+  loadDariSpreadsheet(formatted);
 }
 
 function rapikanTeks(teks) {
@@ -2697,48 +2699,62 @@ function getBeratNasiByKategori(kategori, beratDefault) {
   return beratDefault;
 }
 
-function loadDataDariSpreadsheet(tanggal) {
-  fetch(API_URL2 + "?tanggal=" + encodeURIComponent(tanggal))
+function loadDariSpreadsheet(tanggalText) {
+
+  fetch(API_URL2 + "?tanggal=" + encodeURIComponent(tanggalText))
     .then(res => res.json())
     .then(res => {
 
-      if (res.status === "not_found") {
-        console.log("Sheet belum ada");
-        
-        renderList();
-        generateLaporan();
+      if (res.status === "empty") {
+        console.log("Data kosong, sheet belum ada");
         return;
       }
 
-      // 🔥 ISI DATA
-      isiMenuDariSpreadsheet(res.menu);
-      isiBahanDariSpreadsheet(res.detail);
+      // 🔥 RESET DULU
+      bahanMaster.OMPRENGAN = {};
+      bahanMaster.SNACK = {};
 
-      // 🔥 RENDER SETELAH DATA MASUK
+      const key = getKeyTanggal();
+
+      bahanMaster.OMPRENGAN[key] = [];
+      bahanMaster.SNACK[key] = [];
+
+      // ===== ISI DETAIL =====
+      res.detail.forEach(item => {
+        bahanMaster[item.menu][key].push({
+          nama: item.nama,
+          berat: item.berat,
+          energi: item.energi,
+          protein: item.protein,
+          lemak: item.lemak,
+          karbo: item.karbo,
+          kalsium: item.kalsium,
+          serat: item.serat
+        });
+      });
+
+      // ===== ISI MENU =====
+      isiMenuDariSpreadsheet(res.menu);
+
+      // 🔥 RENDER ULANG
       renderList();
       generateLaporan();
 
     })
     .catch(err => {
-      console.error(err);
-
-      // fallback
-      renderList();
-      generateLaporan();
+      console.error("Gagal load:", err);
     });
 }
 
-function isiMenuDariSpreadsheet(menuList) {
+function isiMenuDariSpreadsheet(menuArray) {
   const container = document.getElementById("menuContainer");
 
-  // reset
   container.innerHTML = "";
 
-  menuList.forEach((menu, i) => {
+  menuArray.forEach(m => {
     const input = document.createElement("input");
     input.className = "input-menu";
-    input.value = menu;
-
+    input.value = m;
     container.appendChild(input);
   });
 }
