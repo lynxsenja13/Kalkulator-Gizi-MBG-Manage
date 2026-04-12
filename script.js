@@ -791,11 +791,12 @@
         }
   
         const dataKategori = kategoriData[menu][getKeyTanggal()][kat] || [];
-        const dataAktif = dataKategori.filter(item =>
-          listAktif.some(b =>
-            b.nama.toLowerCase().trim() === item.nama.toLowerCase().trim()
-          )
-        );
+        dataAktif.forEach(item => {
+          if (item.nama && item.nama.toLowerCase().includes("nasi")) {
+            const beratBaru = getBeratNasiByKategori(kat, item.berat);
+            item.berat = beratBaru;
+          }
+        });
         const { detail: detailBahan, total } = hitungGiziDetail(dataAktif);
   
         // ================= SIMPAN GIZI UNTUK CAPTION =================
@@ -2672,4 +2673,19 @@ function ambilSemuaMenu() {
   return Array.from(inputs)
     .map(input => input.value.trim())
     .filter(val => val !== "");
+}
+
+function getBeratNasiByKategori(kategori, beratDefault) {
+  if (!kategori) return beratDefault;
+
+  const kat = kategori.toLowerCase();
+
+  if (kat.includes("balita")) return 80;
+  if (kat.includes("bumil")) return 200;
+  if (kat.includes("busui")) return 200;
+  if (kat.includes("sma")) return 200;
+  if (kat.includes("smp")) return 150;
+  if (kat.includes("sd")) return 100;
+
+  return beratDefault;
 }
