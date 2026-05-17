@@ -24,7 +24,7 @@ window.APP_READY = true;
 ========================= -->
 <div class="sidebar-overlay"
      id="sidebarOverlay"
-     onclick="toggleSidebar(false)">
+     onclick="toggleSidebar()">
 </div>
 
 <!-- =========================
@@ -67,7 +67,7 @@ window.APP_READY = true;
 <div class="topbar">
 
   <button class="hamburger"
-          onclick="toggleSidebar(true)">
+          onclick="toggleSidebar()">
     ☰
   </button>
 
@@ -499,7 +499,7 @@ window.addEventListener("load", () => {
    SIDEBAR
 ========================= */
 
-function toggleSidebar(open){
+function toggleSidebar(){
 
   const sidebar =
     document.getElementById("sidebar");
@@ -507,17 +507,9 @@ function toggleSidebar(open){
   const overlay =
     document.getElementById("sidebarOverlay");
 
-  if(open){
+  sidebar.classList.toggle("active");
 
-    sidebar.classList.add("active");
-    overlay.classList.add("active");
-
-  }else{
-
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
-
-  }
+  overlay.classList.toggle("active");
 
 }
 
@@ -537,7 +529,13 @@ function showSection(id){
     .getElementById(id)
     .style.display = "block";
 
-  toggleSidebar(false);
+  document
+  .getElementById("sidebar")
+  .classList.remove("active");
+
+document
+  .getElementById("sidebarOverlay")
+  .classList.remove("active");
 
 }
 
