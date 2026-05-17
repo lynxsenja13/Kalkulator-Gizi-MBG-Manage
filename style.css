@@ -3023,3 +3023,21 @@ button:active {
   padding-top:0 !important;
 
 }
+
+.empty-state{
+
+  min-height:300px;
+
+  display:flex;
+  flex-direction:column;
+
+  justify-content:center;
+  align-items:center;
+
+  gap:12px;
+
+  opacity:0.5;
+
+  font-size:20px;
+
+}
