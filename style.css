@@ -2762,3 +2762,257 @@ button:active {
   }
 
 }
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+
+  position:sticky;
+  top:0;
+
+  z-index:3000;
+
+  height:60px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #2b7cff,
+    #4f9bff
+  );
+
+  display:flex;
+  align-items:center;
+
+  padding:0 16px;
+
+  color:white;
+
+  box-shadow:
+  0 4px 14px rgba(0,0,0,0.15);
+
+}
+
+.topbar-title{
+
+  margin-left:14px;
+
+  font-size:20px;
+  font-weight:700;
+
+}
+
+/* =========================
+   HAMBURGER
+========================= */
+
+.hamburger{
+
+  background:none;
+  border:none;
+
+  color:white;
+
+  font-size:28px;
+
+  cursor:pointer;
+
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+
+  position:fixed;
+
+  top:0;
+  left:-300px;
+
+  width:270px;
+  height:100%;
+
+  background:
+  rgba(255,255,255,0.96);
+
+  backdrop-filter:blur(12px);
+
+  z-index:4000;
+
+  transition:0.35s ease;
+
+  box-shadow:
+  4px 0 20px rgba(0,0,0,0.15);
+
+  overflow-y:auto;
+
+}
+
+.sidebar.active{
+  left:0;
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.sidebar-overlay{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+  rgba(0,0,0,0.45);
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:0.3s;
+
+  z-index:3500;
+
+}
+
+.sidebar-overlay.active{
+
+  opacity:1;
+  visibility:visible;
+
+}
+
+/* =========================
+   SIDEBAR HEADER
+========================= */
+
+.sidebar-header{
+
+  padding:24px 20px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #2b7cff,
+    #4f9bff
+  );
+
+  color:white;
+
+  text-align:center;
+
+}
+
+.sidebar-logo{
+
+  width:70px;
+
+  margin-bottom:10px;
+
+}
+
+.sidebar-header h2{
+
+  margin:0;
+
+}
+
+.sidebar-header p{
+
+  margin-top:6px;
+
+  font-size:14px;
+
+  opacity:0.9;
+
+}
+
+/* =========================
+   MENU
+========================= */
+
+.sidebar-menu{
+
+  padding:18px;
+
+}
+
+.sidebar-menu button{
+
+  width:100%;
+
+  border:none;
+
+  background:white;
+
+  padding:16px;
+
+  margin-bottom:14px;
+
+  border-radius:18px;
+
+  font-size:16px;
+  font-weight:600;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:0.25s;
+
+  box-shadow:
+  0 4px 12px rgba(0,0,0,0.08);
+
+}
+
+.sidebar-menu button:hover{
+
+  background:#2b7cff;
+
+  color:white;
+
+  transform:translateY(-2px);
+
+}
+
+/* =========================
+   CONTENT SECTION
+========================= */
+
+.content-section{
+
+  animation:fadeSlide 0.35s ease;
+
+}
+
+@keyframes fadeSlide{
+
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+  .sidebar{
+    width:85%;
+  }
+
+  .topbar-title{
+    font-size:18px;
+  }
+
+}
