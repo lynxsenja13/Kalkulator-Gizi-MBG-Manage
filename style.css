@@ -3202,3 +3202,24 @@ button:active {
   }
 
 }
+
+/* =========================
+   ACTIVE MENU
+========================= */
+
+.sidebar-btn.active-menu{
+
+  background:
+  linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+
+  box-shadow:
+  0 8px 18px rgba(37,99,235,0.35);
+
+  transform:
+  translateX(4px);
+
+}
