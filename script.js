@@ -1600,9 +1600,12 @@ function generateListPenerima() {
 
 window.copyCaptionWA = function () {
 
-  const hasilDiv = document.getElementById("hasil");
+  let text =
+    document.getElementById("captionOutput").value;
 
-  navigator.clipboard.writeText(hasilDiv.innerText);
+  text = rapikanTeks(text);
+
+  navigator.clipboard.writeText(text);
 
   Swal.fire({
     title: "Berhasil disalin!",
@@ -1710,8 +1713,8 @@ Dokumentasi terlampir.
   const output =
     document.getElementById("captionOutput");
 
-  output.value = laporanText;
-
+  output.value = rapikanTeks(laporanText);
+    
   autoResizeTextarea(output);
 
   // GLOBAL
@@ -1722,18 +1725,28 @@ Dokumentasi terlampir.
 
 }
   
-  function ambilDaftarMenu() {
-    const items = document.querySelectorAll(".menu-item-input");
-    let teks = "";
-  
-    items.forEach((el, i) => {
-      if (el.value.trim()) {
-        teks += `${i + 1}. ${el.value.trim()}\n`;
-      }
-    });
-  
-    return teks || "-";
-  }
+  function ambilDaftarMenu(){
+
+  const items =
+    document.querySelectorAll(".menu-item-input");
+
+  let hasil = [];
+
+  items.forEach((el,i)=>{
+
+    if(el.value.trim()){
+
+      hasil.push(
+        `${i+1}. ${el.value.trim()}`
+      );
+
+    }
+
+  });
+
+  return hasil;
+
+}
   
   function copyLaporanWA() {
 
@@ -3443,5 +3456,29 @@ function updateTotalOnly() {
 
   // restore cursor
   textarea.setSelectionRange(start,end);
+
+}
+
+function rapikanTeks(text){
+
+  return text
+
+    // hapus tab
+    .replace(/\t/g, "")
+
+    // hapus spasi di awal baris
+    .replace(/^[ ]+/gm, "")
+
+    // hapus spasi berlebih
+    .replace(/[ ]{2,}/g, " ")
+
+    // maksimal enter 2x
+    .replace(/\n{3,}/g, "\n\n")
+
+    // rapikan bullet
+    .replace(/•\s+/g, "• ")
+
+    // trim final
+    .trim();
 
 }
