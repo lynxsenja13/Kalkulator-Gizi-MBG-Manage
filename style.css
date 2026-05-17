@@ -3334,31 +3334,33 @@ button:active {
 
 .card.dark::before{
 
-  content:\"\";
+  content:"";
 
   position:absolute;
 
-  inset:0;
+  top:0;
+  left:0;
 
-  background:
-  url(\"batik-pattern.png\");
+  width:100%;
+  height:100%;
 
-  background-size:320px;
+  background-image:
+  url("batik-pattern.png");
 
   background-repeat:repeat;
 
-  opacity:0.18;
+  background-size:260px;
 
-  pointer-events:none;
+  opacity:0.22;
 
   z-index:0;
 
 }
 
-.card.dark > *{
+.card.dark *{
 
   position:relative;
 
-  z-index:1;
+  z-index:2;
 
 }
