@@ -2963,7 +2963,7 @@ button:active {
 
   border:none;
 
-  background:#0f172a;;
+  background:#0f172a;
 
   color:white;
 
@@ -2984,7 +2984,7 @@ button:active {
 
 .sidebar-menu button:hover{
 
-  background:#0f172a;;
+  background:#0f172a;
 
   transform:translateX(4px);
 
