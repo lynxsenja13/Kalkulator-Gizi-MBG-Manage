@@ -30,50 +30,47 @@ window.APP_READY = true;
 <!-- =========================
      SIDEBAR
 ========================= -->
-<div class="sidebar" id="sidebar">
+<div class="sidebar collapsed" id="sidebar">
 
-  <div class="sidebar-header">
-
-    <img src="logo.png"
-         class="sidebar-logo">
-
-    <h2>SPPG Cicadas 01</h2>
-
-    <p>Sistem Gizi MBG</p>
-
-  </div>
-
-  <div class="sidebar-menu">
-
-    <button onclick="showSection('sectionInput')">
-      🍽️ Input Menu
-    </button>
-
-    <button onclick="showSection('sectionPerhitungan')">
-      📊 Perhitungan Gizi
-    </button>
-
-    <button onclick="showSection('sectionLaporan')">
-      📄 Laporan Gizi
-    </button>
-
-  </div>
-
-</div>
-
-<!-- =========================
-     TOPBAR
-========================= -->
-<div class="topbar">
+  <div class="sidebar-top">
 
   <button class="hamburger"
           onclick="toggleSidebar()">
     ☰
   </button>
 
-  <h1 class="topbar-title">
+  <span class="sidebar-title">
     SPPG Cicadas 01
-  </h1>
+  </span>
+
+</div>
+
+<div class="sidebar-header">
+
+  <img src="logo.png"
+       class="sidebar-logo">
+
+  <h2>SPPG CICADAS 01</h2>
+
+  <p>Sistem Gizi MBG</p>
+
+</div>
+
+<div class="sidebar-menu">
+
+  <button onclick="showSection('sectionInput')">
+    🍽️ Input Menu
+  </button>
+
+  <button onclick="showSection('sectionPerhitungan')">
+    📊 Perhitungan Gizi
+  </button>
+
+  <button onclick="showSection('sectionLaporan')">
+    📄 Laporan Gizi
+  </button>
+
+  </div>
 
 </div>
 
