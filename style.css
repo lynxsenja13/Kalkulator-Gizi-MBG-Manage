@@ -629,35 +629,10 @@ button {
   }
 
   /* 🔥 BACKGROUND JADI PUTIH */
-  body{
-
-  margin:0;
-  padding:0;
-
-  min-height:100vh;
-
-  color:white;
-
-  font-family:'Poppins',sans-serif;
-
-  background-color:#0f172a;
-
-  background-image:
-
-    linear-gradient(
-      rgba(15,23,42,0.82),
-      rgba(15,23,42,0.82)
-    ),
-
-    url("batik-pattern.png");
-
-  background-repeat:repeat;
-
-  background-size:320px;
-
-  background-attachment:fixed;
-
-}
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
 
   .kategori-card {
     background: #ffffff !important;
@@ -3332,35 +3307,5 @@ button:active {
     #2563eb,
     #1d4ed8
   );
-
-}
-
-body{
-
-  margin:0;
-  padding:0;
-
-  min-height:100vh;
-
-  color:white;
-
-  font-family:'Poppins',sans-serif;
-
-  background-color:#0f172a;
-
-  background-image:
-
-    linear-gradient(
-      rgba(15,23,42,0.82),
-      rgba(15,23,42,0.82)
-    ),
-
-    url("batik-pattern.png");
-
-  background-repeat:repeat;
-
-  background-size:320px;
-
-  background-attachment:fixed;
 
 }
