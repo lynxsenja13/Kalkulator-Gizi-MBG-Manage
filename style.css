@@ -2904,40 +2904,41 @@ button:active {
 
   padding:24px 20px;
 
-  background:
-  linear-gradient(
-    135deg,
-    #2b7cff,
-    #4f9bff
-  );
+  background:#0f172a;
 
   color:white;
 
   text-align:center;
 
+  border-bottom:
+  1px solid rgba(255,255,255,0.08);
+
 }
 
 .sidebar-logo{
 
-  width:70px;
+  width:72px;
 
-  margin-bottom:10px;
+  height:auto;
+
+  object-fit:contain;
 
 }
 
 .sidebar-header h2{
 
-  margin:0;
+  color:white;
+
+  margin-top:10px;
 
 }
 
 .sidebar-header p{
 
+  color:
+  rgba(255,255,255,0.75);
+
   margin-top:6px;
-
-  font-size:14px;
-
-  opacity:0.9;
 
 }
 
@@ -2962,7 +2963,7 @@ button:active {
 
   border:none;
 
-  background:#2a2a2a;
+  background:#0f172a;;
 
   color:white;
 
@@ -2983,7 +2984,7 @@ button:active {
 
 .sidebar-menu button:hover{
 
-  background:#3b82f6;
+  background:#0f172a;;
 
   transform:translateX(4px);
 
@@ -3062,5 +3063,36 @@ button:active {
   opacity:0.5;
 
   font-size:20px;
+
+}
+
+/* =========================
+   SIDEBAR TOP
+========================= */
+
+.sidebar-top{
+
+  display:flex;
+
+  justify-content:flex-end;
+
+  padding:14px 14px 0 14px;
+
+}
+
+/* =========================
+   SIDEBAR CLOSE
+========================= */
+
+.sidebar-close{
+
+  background:none;
+  border:none;
+
+  color:white;
+
+  font-size:30px;
+
+  cursor:pointer;
 
 }
