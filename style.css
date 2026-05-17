@@ -2819,13 +2819,50 @@ button:active {
 
 }
 
-.sidebar.collapsed .sidebar-header,
-.sidebar.collapsed .sidebar-menu button span,
+/* =========================
+   COLLAPSED MODE
+========================= */
+
+.sidebar.collapsed{
+
+  width:78px;
+
+}
+
+/* HEADER HILANG */
+.sidebar.collapsed .sidebar-header{
+
+  opacity:0;
+
+  visibility:hidden;
+
+  pointer-events:none;
+
+  transform:translateX(-20px);
+
+}
+
+/* MENU HILANG */
+.sidebar.collapsed .sidebar-menu{
+
+  opacity:0;
+
+  visibility:hidden;
+
+  pointer-events:none;
+
+  transform:translateX(-20px);
+
+}
+
+/* TITLE HILANG */
 .sidebar.collapsed .sidebar-title{
 
   opacity:0;
 
-  pointer-events:none;
+  width:0;
+
+  overflow:hidden;
 
 }
 
