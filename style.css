@@ -3223,3 +3223,36 @@ button:active {
   translateX(4px);
 
 }
+
+/* =========================
+   SECTION ANIMATION
+========================= */
+
+.content-section{
+
+  animation:
+  fadeSection 0.35s ease;
+
+}
+
+@keyframes fadeSection{
+
+  from{
+
+    opacity:0;
+
+    transform:
+    translateY(12px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:
+    translateY(0);
+
+  }
+
+}
