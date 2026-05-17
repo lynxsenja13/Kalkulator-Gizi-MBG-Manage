@@ -549,23 +549,47 @@ function toggleSidebar(){
 
 function showSection(id){
 
+  // =========================
+  // HIDE SEMUA SECTION
+  // =========================
+
   document
     .querySelectorAll(".content-section")
     .forEach(section=>{
+
       section.style.display = "none";
+
     });
+
+  // =========================
+  // TAMPILKAN SECTION DIPILIH
+  // =========================
 
   document
     .getElementById(id)
     .style.display = "block";
 
-  document
-  .getElementById("sidebar")
-  .classList.remove("active");
+  // =========================
+  // RESET SIDEBAR
+  // =========================
 
-document
-  .getElementById("sidebarOverlay")
-  .classList.remove("active");
+  const sidebar =
+    document.getElementById("sidebar");
+
+  sidebar.classList.remove("active");
+
+  // FORCE REFLOW
+  void sidebar.offsetWidth;
+
+  sidebar.classList.add("collapsed");
+
+  // =========================
+  // OVERLAY
+  // =========================
+
+  document
+    .getElementById("sidebarOverlay")
+    .classList.remove("active");
 
 }
 
