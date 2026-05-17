@@ -19,6 +19,64 @@ window.APP_READY = true;
   
 <body>
 
+<!-- =========================
+     OVERLAY
+========================= -->
+<div class="sidebar-overlay"
+     id="sidebarOverlay"
+     onclick="toggleSidebar(false)">
+</div>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+<div class="sidebar" id="sidebar">
+
+  <div class="sidebar-header">
+
+    <img src="logo.png"
+         class="sidebar-logo">
+
+    <h2>SPPG Cicadas 01</h2>
+
+    <p>Sistem Gizi MBG</p>
+
+  </div>
+
+  <div class="sidebar-menu">
+
+    <button onclick="showSection('sectionInput')">
+      🍽️ Input Menu
+    </button>
+
+    <button onclick="showSection('sectionPerhitungan')">
+      📊 Perhitungan Gizi
+    </button>
+
+    <button onclick="showSection('sectionLaporan')">
+      📄 Laporan Gizi
+    </button>
+
+  </div>
+
+</div>
+
+<!-- =========================
+     TOPBAR
+========================= -->
+<div class="topbar">
+
+  <button class="hamburger"
+          onclick="toggleSidebar(true)">
+    ☰
+  </button>
+
+  <h1 class="topbar-title">
+    SPPG Cicadas 01
+  </h1>
+
+</div>
+
 <!-- Intro Logo -->
 <div id="intro">
   <img src="logo.png" id="logoIntro">
@@ -31,6 +89,9 @@ window.APP_READY = true;
 </div>
 
 <div class="app">
+
+<div id="sectionInput"
+     class="content-section">
 
   <!-- HEADER -->
   <div class="header">
@@ -128,6 +189,12 @@ window.APP_READY = true;
 
 </div>
 
+</div>
+
+<div id="sectionPerhitungan"
+     class="content-section"
+     style="display:none;">
+
 <div id="laporanPDF" class="pdf-container" style="display:none;">
 
   <!-- KOP SURAT -->
@@ -185,7 +252,13 @@ window.APP_READY = true;
   </div>
 </div>
 
-  <div class="card dark" id="cardCreateLaporan">
+  </div>
+
+<div id="sectionLaporan"
+     class="content-section"
+     style="display:none;">
+
+<div class="card dark" id="cardCreateLaporan">
 
   <h2>📊 Create Laporan</h2>
 
@@ -402,6 +475,8 @@ window.APP_READY = true;
 
 </div>
 
+</div>
+
 <script>
 window.addEventListener("load", () => {
   const intro = document.getElementById("intro");
@@ -417,6 +492,54 @@ window.addEventListener("load", () => {
   }, 2000);
 });
 </script>
+
+<script>
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function toggleSidebar(open){
+
+  const sidebar =
+    document.getElementById("sidebar");
+
+  const overlay =
+    document.getElementById("sidebarOverlay");
+
+  if(open){
+
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+
+  }else{
+
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+
+  }
+
+}
+
+/* =========================
+   GANTI HALAMAN
+========================= */
+
+function showSection(id){
+
+  document
+    .querySelectorAll(".content-section")
+    .forEach(section=>{
+      section.style.display = "none";
+    });
+
+  document
+    .getElementById(id)
+    .style.display = "block";
+
+  toggleSidebar(false);
+
+}
   
 <script src="config.js"></script>
 
