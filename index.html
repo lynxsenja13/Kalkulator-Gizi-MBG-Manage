@@ -550,10 +550,10 @@ function toggleSidebar(){
    GANTI HALAMAN
 ========================= */
 
-function showSection(id){
+function showSection(id, el){
 
   // =========================
-  // HIDE SEMUA SECTION
+  // HIDE SECTION
   // =========================
 
   document
@@ -565,7 +565,7 @@ function showSection(id){
     });
 
   // =========================
-  // TAMPILKAN SECTION DIPILIH
+  // SHOW SECTION
   // =========================
 
   document
@@ -573,7 +573,21 @@ function showSection(id){
     .style.display = "block";
 
   // =========================
-  // RESET SIDEBAR
+  // ACTIVE MENU
+  // =========================
+
+  document
+    .querySelectorAll(".sidebar-btn")
+    .forEach(btn=>{
+
+      btn.classList.remove("active-menu");
+
+    });
+
+  el.classList.add("active-menu");
+
+  // =========================
+  // SIDEBAR CLOSE
   // =========================
 
   const sidebar =
@@ -581,14 +595,9 @@ function showSection(id){
 
   sidebar.classList.remove("active");
 
-  // FORCE REFLOW
   void sidebar.offsetWidth;
 
   sidebar.classList.add("collapsed");
-
-  // =========================
-  // OVERLAY
-  // =========================
 
   document
     .getElementById("sidebarOverlay")
