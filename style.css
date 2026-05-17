@@ -3309,3 +3309,63 @@ button:active {
   );
 
 }
+
+.card.dark{
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+  linear-gradient(
+    180deg,
+    rgba(15,23,42,0.92),
+    rgba(17,24,39,0.92)
+  );
+
+  border:
+  1px solid rgba(255,255,255,0.06);
+
+  border-radius:24px;
+
+  backdrop-filter:blur(14px);
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.25);
+
+}
+
+/* =========================
+   BATIK PATTERN
+========================= */
+
+.card.dark::before{
+
+  content:\"\";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+  url(\"batik-pattern.png\");
+
+  background-size:320px;
+
+  background-repeat:repeat;
+
+  opacity:0.18;
+
+  pointer-events:none;
+
+  z-index:0;
+
+}
+
+.card.dark > *{
+
+  position:relative;
+
+  z-index:1;
+
+}
