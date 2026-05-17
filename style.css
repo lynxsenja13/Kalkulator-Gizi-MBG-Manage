@@ -2774,12 +2774,12 @@ button:active {
   top:0;
   left:0;
 
-  width:70px;
+  width:90px;
   height:100vh;
 
   background:#0f172a;
 
-  z-index:9998;
+  z-index:9999;
 
   display:flex;
   flex-direction:column;
@@ -2789,16 +2789,28 @@ button:active {
   padding-top:18px;
 
   box-shadow:
-  4px 0 18px rgba(0,0,0,0.35);
+  4px 0 20px rgba(0,0,0,0.35);
 
 }
 
 .topbar-title{
 
-  margin-left:14px;
+  writing-mode:vertical-rl;
 
-  font-size:20px;
+  transform:rotate(180deg);
+
+  color:#ffffff;
+
+  font-size:16px;
   font-weight:700;
+
+  margin-top:18px;
+
+  letter-spacing:2px;
+
+  text-align:center;
+
+  white-space:nowrap;
 
 }
 
