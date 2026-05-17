@@ -2223,7 +2223,6 @@ body {
 /* CONTAINER APP */
 .app {
   min-height: 100vh;
-  margin-left:78px;
   transition:0.35s ease;
 }
 
