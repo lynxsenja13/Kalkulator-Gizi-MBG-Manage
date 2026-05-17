@@ -1737,9 +1737,14 @@ Dokumentasi terlampir.
   
   function copyLaporanWA() {
 
-  const text = document.getElementById("hasilLaporan").value;
+  let text =
+    document.getElementById("hasilLaporan").value;
 
-  if (!text) {
+  // =========================
+  // VALIDASI
+  // =========================
+
+  if (!text.trim()) {
 
     Swal.fire({
       toast: true,
@@ -1753,7 +1758,30 @@ Dokumentasi terlampir.
     return;
   }
 
+  // =========================
+  // NORMALISASI TEXT WA
+  // =========================
+
+  text = text
+
+    // hapus tab
+    .replace(/\t/g, "")
+
+    // hapus spasi berlebih
+    .replace(/[ ]{2,}/g, " ")
+
+    // rapikan enter berlebih
+    .replace(/\n{3,}/g, "\n\n")
+
+    // hapus spasi awal akhir
+    .trim();
+
+  // =========================
+  // COPY
+  // =========================
+
   navigator.clipboard.writeText(text)
+
     .then(() => {
 
       Swal.fire({
@@ -1767,6 +1795,7 @@ Dokumentasi terlampir.
       });
 
     })
+
     .catch(err => {
 
       console.error(err);
