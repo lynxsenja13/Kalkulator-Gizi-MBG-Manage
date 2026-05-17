@@ -3464,21 +3464,21 @@ function rapikanTeks(text){
   return text
 
     // hapus tab
-    .replace(/\t/g, "")
+    .replace(/\t/g,"")
 
-    // hapus spasi di awal baris
-    .replace(/^[ ]+/gm, "")
+    // hapus spasi awal baris
+    .replace(/^[ ]+/gm,"")
 
-    // hapus spasi berlebih
-    .replace(/[ ]{2,}/g, " ")
+    // hapus spasi dobel
+    .replace(/[ ]{2,}/g," ")
+
+    // normalisasi enter WA desktop
+    .replace(/\r?\n/g,"\r\n")
 
     // maksimal enter 2x
-    .replace(/\n{3,}/g, "\n\n")
+    .replace(/(\r\n){3,}/g,"\r\n\r\n")
 
-    // rapikan bullet
-    .replace(/•\s+/g, "• ")
-
-    // trim final
+    // trim akhir
     .trim();
 
 }
