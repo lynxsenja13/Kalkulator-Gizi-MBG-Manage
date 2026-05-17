@@ -2835,7 +2835,7 @@ button:active {
   width:280px;
   height:100vh;
 
-  background:#ffffff;
+  background:#181818;
 
   z-index:9999;
 
@@ -2843,11 +2843,11 @@ button:active {
 
   overflow-y:auto;
 
-  box-shadow:
-  4px 0 20px rgba(0,0,0,0.15);
-
   display:flex;
   flex-direction:column;
+
+  box-shadow:
+  4px 0 20px rgba(0,0,0,0.4);
 
 }
 
@@ -2935,7 +2935,12 @@ button:active {
 
 .sidebar-menu{
 
-  padding:18px;
+  display:flex;
+  flex-direction:column;
+
+  padding:16px;
+
+  gap:14px;
 
 }
 
@@ -2945,35 +2950,30 @@ button:active {
 
   border:none;
 
-  background:white;
+  background:#2a2a2a;
+
+  color:white;
 
   padding:16px;
 
-  margin-bottom:14px;
-
-  border-radius:18px;
-
-  font-size:16px;
-  font-weight:600;
+  border-radius:16px;
 
   text-align:left;
+
+  font-size:15px;
+  font-weight:600;
 
   cursor:pointer;
 
   transition:0.25s;
 
-  box-shadow:
-  0 4px 12px rgba(0,0,0,0.08);
-
 }
 
 .sidebar-menu button:hover{
 
-  background:#2b7cff;
+  background:#3b82f6;
 
-  color:white;
-
-  transform:translateY(-2px);
+  transform:translateX(4px);
 
 }
 
